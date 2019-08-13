@@ -2,39 +2,34 @@ import * as React from "react";
 import * as ReactDOM from "react-dom";
 import { Provider, connect } from "react-redux";
 import { createStore } from "redux";
+import rootReducer from "./reducers/root";
+import { Istate } from "./state/Istate";
+import Login from "./components/Login/Login";
 
 const global: any = window;
 
-const store = createStore(() => {
-  return {};
-});
+const store = createStore(rootReducer);
 global["store"] = store;
 
 interface Iprops {
-  name: string;
+  view: string;
 }
 
-class Hello extends React.Component<Iprops> {
+class ViewWrap extends React.Component<Iprops> {
   render() {
-    return (
-      <div style={{ color: "red", fontSize: "80px" }}>
-        hello {`${this.props.name}`}
-      </div>
-    );
+    if (this.props.view === "/login") {
+      return <Login />;
+    }
   }
-  componentDidMount() {}
 }
 
-const HelloWorldContainer = connect(
-  () => {
-    return { name: "word" };
-  },
-  {}
-)(Hello);
+const ViewWrapContainer = connect((state: Istate) => ({
+  view: state.app.view
+}))(ViewWrap);
 
 ReactDOM.render(
   <Provider store={store as any}>
-    <HelloWorldContainer />
+    <ViewWrapContainer />
   </Provider>,
   document.getElementById("reactRoot")
 );

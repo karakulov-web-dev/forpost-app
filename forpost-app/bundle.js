@@ -778,28 +778,28 @@ var React = __webpack_require__(1);
 var ReactDOM = __webpack_require__(11);
 var react_redux_1 = __webpack_require__(12);
 var redux_1 = __webpack_require__(3);
+var root_1 = __webpack_require__(35);
+var Login_1 = __webpack_require__(38);
 var global = window;
-var store = redux_1.createStore(function () {
-    return {};
-});
+var store = redux_1.createStore(root_1["default"]);
 global["store"] = store;
-var Hello = /** @class */ (function (_super) {
-    __extends(Hello, _super);
-    function Hello() {
+var ViewWrap = /** @class */ (function (_super) {
+    __extends(ViewWrap, _super);
+    function ViewWrap() {
         return _super !== null && _super.apply(this, arguments) || this;
     }
-    Hello.prototype.render = function () {
-        return (React.createElement("div", { style: { color: "red", fontSize: "80px" } },
-            "hello ", "" + this.props.name));
+    ViewWrap.prototype.render = function () {
+        if (this.props.view === "/login") {
+            return React.createElement(Login_1["default"], null);
+        }
     };
-    Hello.prototype.componentDidMount = function () { };
-    return Hello;
+    return ViewWrap;
 }(React.Component));
-var HelloWorldContainer = react_redux_1.connect(function () {
-    return { name: "word" };
-}, {})(Hello);
+var ViewWrapContainer = react_redux_1.connect(function (state) { return ({
+    view: state.app.view
+}); })(ViewWrap);
 ReactDOM.render(React.createElement(react_redux_1.Provider, { store: store },
-    React.createElement(HelloWorldContainer, null)), document.getElementById("reactRoot"));
+    React.createElement(ViewWrapContainer, null)), document.getElementById("reactRoot"));
 
 
 /***/ }),
@@ -2018,6 +2018,187 @@ var invariant = function(condition, format, a, b, c, d, e, f) {
 module.exports = invariant;
 
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0)))
+
+/***/ }),
+/* 35 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+exports.__esModule = true;
+var redux_1 = __webpack_require__(3);
+exports["default"] = redux_1.combineReducers({
+    app: function (state) {
+        return {
+            view: "/login"
+        };
+    }
+});
+
+
+/***/ }),
+/* 36 */,
+/* 37 */,
+/* 38 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+var __extends = (this && this.__extends) || (function () {
+    var extendStatics = function (d, b) {
+        extendStatics = Object.setPrototypeOf ||
+            ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+            function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+        return extendStatics(d, b);
+    };
+    return function (d, b) {
+        extendStatics(d, b);
+        function __() { this.constructor = d; }
+        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+    };
+})();
+exports.__esModule = true;
+var React = __webpack_require__(1);
+var LoginForm_1 = __webpack_require__(39);
+var style_1 = __webpack_require__(40);
+var ViewWrap = /** @class */ (function (_super) {
+    __extends(ViewWrap, _super);
+    function ViewWrap() {
+        return _super !== null && _super.apply(this, arguments) || this;
+    }
+    ViewWrap.prototype.render = function () {
+        return (React.createElement("div", null,
+            React.createElement("div", { style: style_1.headerStyle },
+                React.createElement("img", { src: "./../forpost-app/img/logo.png", style: style_1.logoStyle }),
+                React.createElement("span", { style: style_1.nameAppStyle }, "\u0412\u0438\u0434\u0435\u043E\u043A\u043E\u043D\u0442\u0440\u043E\u043B\u044C. \u041E\u0431\u043B\u0430\u0447\u043D\u044B\u0439 \u0441\u0435\u0440\u0432\u0438\u0441 \u0410\u041E \"\u0420\u0418\u041A\u0422\"")),
+            React.createElement("div", { style: style_1.bodyStyle },
+                React.createElement(LoginForm_1["default"], null))));
+    };
+    return ViewWrap;
+}(React.Component));
+exports["default"] = ViewWrap;
+
+
+/***/ }),
+/* 39 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+var __extends = (this && this.__extends) || (function () {
+    var extendStatics = function (d, b) {
+        extendStatics = Object.setPrototypeOf ||
+            ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+            function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+        return extendStatics(d, b);
+    };
+    return function (d, b) {
+        extendStatics(d, b);
+        function __() { this.constructor = d; }
+        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+    };
+})();
+exports.__esModule = true;
+var React = __webpack_require__(1);
+var style_1 = __webpack_require__(40);
+var LoginForm = /** @class */ (function (_super) {
+    __extends(LoginForm, _super);
+    function LoginForm() {
+        return _super !== null && _super.apply(this, arguments) || this;
+    }
+    LoginForm.prototype.render = function () {
+        return (React.createElement("form", { style: style_1.loginFormStyle },
+            React.createElement("fieldset", null,
+                React.createElement("legend", null,
+                    React.createElement("h1", { style: { color: style_1.color1, fontSize: "45px" } }, "\u0412\u0445\u043E\u0434")),
+                React.createElement("div", null,
+                    React.createElement("label", { style: style_1.labelStyle },
+                        "\u041B\u043E\u0433\u0438\u043D:",
+                        React.createElement("input", { type: "text", style: style_1.inputStyle }))),
+                React.createElement("div", null,
+                    React.createElement("label", { style: style_1.labelStyle },
+                        "\u041F\u0430\u0440\u043E\u043B\u044C:",
+                        React.createElement("input", { type: "password", style: style_1.inputStyle }))),
+                React.createElement("div", null,
+                    React.createElement("label", { style: style_1.labelStyle },
+                        "\u0417\u0430\u043F\u043E\u043C\u043D\u0438\u0442\u044C:",
+                        React.createElement("input", { type: "checkbox", style: style_1.inputStyle }))),
+                React.createElement("div", null,
+                    React.createElement("label", { style: style_1.labelStyle },
+                        React.createElement("input", { type: "submit", value: "\u0412\u043E\u0439\u0442\u0438", style: style_1.inputStyle }))))));
+    };
+    return LoginForm;
+}(React.Component));
+exports["default"] = LoginForm;
+
+
+/***/ }),
+/* 40 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+var __assign = (this && this.__assign) || function () {
+    __assign = Object.assign || function(t) {
+        for (var s, i = 1, n = arguments.length; i < n; i++) {
+            s = arguments[i];
+            for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p))
+                t[p] = s[p];
+        }
+        return t;
+    };
+    return __assign.apply(this, arguments);
+};
+exports.__esModule = true;
+exports.color1 = "#333";
+exports.fontSize1 = "25px";
+var abstracktStyleFullWidhtElem = {
+    position: "fixed",
+    width: "100%",
+    left: "0px",
+    right: "0px"
+};
+exports.headerStyle = __assign({}, abstracktStyleFullWidhtElem, { height: "100px", top: "0px", background: exports.color1 });
+exports.bodyStyle = __assign({}, abstracktStyleFullWidhtElem, { height: "100%", top: "100px", bottom: "0px", background: "url(./../forpost-app/img/background1.png) no-repeat" });
+exports.logoStyle = {
+    height: "60px",
+    top: "25px",
+    left: "100px",
+    position: "absolute"
+};
+exports.nameAppStyle = {
+    fontFamily: '"Open Sans", "Lato", sans-serif',
+    fontSize: "32px",
+    color: "#fff",
+    top: "30px",
+    left: "180px",
+    position: "absolute"
+};
+exports.loginFormStyle = {
+    maxWidth: "500px",
+    padding: "19px 29px 29px",
+    margin: "0 auto 20px",
+    backgroundColor: "#fff",
+    border: "4px solid #e5e5e5",
+    borderRadius: "5px",
+    boxShadow: "0 1px 2px rgba(0, 0, 0, .05)",
+    marginTop: "60px",
+    marginBottom: "100px"
+};
+exports.labelStyle = {
+    color: exports.color1,
+    display: "block",
+    marginBottom: "25px",
+    fontSize: "25px",
+    position: "relative"
+};
+exports.inputStyle = {
+    color: exports.color1,
+    fontSize: exports.fontSize1,
+    position: "absolute",
+    right: "0px"
+};
+
 
 /***/ })
 /******/ ]);
