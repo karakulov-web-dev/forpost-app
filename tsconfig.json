@@ -1,0 +1,19 @@
+{
+  "compilerOptions": {
+    "outDir": "./forpost-app",
+    "sourceMap": true,
+    "noImplicitAny": true,
+    "module": "commonjs",
+    "target": "es3",
+    "jsx": "react",
+    "downlevelIteration": true,
+    "lib": [
+      "es2015",
+      "dom",
+      "es2015.generator",
+      "scripthost",
+      "es2015.iterable"
+    ]
+  },
+  "include": ["./src/**/*"]
+}
