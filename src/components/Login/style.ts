@@ -1,7 +1,9 @@
 import * as React from "react";
 
 export const color1 = "#333";
+export const colorError = "#b00020";
 export const fontSize1 = "25px";
+export const fontFamily1 = '"Open Sans", "Lato", sans-serif';
 
 const abstracktStyleFullWidhtElem: React.CSSProperties = {
   position: "fixed",
@@ -38,8 +40,8 @@ export const nameAppStyle: React.CSSProperties = {
 };
 
 export const loginFormStyle: React.CSSProperties = {
-  maxWidth: "500px",
-  padding: "19px 29px 29px",
+  maxWidth: "520px",
+  padding: "19px 29px 50px",
   margin: "0 auto 20px",
   backgroundColor: "#fff",
   border: "4px solid #e5e5e5",

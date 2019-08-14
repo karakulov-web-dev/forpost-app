@@ -2,7 +2,7 @@ import * as React from "react";
 import LoginForm from "./LoginForm";
 import { headerStyle, logoStyle, nameAppStyle, bodyStyle } from "./style";
 
-export default class ViewWrap extends React.Component {
+export default class Login extends React.Component<any> {
   render() {
     return (
       <div>

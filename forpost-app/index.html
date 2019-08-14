@@ -6,6 +6,27 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
     <title>Document</title>
   <body>
+    <script type="text/javascript">
+    var stb;
+    var stbEvent;
+    try {
+      netscape.security.PrivilegeManager.enablePrivilege("UniversalXPConnect");
+      stb = gSTB;
+      stb.InitPlayer();
+      stb.SetVideoControl(1);
+      stb.SetVideoState(1);
+      stb.SetTopWin(0);
+      stb.SetVolume(100);
+      var stbEvent = {
+        onEvent: function (event) {},
+        event: 0
+      };
+      stb.EnableServiceButton(false);
+      stb.EnableVKButton(false);
+    } catch (e) {
+      console.log(e);
+    }
+      </script>
     <div id="reactRoot"></div>
     <!-- React Dependencies -->
     <script type="text/javascript" src="./libs/es5-shim.min.js"></script>

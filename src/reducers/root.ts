@@ -5,5 +5,13 @@ export default combineReducers({
     return {
       view: "/login"
     };
+  },
+  auth: state => {
+    return {
+      login: "",
+      password: "",
+      save: "",
+      error: ""
+    };
   }
 });
