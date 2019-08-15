@@ -1,4 +1,5 @@
 import { combineReducers } from "redux";
+import { auth } from "./auth";
 
 export default combineReducers({
   app: state => {
@@ -6,12 +7,5 @@ export default combineReducers({
       view: "/login"
     };
   },
-  auth: state => {
-    return {
-      login: "",
-      password: "",
-      save: "",
-      error: ""
-    };
-  }
+  auth
 });

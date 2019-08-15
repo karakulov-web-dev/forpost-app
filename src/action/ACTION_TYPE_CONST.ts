@@ -1,0 +1,8 @@
+export const AUTH_ERROR: AUTH_ERROR_TYPE = "AUTH_ERROR";
+export type AUTH_ERROR_TYPE = "AUTH_ERROR";
+
+export const AUTH_SUCCESS = "AUTH_SUCCESS";
+export type AUTH_SUCCESS_TYPE = "AUTH_SUCCESS";
+
+export const CHANGE_VIEW = "CHANGE_VIEW";
+export type CHANGE_VIEW_TYPE = "CHANGE_VIEW";

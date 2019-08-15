@@ -2,12 +2,16 @@ export interface Istate {
   app: IstateApp;
   auth: IstateAuth;
 }
+
 export interface IstateApp {
-  view: string;
+  view: IViewName;
 }
 export interface IstateAuth {
   login: string;
   password: string;
-  save: string;
+  save: boolean;
   error: string;
+  SessionID: string;
 }
+
+export type IViewName = "/login" | "/panel";

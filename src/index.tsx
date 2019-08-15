@@ -1,14 +1,15 @@
 import * as React from "react";
 import * as ReactDOM from "react-dom";
 import { Provider, connect } from "react-redux";
-import { createStore } from "redux";
+import { createStore, applyMiddleware } from "redux";
 import rootReducer from "./reducers/root";
 import { Istate } from "./state/Istate";
 import Login from "./components/Login/Login";
+import thunk from "redux-thunk";
 
 const global: any = window;
 
-const store = createStore(rootReducer);
+const store = createStore(rootReducer, applyMiddleware(thunk));
 global["store"] = store;
 
 interface Iprops {

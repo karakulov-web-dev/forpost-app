@@ -8,8 +8,10 @@ import {
   fontFamily1,
   colorError
 } from "./style";
-import { connect, DispatchProp } from "react-redux";
+import { connect } from "react-redux";
 import { Istate } from "../../state/Istate";
+import { bindActionCreators, Dispatch, ActionCreator } from "redux";
+import { auth, IAuthActionCreator } from "../../action/auth";
 declare const stb: any;
 
 interface IRefStore {
@@ -18,7 +20,7 @@ interface IRefStore {
 
 interface IProps {
   error: string;
-  submit: DispatchProp;
+  submit: IAuthActionCreator;
 }
 
 class LoginForm extends React.Component<IProps> {
@@ -154,6 +156,18 @@ class LoginForm extends React.Component<IProps> {
     ) {
       this.saveFormCheckBoxStatus = !this.saveFormCheckBoxStatus;
     }
+    if (
+      e.key === "Enter" &&
+      document.activeElement === this.refStore["submitRef"]
+    ) {
+      let loginInput: HTMLInputElement = this.refStore["loginRef"] as any;
+      let passwordInput: HTMLInputElement = this.refStore["passwordRef"] as any;
+      this.props.submit(
+        loginInput.value,
+        passwordInput.value,
+        this.saveFormCheckBoxStatus
+      );
+    }
     this.setState({});
   }
   navigate(key: string) {
@@ -185,26 +199,27 @@ class LoginForm extends React.Component<IProps> {
   }
 }
 
-const LoginFormContainer = connect(
+interface IStateProps {
+  error: string;
+}
+
+interface IDispatchProps {
+  submit: IAuthActionCreator;
+}
+
+const LoginFormContainer = connect<IStateProps, IDispatchProps>(
   (state: Istate) => {
     return {
       error: state.auth.error
     };
   },
-  dispatch => {
-    return {
-      submit: (login: string, password: string, save: boolean) => {
-        dispatch({
-          type: "AUTH",
-          payload: {
-            login,
-            password,
-            save
-          }
-        });
-      }
-    };
-  }
+  dispatch =>
+    bindActionCreators(
+      {
+        submit: auth
+      },
+      dispatch
+    )
 )(LoginForm);
 
 export default LoginFormContainer;
