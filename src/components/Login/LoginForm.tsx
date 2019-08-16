@@ -1,13 +1,13 @@
 import * as React from "react";
 import {
   loginFormStyle,
-  color1,
   labelStyle,
   inputStyle,
   fontSize1,
   fontFamily1,
   colorError
 } from "./style";
+import { color1 } from "../style";
 import { connect } from "react-redux";
 import { Istate } from "../../state/Istate";
 import { bindActionCreators, Dispatch, ActionCreator } from "redux";

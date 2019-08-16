@@ -1,42 +1,16 @@
 import * as React from "react";
+import { color1, abstracktStyleFullWidhtElem } from "../style";
 
-export const color1 = "#333";
 export const colorError = "#b00020";
 export const fontSize1 = "25px";
 export const fontFamily1 = '"Open Sans", "Lato", sans-serif';
 
-const abstracktStyleFullWidhtElem: React.CSSProperties = {
-  position: "fixed",
-  width: "100%",
-  left: "0px",
-  right: "0px"
-};
-export const headerStyle: React.CSSProperties = {
-  ...abstracktStyleFullWidhtElem,
-  height: "100px",
-  top: "0px",
-  background: color1
-};
 export const bodyStyle: React.CSSProperties = {
   ...abstracktStyleFullWidhtElem,
   height: "100%",
   top: "100px",
   bottom: "0px",
   background: "url(./../forpost-app/img/background1.png) no-repeat"
-};
-export const logoStyle: React.CSSProperties = {
-  height: "60px",
-  top: "25px",
-  left: "100px",
-  position: "absolute"
-};
-export const nameAppStyle: React.CSSProperties = {
-  fontFamily: '"Open Sans", "Lato", sans-serif',
-  fontSize: "32px",
-  color: "#fff",
-  top: "30px",
-  left: "180px",
-  position: "absolute"
 };
 
 export const loginFormStyle: React.CSSProperties = {

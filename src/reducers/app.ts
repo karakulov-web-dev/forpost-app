@@ -2,7 +2,7 @@ import { IstateApp, IViewName } from "../state/Istate";
 import { Action } from "react-redux/node_modules/redux";
 
 let defaultState: IstateApp = {
-  view: "/login"
+  view: "/panel"
 };
 
 export const app = (
