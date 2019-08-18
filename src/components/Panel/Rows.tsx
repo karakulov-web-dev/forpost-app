@@ -1,14 +1,13 @@
 import * as React from "react";
 import { ICamMayBeActive } from "./Grid";
+import { CamItem } from "../CamItem/CamItem";
 
 interface IRowsProp {
   rows: ICamMayBeActive[][];
 }
 export class Rows extends React.Component<IRowsProp> {
   render() {
-    let i = 0;
-    console.log(this.props.rows);
-    let rows = this.props.rows.map(item => {
+    let rows = this.props.rows.map((item, i) => {
       i++;
       return this.createRow(`rowsId${i}`, item, this.props.rows.length);
     });
@@ -26,10 +25,9 @@ export class Rows extends React.Component<IRowsProp> {
     let height = `${Math.round(100 / rowsCount)}%`;
     let style: React.CSSProperties = { height, position: "relative" };
 
-    let i = -1;
-    let items = row.map(item => {
+    let items = row.map((item, i) => {
       i++;
-      return this.createItem(item, i, row.length, key);
+      return this.createItem(item, i - 1, row.length, key);
     });
     return (
       <div style={style} key={key}>
@@ -59,23 +57,5 @@ export class Rows extends React.Component<IRowsProp> {
         <CamItem cam={cam} />
       </div>
     );
-  }
-}
-
-interface ICamItemProps {
-  cam: ICamMayBeActive;
-}
-class CamItem extends React.Component<ICamItemProps> {
-  render() {
-    let style: React.CSSProperties = {
-      background: "blue",
-      border: "5px solid black",
-      top: "10px",
-      left: "10px",
-      right: "10px",
-      bottom: "10px",
-      position: "absolute"
-    };
-    return <div style={style}>item</div>;
   }
 }

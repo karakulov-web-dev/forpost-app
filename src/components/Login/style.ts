@@ -1,9 +1,14 @@
 import * as React from "react";
-import { color1, abstracktStyleFullWidhtElem } from "../style";
+import {
+  color1,
+  abstracktStyleFullWidhtElem,
+  fontSize1 as fontSize,
+  fontFamily1 as fontFamily
+} from "../style";
 
 export const colorError = "#b00020";
-export const fontSize1 = "25px";
-export const fontFamily1 = '"Open Sans", "Lato", sans-serif';
+export const fontSize1 = fontSize;
+export const fontFamily1 = fontFamily;
 
 export const bodyStyle: React.CSSProperties = {
   ...abstracktStyleFullWidhtElem,

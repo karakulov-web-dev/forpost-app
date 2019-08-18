@@ -1,5 +1,6 @@
 import { IstateApp, IViewName } from "../state/Istate";
-import { Action } from "react-redux/node_modules/redux";
+import { CHANGE_VIEW } from "../action/ACTION_TYPE_CONST";
+import { IAppAnyAction } from "../action/app";
 
 let defaultState: IstateApp = {
   view: "/panel"
@@ -7,8 +8,11 @@ let defaultState: IstateApp = {
 
 export const app = (
   state: IstateApp = defaultState,
-  action: Action
+  action: IAppAnyAction
 ): IstateApp => {
+  if (action.type === CHANGE_VIEW) {
+    return changeView(state, action.payload);
+  }
   return state;
 };
 

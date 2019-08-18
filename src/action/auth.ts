@@ -7,6 +7,7 @@ import {
   AUTH_SUCCESS,
   AUTH_SUCCESS_TYPE
 } from "./ACTION_TYPE_CONST";
+import { chageView } from "./app";
 
 interface IAuthErrorAction {
   type: AUTH_ERROR_TYPE;
@@ -68,5 +69,6 @@ export const auth: IAuthActionCreator = (login, password, save) => (
       return;
     }
     dispath(authSuccess(data.SessionID, login, password, save));
+    dispath(chageView("/panel"));
   });
 };

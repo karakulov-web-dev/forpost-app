@@ -1,3 +1,5 @@
+var LiveReloadPlugin = require("webpack-livereload-plugin");
+
 module.exports = {
   entry: "./src/index.tsx",
   output: {
@@ -7,6 +9,8 @@ module.exports = {
 
   // Enable sourcemaps for debugging webpack's output.
   devtool: "source-map",
+
+  plugins: [new LiveReloadPlugin({})],
 
   resolve: {
     // Add '.ts' and '.tsx' as resolvable extensions.

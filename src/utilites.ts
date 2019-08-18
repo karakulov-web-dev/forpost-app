@@ -14,3 +14,11 @@ export class SelfGuidedGenerator {
   }
   public generator: Generator;
 }
+
+interface Idelay {
+  (time: number, cb: Function): void;
+}
+
+export const delay: Idelay = (time, cb) => {
+  setTimeout(cb, time);
+};

@@ -132,10 +132,15 @@ class LoginForm extends React.Component<IProps> {
       console.log(e);
       status = false;
     }
-    if (status) {
-      stb.HideVirtualKeyboard();
-    } else {
-      stb.ShowVirtualKeyboard();
+
+    try {
+      if (status) {
+        stb.HideVirtualKeyboard();
+      } else {
+        stb.ShowVirtualKeyboard();
+      }
+    } catch (e) {
+      console.log(e);
     }
   }
   key(e: React.KeyboardEvent) {

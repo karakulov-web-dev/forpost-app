@@ -33,7 +33,7 @@ export interface ICam {
   Address: string;
   HomeModeAccess: number;
   HomeMode: number;
-  IsRecord: string;
+  IsRecord: number | string;
   Lat: number;
   Lon: number;
 }

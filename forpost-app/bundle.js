@@ -60,11 +60,17 @@
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 10);
+/******/ 	return __webpack_require__(__webpack_require__.s = 13);
 /******/ })
 /************************************************************************/
 /******/ ([
 /* 0 */
+/***/ (function(module, exports) {
+
+module.exports = React;
+
+/***/ }),
+/* 1 */
 /***/ (function(module, exports) {
 
 // shim for using process in browser
@@ -254,13 +260,33 @@ process.umask = function() { return 0; };
 
 
 /***/ }),
-/* 1 */
-/***/ (function(module, exports) {
+/* 2 */
+/***/ (function(module, exports, __webpack_require__) {
 
-module.exports = React;
+"use strict";
+
+
+exports.__esModule = true;
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
+
+var _react = __webpack_require__(0);
+
+var _react2 = _interopRequireDefault(_react);
+
+var _componentsCreateAll = __webpack_require__(15);
+
+var _componentsCreateAll2 = _interopRequireDefault(_componentsCreateAll);
+
+var _createAll = _componentsCreateAll2['default'](_react2['default']);
+
+var Provider = _createAll.Provider;
+var connect = _createAll.connect;
+exports.Provider = Provider;
+exports.connect = connect;
 
 /***/ }),
-/* 2 */
+/* 3 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -271,7 +297,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "combineReducers", function() { return combineReducers; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "compose", function() { return compose; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "createStore", function() { return createStore; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_symbol_observable__ = __webpack_require__(18);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_symbol_observable__ = __webpack_require__(21);
 
 
 /**
@@ -934,16 +960,19 @@ if (process.env.NODE_ENV !== 'production' && typeof isCrushed.name === 'string' 
 
 
 
-/* WEBPACK VAR INJECTION */}.call(__webpack_exports__, __webpack_require__(0)))
+/* WEBPACK VAR INJECTION */}.call(__webpack_exports__, __webpack_require__(1)))
 
 /***/ }),
-/* 3 */
+/* 4 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 exports.__esModule = true;
 exports.color1 = "#333";
+exports.color2 = "#aaa";
+exports.fontSize1 = "25px";
+exports.fontFamily1 = '"Open Sans", "Lato", sans-serif';
 exports.abstracktStyleFullWidhtElem = {
     position: "fixed",
     width: "100%",
@@ -953,33 +982,20 @@ exports.abstracktStyleFullWidhtElem = {
 
 
 /***/ }),
-/* 4 */
+/* 5 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
-
 exports.__esModule = true;
+exports.AUTH_ERROR = "AUTH_ERROR";
+exports.AUTH_SUCCESS = "AUTH_SUCCESS";
+exports.CHANGE_VIEW = "CHANGE_VIEW";
+exports.CHANGE_CAMS_STATE = "CHANGE_CAMS_STATE";
 
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
-
-var _react = __webpack_require__(1);
-
-var _react2 = _interopRequireDefault(_react);
-
-var _componentsCreateAll = __webpack_require__(12);
-
-var _componentsCreateAll2 = _interopRequireDefault(_componentsCreateAll);
-
-var _createAll = _componentsCreateAll2['default'](_react2['default']);
-
-var Provider = _createAll.Provider;
-var connect = _createAll.connect;
-exports.Provider = Provider;
-exports.connect = connect;
 
 /***/ }),
-/* 5 */
+/* 6 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -999,18 +1015,6 @@ function createStoreShape(PropTypes) {
 module.exports = exports["default"];
 
 /***/ }),
-/* 6 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-exports.__esModule = true;
-exports.AUTH_ERROR = "AUTH_ERROR";
-exports.AUTH_SUCCESS = "AUTH_SUCCESS";
-exports.CHANGE_VIEW = "CHANGE_VIEW";
-
-
-/***/ }),
 /* 7 */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -1028,10 +1032,10 @@ var __assign = (this && this.__assign) || function () {
     return __assign.apply(this, arguments);
 };
 exports.__esModule = true;
-var style_1 = __webpack_require__(3);
+var style_1 = __webpack_require__(4);
 exports.colorError = "#b00020";
-exports.fontSize1 = "25px";
-exports.fontFamily1 = '"Open Sans", "Lato", sans-serif';
+exports.fontSize1 = style_1.fontSize1;
+exports.fontFamily1 = style_1.fontFamily1;
 exports.bodyStyle = __assign({}, style_1.abstracktStyleFullWidhtElem, { height: "100%", top: "100px", bottom: "0px", background: "url(./../forpost-app/img/background1.png) no-repeat" });
 exports.loginFormStyle = {
     maxWidth: "520px",
@@ -1065,6 +1069,93 @@ exports.inputStyle = {
 
 "use strict";
 
+exports.__esModule = true;
+var SelfGuidedGenerator = /** @class */ (function () {
+    function SelfGuidedGenerator(generatorCreater) {
+        this.generator = generatorCreater(this);
+        this.generator.next();
+    }
+    SelfGuidedGenerator.prototype.next = function (arg) {
+        return this.generator.next(arg);
+    };
+    SelfGuidedGenerator.prototype["return"] = function (arg) {
+        return this.generator["return"](arg);
+    };
+    return SelfGuidedGenerator;
+}());
+exports.SelfGuidedGenerator = SelfGuidedGenerator;
+exports.delay = function (time, cb) {
+    setTimeout(cb, time);
+};
+
+
+/***/ }),
+/* 9 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+exports.__esModule = true;
+exports.httpAutReq = function (login, password, cb) {
+    var data = "Login=" + login + "&Password=" + password;
+    var xhr = new XMLHttpRequest();
+    xhr.withCredentials = true;
+    xhr.addEventListener("readystatechange", function () {
+        if (xhr.readyState === 4) {
+            cb(JSON.parse(xhr.responseText));
+        }
+    });
+    xhr.open("POST", "http://cam.rikt.ru/api/login", true);
+    xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+    xhr.send(data);
+};
+exports.httpGetTranslation = function (SessionID, CameraID, Format, cb) {
+    var data = "SessionID=" + SessionID + "&CameraID=" + CameraID + "&Format=" + Format;
+    var xhr = new XMLHttpRequest();
+    xhr.withCredentials = true;
+    xhr.addEventListener("readystatechange", function () {
+        if (xhr.readyState === 4) {
+            cb(JSON.parse(xhr.responseText));
+        }
+    });
+    xhr.open("POST", "http://cam.rikt.ru/api/GetTranslationURL", true);
+    xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+    xhr.send(data);
+};
+exports.httpStopTranslation = function (URL, cb) {
+    var data = "op=stop";
+    var xhr = new XMLHttpRequest();
+    xhr.withCredentials = true;
+    xhr.addEventListener("readystatechange", function () {
+        if (xhr.readyState === 4) {
+            cb();
+        }
+    });
+    xhr.open("POST", URL, true);
+    xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+    xhr.send(data);
+};
+exports.getCameras = function (SessionID, cb) {
+    var data = "SessionID=" + SessionID;
+    var xhr = new XMLHttpRequest();
+    xhr.withCredentials = true;
+    xhr.addEventListener("readystatechange", function () {
+        if (xhr.readyState === 4) {
+            cb(JSON.parse(xhr.responseText));
+        }
+    });
+    xhr.open("POST", "http://cam.rikt.ru/api/GetCameras");
+    xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+    xhr.send(data);
+};
+
+
+/***/ }),
+/* 10 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
 var __extends = (this && this.__extends) || (function () {
     var extendStatics = function (d, b) {
         extendStatics = Object.setPrototypeOf ||
@@ -1079,8 +1170,8 @@ var __extends = (this && this.__extends) || (function () {
     };
 })();
 exports.__esModule = true;
-var React = __webpack_require__(33);
-var style_1 = __webpack_require__(38);
+var React = __webpack_require__(35);
+var style_1 = __webpack_require__(40);
 var Header = /** @class */ (function (_super) {
     __extends(Header, _super);
     function Header() {
@@ -1097,7 +1188,7 @@ exports["default"] = Header;
 
 
 /***/ }),
-/* 9 */
+/* 11 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1194,7 +1285,75 @@ module.exports = shouldUseNative() ? Object.assign : function (target, source) {
 
 
 /***/ }),
-/* 10 */
+/* 12 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+var __assign = (this && this.__assign) || function () {
+    __assign = Object.assign || function(t) {
+        for (var s, i = 1, n = arguments.length; i < n; i++) {
+            s = arguments[i];
+            for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p))
+                t[p] = s[p];
+        }
+        return t;
+    };
+    return __assign.apply(this, arguments);
+};
+exports.__esModule = true;
+var style_1 = __webpack_require__(4);
+exports.color2 = style_1.color2;
+exports.color3 = "#383838";
+exports.camItemStyle = {
+    background: exports.color3,
+    border: "2px solid black",
+    borderRadius: "4px",
+    top: "10px",
+    left: "10px",
+    right: "10px",
+    bottom: "10px",
+    position: "absolute"
+};
+exports.camItemActiveStyle = __assign({}, exports.camItemStyle, { background: exports.color2 });
+exports.nameStyle = {
+    position: "absolute",
+    left: "20px",
+    right: "0px",
+    bottom: "0px",
+    color: exports.color2,
+    fontSize: style_1.fontSize1,
+    fontFamily: style_1.fontFamily1
+};
+exports.nameActiveStyle = __assign({}, exports.nameStyle, { color: style_1.color1 });
+exports.camBodyStyle = {
+    position: "absolute",
+    top: "10px",
+    left: "10px",
+    right: "10px",
+    bottom: "85px"
+};
+exports.imgWrapStyle = {
+    position: "absolute",
+    top: "0px",
+    left: "0px",
+    right: "0px",
+    bottom: "0px"
+};
+exports.imgCamStyle = {
+    maxHeight: "100%",
+    maxWidth: "100%",
+    margin: "0 auto"
+};
+exports.imgLoadingStyle = {
+    margin: "0 auto",
+    position: "relative",
+    top: "35%"
+};
+
+
+/***/ }),
+/* 13 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1213,14 +1372,14 @@ var __extends = (this && this.__extends) || (function () {
     };
 })();
 exports.__esModule = true;
-var React = __webpack_require__(1);
-var ReactDOM = __webpack_require__(11);
-var react_redux_1 = __webpack_require__(4);
-var redux_1 = __webpack_require__(2);
-var redux_thunk_1 = __webpack_require__(24);
-var root_1 = __webpack_require__(25);
-var Login_1 = __webpack_require__(28);
-var Panel_1 = __webpack_require__(39);
+var React = __webpack_require__(0);
+var ReactDOM = __webpack_require__(14);
+var react_redux_1 = __webpack_require__(2);
+var redux_1 = __webpack_require__(3);
+var redux_thunk_1 = __webpack_require__(27);
+var root_1 = __webpack_require__(28);
+var Login_1 = __webpack_require__(32);
+var Panel_1 = __webpack_require__(41);
 var global = window;
 var store = redux_1.createStore(root_1["default"], redux_1.applyMiddleware(redux_thunk_1["default"]));
 global["store"] = store;
@@ -1247,13 +1406,13 @@ ReactDOM.render(React.createElement(react_redux_1.Provider, { store: store },
 
 
 /***/ }),
-/* 11 */
+/* 14 */
 /***/ (function(module, exports) {
 
 module.exports = ReactDOM;
 
 /***/ }),
-/* 12 */
+/* 15 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1264,11 +1423,11 @@ exports['default'] = createAll;
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 
-var _createProvider = __webpack_require__(13);
+var _createProvider = __webpack_require__(16);
 
 var _createProvider2 = _interopRequireDefault(_createProvider);
 
-var _createConnect = __webpack_require__(14);
+var _createConnect = __webpack_require__(17);
 
 var _createConnect2 = _interopRequireDefault(_createConnect);
 
@@ -1282,7 +1441,7 @@ function createAll(React) {
 module.exports = exports['default'];
 
 /***/ }),
-/* 13 */
+/* 16 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1297,7 +1456,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 
 function _inherits(subClass, superClass) { if (typeof superClass !== 'function' && superClass !== null) { throw new TypeError('Super expression must either be null or a function, not ' + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-var _utilsCreateStoreShape = __webpack_require__(5);
+var _utilsCreateStoreShape = __webpack_require__(6);
 
 var _utilsCreateStoreShape2 = _interopRequireDefault(_utilsCreateStoreShape);
 
@@ -1407,7 +1566,7 @@ function createProvider(React) {
 module.exports = exports['default'];
 
 /***/ }),
-/* 14 */
+/* 17 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1425,27 +1584,27 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 
 function _inherits(subClass, superClass) { if (typeof superClass !== 'function' && superClass !== null) { throw new TypeError('Super expression must either be null or a function, not ' + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-var _utilsCreateStoreShape = __webpack_require__(5);
+var _utilsCreateStoreShape = __webpack_require__(6);
 
 var _utilsCreateStoreShape2 = _interopRequireDefault(_utilsCreateStoreShape);
 
-var _utilsShallowEqual = __webpack_require__(15);
+var _utilsShallowEqual = __webpack_require__(18);
 
 var _utilsShallowEqual2 = _interopRequireDefault(_utilsShallowEqual);
 
-var _utilsIsPlainObject = __webpack_require__(16);
+var _utilsIsPlainObject = __webpack_require__(19);
 
 var _utilsIsPlainObject2 = _interopRequireDefault(_utilsIsPlainObject);
 
-var _utilsWrapActionCreators = __webpack_require__(17);
+var _utilsWrapActionCreators = __webpack_require__(20);
 
 var _utilsWrapActionCreators2 = _interopRequireDefault(_utilsWrapActionCreators);
 
-var _hoistNonReactStatics = __webpack_require__(22);
+var _hoistNonReactStatics = __webpack_require__(25);
 
 var _hoistNonReactStatics2 = _interopRequireDefault(_hoistNonReactStatics);
 
-var _invariant = __webpack_require__(23);
+var _invariant = __webpack_require__(26);
 
 var _invariant2 = _interopRequireDefault(_invariant);
 
@@ -1674,10 +1833,10 @@ function createConnect(React) {
 }
 
 module.exports = exports['default'];
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0)))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(1)))
 
 /***/ }),
-/* 15 */
+/* 18 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1712,7 +1871,7 @@ function shallowEqual(objA, objB) {
 module.exports = exports["default"];
 
 /***/ }),
-/* 16 */
+/* 19 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1748,7 +1907,7 @@ function isPlainObject(obj) {
 module.exports = exports['default'];
 
 /***/ }),
-/* 17 */
+/* 20 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1757,7 +1916,7 @@ module.exports = exports['default'];
 exports.__esModule = true;
 exports['default'] = wrapActionCreators;
 
-var _redux = __webpack_require__(2);
+var _redux = __webpack_require__(3);
 
 function wrapActionCreators(actionCreators) {
   return function (dispatch) {
@@ -1768,11 +1927,11 @@ function wrapActionCreators(actionCreators) {
 module.exports = exports['default'];
 
 /***/ }),
-/* 18 */
+/* 21 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* WEBPACK VAR INJECTION */(function(global, module) {/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__ponyfill_js__ = __webpack_require__(21);
+/* WEBPACK VAR INJECTION */(function(global, module) {/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__ponyfill_js__ = __webpack_require__(24);
 /* global window */
 
 
@@ -1793,10 +1952,10 @@ if (typeof self !== 'undefined') {
 var result = Object(__WEBPACK_IMPORTED_MODULE_0__ponyfill_js__["a" /* default */])(root);
 /* harmony default export */ __webpack_exports__["a"] = (result);
 
-/* WEBPACK VAR INJECTION */}.call(__webpack_exports__, __webpack_require__(19), __webpack_require__(20)(module)))
+/* WEBPACK VAR INJECTION */}.call(__webpack_exports__, __webpack_require__(22), __webpack_require__(23)(module)))
 
 /***/ }),
-/* 19 */
+/* 22 */
 /***/ (function(module, exports) {
 
 var g;
@@ -1823,7 +1982,7 @@ module.exports = g;
 
 
 /***/ }),
-/* 20 */
+/* 23 */
 /***/ (function(module, exports) {
 
 module.exports = function(originalModule) {
@@ -1853,7 +2012,7 @@ module.exports = function(originalModule) {
 
 
 /***/ }),
-/* 21 */
+/* 24 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -1878,7 +2037,7 @@ function symbolObservablePonyfill(root) {
 
 
 /***/ }),
-/* 22 */
+/* 25 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1935,7 +2094,7 @@ module.exports = function hoistNonReactStatics(targetComponent, sourceComponent,
 
 
 /***/ }),
-/* 23 */
+/* 26 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1989,10 +2148,10 @@ var invariant = function(condition, format, a, b, c, d, e, f) {
 
 module.exports = invariant;
 
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0)))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(1)))
 
 /***/ }),
-/* 24 */
+/* 27 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -2019,28 +2178,25 @@ thunk.withExtraArgument = createThunkMiddleware;
 /* harmony default export */ __webpack_exports__["default"] = (thunk);
 
 /***/ }),
-/* 25 */
+/* 28 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 exports.__esModule = true;
-var redux_1 = __webpack_require__(2);
-var auth_1 = __webpack_require__(26);
-var cams_1 = __webpack_require__(27);
+var redux_1 = __webpack_require__(3);
+var auth_1 = __webpack_require__(29);
+var cams_1 = __webpack_require__(30);
+var app_1 = __webpack_require__(31);
 exports["default"] = redux_1.combineReducers({
-    app: function (state) {
-        return {
-            view: "/panel"
-        };
-    },
+    app: app_1.app,
     auth: auth_1.auth,
     cams: cams_1.cams
 });
 
 
 /***/ }),
-/* 26 */
+/* 29 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2057,13 +2213,13 @@ var __assign = (this && this.__assign) || function () {
     return __assign.apply(this, arguments);
 };
 exports.__esModule = true;
-var ACTION_TYPE_CONST_1 = __webpack_require__(6);
+var ACTION_TYPE_CONST_1 = __webpack_require__(5);
 var defaultState = {
     login: "",
     password: "",
     save: false,
     error: "",
-    SessionID: ""
+    SessionID: "ehfp50u4d04husbratlk9bsjf2"
 };
 exports.auth = function (state, action) {
     if (state === void 0) { state = defaultState; }
@@ -2084,92 +2240,79 @@ function auth_success(state, payload) {
 
 
 /***/ }),
-/* 27 */
+/* 30 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
-exports.__esModule = true;
-var defaultState = {
-    items: [
-        {
-            CameraID: 4900,
-            Name: "Гора Югус",
-            AccountObjectID: 0,
-            AccountObjectName: "",
-            PTZ: 0,
-            Sound: 0,
-            Quota: "604800",
-            PermanentRecord: 1,
-            Address: "Междуреченск Гора Югус",
-            HomeModeAccess: 0,
-            HomeMode: 0,
-            IsRecord: "1",
-            Lat: 53.6563132,
-            Lon: 88.0871814
-        },
-        {
-            CameraID: 4900,
-            Name: "Гора Югус",
-            AccountObjectID: 0,
-            AccountObjectName: "",
-            PTZ: 0,
-            Sound: 0,
-            Quota: "604800",
-            PermanentRecord: 1,
-            Address: "Междуреченск Гора Югус",
-            HomeModeAccess: 0,
-            HomeMode: 0,
-            IsRecord: "1",
-            Lat: 53.6563132,
-            Lon: 88.0871814
-        },
-        {
-            CameraID: 4900,
-            Name: "Гора Югус",
-            AccountObjectID: 0,
-            AccountObjectName: "",
-            PTZ: 0,
-            Sound: 0,
-            Quota: "604800",
-            PermanentRecord: 1,
-            Address: "Междуреченск Гора Югус",
-            HomeModeAccess: 0,
-            HomeMode: 0,
-            IsRecord: "1",
-            Lat: 53.6563132,
-            Lon: 88.0871814
-        },
-        {
-            CameraID: 4900,
-            Name: "Гора Югус",
-            AccountObjectID: 0,
-            AccountObjectName: "",
-            PTZ: 0,
-            Sound: 0,
-            Quota: "604800",
-            PermanentRecord: 1,
-            Address: "Междуреченск Гора Югус",
-            HomeModeAccess: 0,
-            HomeMode: 0,
-            IsRecord: "1",
-            Lat: 53.6563132,
-            Lon: 88.0871814
+var __assign = (this && this.__assign) || function () {
+    __assign = Object.assign || function(t) {
+        for (var s, i = 1, n = arguments.length; i < n; i++) {
+            s = arguments[i];
+            for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p))
+                t[p] = s[p];
         }
-    ],
+        return t;
+    };
+    return __assign.apply(this, arguments);
+};
+exports.__esModule = true;
+var ACTION_TYPE_CONST_1 = __webpack_require__(5);
+var defaultState = {
+    items: [],
     gridActiveItemPosition: 0,
-    gridMaxItems: 4,
+    gridMaxItems: 5,
     grigPage: 0,
     gridLoading: false
 };
 exports.cams = function (state, action) {
     if (state === void 0) { state = defaultState; }
+    if (action.type === ACTION_TYPE_CONST_1.CHANGE_CAMS_STATE) {
+        state = changeCamsState(state, action);
+    }
     return state;
+};
+var changeCamsState = function (state, action) {
+    return __assign({}, state, action.payload);
 };
 
 
 /***/ }),
-/* 28 */
+/* 31 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+var __assign = (this && this.__assign) || function () {
+    __assign = Object.assign || function(t) {
+        for (var s, i = 1, n = arguments.length; i < n; i++) {
+            s = arguments[i];
+            for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p))
+                t[p] = s[p];
+        }
+        return t;
+    };
+    return __assign.apply(this, arguments);
+};
+exports.__esModule = true;
+var ACTION_TYPE_CONST_1 = __webpack_require__(5);
+var defaultState = {
+    view: "/panel"
+};
+exports.app = function (state, action) {
+    if (state === void 0) { state = defaultState; }
+    if (action.type === ACTION_TYPE_CONST_1.CHANGE_VIEW) {
+        return changeView(state, action.payload);
+    }
+    return state;
+};
+function changeView(state, view) {
+    return __assign({}, state, { view: view });
+}
+
+
+/***/ }),
+/* 32 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2188,10 +2331,10 @@ var __extends = (this && this.__extends) || (function () {
     };
 })();
 exports.__esModule = true;
-var React = __webpack_require__(1);
-var LoginForm_1 = __webpack_require__(29);
+var React = __webpack_require__(0);
+var LoginForm_1 = __webpack_require__(33);
 var style_1 = __webpack_require__(7);
-var Header_1 = __webpack_require__(8);
+var Header_1 = __webpack_require__(10);
 var Login = /** @class */ (function (_super) {
     __extends(Login, _super);
     function Login() {
@@ -2209,7 +2352,7 @@ exports["default"] = Login;
 
 
 /***/ }),
-/* 29 */
+/* 33 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2239,12 +2382,12 @@ var __assign = (this && this.__assign) || function () {
     return __assign.apply(this, arguments);
 };
 exports.__esModule = true;
-var React = __webpack_require__(1);
+var React = __webpack_require__(0);
 var style_1 = __webpack_require__(7);
-var style_2 = __webpack_require__(3);
-var react_redux_1 = __webpack_require__(4);
-var redux_1 = __webpack_require__(2);
-var auth_1 = __webpack_require__(30);
+var style_2 = __webpack_require__(4);
+var react_redux_1 = __webpack_require__(2);
+var redux_1 = __webpack_require__(3);
+var auth_1 = __webpack_require__(34);
 var LoginForm = /** @class */ (function (_super) {
     __extends(LoginForm, _super);
     function LoginForm() {
@@ -2315,11 +2458,16 @@ var LoginForm = /** @class */ (function (_super) {
             console.log(e);
             status = false;
         }
-        if (status) {
-            stb.HideVirtualKeyboard();
+        try {
+            if (status) {
+                stb.HideVirtualKeyboard();
+            }
+            else {
+                stb.ShowVirtualKeyboard();
+            }
         }
-        else {
-            stb.ShowVirtualKeyboard();
+        catch (e) {
+            console.log(e);
         }
     };
     LoginForm.prototype.key = function (e) {
@@ -2385,7 +2533,7 @@ exports["default"] = LoginFormContainer;
 
 
 /***/ }),
-/* 30 */
+/* 34 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2418,9 +2566,10 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
     }
 };
 exports.__esModule = true;
-var utilites_1 = __webpack_require__(31);
-var HTTP_1 = __webpack_require__(32);
-var ACTION_TYPE_CONST_1 = __webpack_require__(6);
+var utilites_1 = __webpack_require__(8);
+var HTTP_1 = __webpack_require__(9);
+var ACTION_TYPE_CONST_1 = __webpack_require__(5);
+var app_1 = __webpack_require__(47);
 var authError = function (payload) { return ({
     type: ACTION_TYPE_CONST_1.AUTH_ERROR,
     payload: payload
@@ -2451,6 +2600,7 @@ exports.auth = function (login, password, save) { return function (dispath, getS
                         return [2 /*return*/];
                     }
                     dispath(authSuccess(data.SessionID, login, password, save));
+                    dispath(app_1.chageView("/panel"));
                     return [2 /*return*/];
             }
         });
@@ -2459,67 +2609,22 @@ exports.auth = function (login, password, save) { return function (dispath, getS
 
 
 /***/ }),
-/* 31 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-exports.__esModule = true;
-var SelfGuidedGenerator = /** @class */ (function () {
-    function SelfGuidedGenerator(generatorCreater) {
-        this.generator = generatorCreater(this);
-        this.generator.next();
-    }
-    SelfGuidedGenerator.prototype.next = function (arg) {
-        return this.generator.next(arg);
-    };
-    SelfGuidedGenerator.prototype["return"] = function (arg) {
-        return this.generator["return"](arg);
-    };
-    return SelfGuidedGenerator;
-}());
-exports.SelfGuidedGenerator = SelfGuidedGenerator;
-
-
-/***/ }),
-/* 32 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-exports.__esModule = true;
-exports.httpAutReq = function (login, password, cb) {
-    var data = "Login=" + login + "&Password=" + password;
-    var xhr = new XMLHttpRequest();
-    xhr.withCredentials = true;
-    xhr.addEventListener("readystatechange", function () {
-        if (xhr.readyState === 4) {
-            cb(JSON.parse(xhr.responseText));
-        }
-    });
-    xhr.open("POST", "http://cam.rikt.ru/api/login");
-    xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-    xhr.send(data);
-};
-
-
-/***/ }),
-/* 33 */
+/* 35 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 /* WEBPACK VAR INJECTION */(function(process) {
 
 if (process.env.NODE_ENV === 'production') {
-  module.exports = __webpack_require__(34);
+  module.exports = __webpack_require__(36);
 } else {
-  module.exports = __webpack_require__(35);
+  module.exports = __webpack_require__(37);
 }
 
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0)))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(1)))
 
 /***/ }),
-/* 34 */
+/* 36 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2532,7 +2637,7 @@ if (process.env.NODE_ENV === 'production') {
  * LICENSE file in the root directory of this source tree.
  */
 
-var h=__webpack_require__(9),n="function"===typeof Symbol&&Symbol.for,p=n?Symbol.for("react.element"):60103,q=n?Symbol.for("react.portal"):60106,r=n?Symbol.for("react.fragment"):60107,t=n?Symbol.for("react.strict_mode"):60108,u=n?Symbol.for("react.profiler"):60114,v=n?Symbol.for("react.provider"):60109,w=n?Symbol.for("react.context"):60110,x=n?Symbol.for("react.forward_ref"):60112,y=n?Symbol.for("react.suspense"):60113,aa=n?Symbol.for("react.suspense_list"):60120,ba=n?Symbol.for("react.memo"):
+var h=__webpack_require__(11),n="function"===typeof Symbol&&Symbol.for,p=n?Symbol.for("react.element"):60103,q=n?Symbol.for("react.portal"):60106,r=n?Symbol.for("react.fragment"):60107,t=n?Symbol.for("react.strict_mode"):60108,u=n?Symbol.for("react.profiler"):60114,v=n?Symbol.for("react.provider"):60109,w=n?Symbol.for("react.context"):60110,x=n?Symbol.for("react.forward_ref"):60112,y=n?Symbol.for("react.suspense"):60113,aa=n?Symbol.for("react.suspense_list"):60120,ba=n?Symbol.for("react.memo"):
 60115,ca=n?Symbol.for("react.lazy"):60116;n&&Symbol.for("react.fundamental");n&&Symbol.for("react.responder");var z="function"===typeof Symbol&&Symbol.iterator;
 function A(a){for(var b=a.message,d="https://reactjs.org/docs/error-decoder.html?invariant="+b,c=1;c<arguments.length;c++)d+="&args[]="+encodeURIComponent(arguments[c]);a.message="Minified React error #"+b+"; visit "+d+" for the full message or use the non-minified dev environment for full errors and additional helpful warnings. ";return a}var B={isMounted:function(){return!1},enqueueForceUpdate:function(){},enqueueReplaceState:function(){},enqueueSetState:function(){}},C={};
 function D(a,b,d){this.props=a;this.context=b;this.refs=C;this.updater=d||B}D.prototype.isReactComponent={};D.prototype.setState=function(a,b){if("object"!==typeof a&&"function"!==typeof a&&null!=a)throw A(Error(85));this.updater.enqueueSetState(this,a,b,"setState")};D.prototype.forceUpdate=function(a){this.updater.enqueueForceUpdate(this,a,"forceUpdate")};function E(){}E.prototype=D.prototype;function F(a,b,d){this.props=a;this.context=b;this.refs=C;this.updater=d||B}var G=F.prototype=new E;
@@ -2551,7 +2656,7 @@ b.type=a;return b},isValidElement:N,version:"16.9.0",unstable_withSuspenseConfig
 
 
 /***/ }),
-/* 35 */
+/* 37 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2572,8 +2677,8 @@ if (process.env.NODE_ENV !== "production") {
   (function() {
 'use strict';
 
-var _assign = __webpack_require__(9);
-var checkPropTypes = __webpack_require__(36);
+var _assign = __webpack_require__(11);
+var checkPropTypes = __webpack_require__(38);
 
 // TODO: this is special because it gets imported during build.
 
@@ -4791,10 +4896,10 @@ module.exports = react;
   })();
 }
 
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0)))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(1)))
 
 /***/ }),
-/* 36 */
+/* 38 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -4810,7 +4915,7 @@ module.exports = react;
 var printWarning = function() {};
 
 if (process.env.NODE_ENV !== 'production') {
-  var ReactPropTypesSecret = __webpack_require__(37);
+  var ReactPropTypesSecret = __webpack_require__(39);
   var loggedTypeFailures = {};
   var has = Function.call.bind(Object.prototype.hasOwnProperty);
 
@@ -4901,10 +5006,10 @@ checkPropTypes.resetWarningCache = function() {
 
 module.exports = checkPropTypes;
 
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0)))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(1)))
 
 /***/ }),
-/* 37 */
+/* 39 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -4923,7 +5028,7 @@ module.exports = ReactPropTypesSecret;
 
 
 /***/ }),
-/* 38 */
+/* 40 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -4940,7 +5045,7 @@ var __assign = (this && this.__assign) || function () {
     return __assign.apply(this, arguments);
 };
 exports.__esModule = true;
-var style_1 = __webpack_require__(3);
+var style_1 = __webpack_require__(4);
 exports.headerStyle = __assign({}, style_1.abstracktStyleFullWidhtElem, { height: "100px", top: "0px", background: style_1.color1 });
 exports.logoStyle = {
     height: "60px",
@@ -4959,7 +5064,7 @@ exports.nameAppStyle = {
 
 
 /***/ }),
-/* 39 */
+/* 41 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -4978,9 +5083,9 @@ var __extends = (this && this.__extends) || (function () {
     };
 })();
 exports.__esModule = true;
-var React = __webpack_require__(1);
-var Header_1 = __webpack_require__(8);
-var Grid_1 = __webpack_require__(40);
+var React = __webpack_require__(0);
+var Header_1 = __webpack_require__(10);
+var Grid_1 = __webpack_require__(42);
 var Panel = /** @class */ (function (_super) {
     __extends(Panel, _super);
     function Panel() {
@@ -4994,119 +5099,6 @@ var Panel = /** @class */ (function (_super) {
     return Panel;
 }(React.Component));
 exports["default"] = Panel;
-
-
-/***/ }),
-/* 40 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-var __extends = (this && this.__extends) || (function () {
-    var extendStatics = function (d, b) {
-        extendStatics = Object.setPrototypeOf ||
-            ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
-            function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
-        return extendStatics(d, b);
-    };
-    return function (d, b) {
-        extendStatics(d, b);
-        function __() { this.constructor = d; }
-        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
-    };
-})();
-var __assign = (this && this.__assign) || function () {
-    __assign = Object.assign || function(t) {
-        for (var s, i = 1, n = arguments.length; i < n; i++) {
-            s = arguments[i];
-            for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p))
-                t[p] = s[p];
-        }
-        return t;
-    };
-    return __assign.apply(this, arguments);
-};
-exports.__esModule = true;
-var React = __webpack_require__(1);
-var react_redux_1 = __webpack_require__(4);
-var style_1 = __webpack_require__(41);
-var Rows_1 = __webpack_require__(42);
-var Grid = /** @class */ (function (_super) {
-    __extends(Grid, _super);
-    function Grid() {
-        return _super !== null && _super.apply(this, arguments) || this;
-    }
-    Grid.prototype.render = function () {
-        var cams = this.getcamArr();
-        if (cams.length <= 0) {
-            return React.createElement("div", { style: style_1.gridStyle }, "\u041D\u0435\u0442 \u0434\u043E\u0441\u0442\u0443\u043F\u043D\u044B\u0445 \u0432\u0438\u0434\u0435\u043E\u043A\u0430\u043C\u0435\u0440");
-        }
-        var rows = [];
-        var i = 0;
-        cams.forEach(function (item) {
-            rows[i] = rows[i] || [];
-            if (rows[i].length > 2) {
-                i++;
-                rows[i] = rows[i] || [];
-            }
-            rows[i].push(item);
-        });
-        if (cams.length === 4) {
-            rows = [[cams[0], cams[1]], [cams[2], cams[3]]];
-        }
-        return (React.createElement("div", { style: style_1.gridStyle },
-            React.createElement(Rows_1.Rows, { rows: rows })));
-    };
-    Grid.prototype.getcamArr = function () {
-        var cams = this.camtoCamMayBeActive(this.props.items);
-        var maxItems = this.props.gridMaxItems;
-        var countItems = cams.length;
-        var startIndex = maxItems * this.props.grigPage;
-        var maxIndex = startIndex + maxItems - 1;
-        maxIndex = maxIndex >= countItems ? countItems - 1 : maxIndex;
-        if (maxIndex < startIndex) {
-            return [];
-        }
-        var i = 0;
-        var camArr = cams.filter(function (item) {
-            var status;
-            if (i < startIndex || i > maxIndex) {
-                status = false;
-            }
-            else {
-                status = true;
-            }
-            i++;
-            return status;
-        });
-        return camArr;
-    };
-    Grid.prototype.camtoCamMayBeActive = function (cams) {
-        var _this = this;
-        var i = 0;
-        return cams.map(function (item) {
-            return __assign({}, item, { active: i === _this.props.gridActiveItemPosition });
-        });
-    };
-    return Grid;
-}(React.Component));
-exports["default"] = react_redux_1.connect(function (state) { return state.cams; })(Grid);
-
-
-/***/ }),
-/* 41 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-exports.__esModule = true;
-exports.gridStyle = {
-    top: "100px",
-    left: "0px",
-    right: "0px",
-    bottom: "0px",
-    position: "absolute"
-};
 
 
 /***/ }),
@@ -5128,8 +5120,179 @@ var __extends = (this && this.__extends) || (function () {
         d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
     };
 })();
+var __assign = (this && this.__assign) || function () {
+    __assign = Object.assign || function(t) {
+        for (var s, i = 1, n = arguments.length; i < n; i++) {
+            s = arguments[i];
+            for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p))
+                t[p] = s[p];
+        }
+        return t;
+    };
+    return __assign.apply(this, arguments);
+};
 exports.__esModule = true;
-var React = __webpack_require__(1);
+var React = __webpack_require__(0);
+var react_redux_1 = __webpack_require__(2);
+var style_1 = __webpack_require__(43);
+var Rows_1 = __webpack_require__(44);
+var cam_1 = __webpack_require__(48);
+var redux_1 = __webpack_require__(3);
+var Grid = /** @class */ (function (_super) {
+    __extends(Grid, _super);
+    function Grid() {
+        return _super !== null && _super.apply(this, arguments) || this;
+    }
+    Grid.prototype.render = function () {
+        return (React.createElement("div", { style: style_1.gridStyle, onKeyDown: this.key.bind(this), ref: this.setRef.bind(this), tabIndex: 0 }, this.renderLogic()));
+    };
+    Grid.prototype.renderLogic = function () {
+        if (this.props.gridLoading) {
+            return (React.createElement("img", { style: style_1.loadingStyle, src: "./../forpost-app/img/loading_3.gif" }));
+        }
+        var cams = this.getcamArr();
+        if (cams.length <= 0) {
+            return React.createElement("p", { style: style_1.noItemsMessageStyle }, "\u041D\u0435\u0442 \u0434\u043E\u0441\u0442\u0443\u043F\u043D\u044B\u0445 \u0432\u0438\u0434\u0435\u043E\u043A\u0430\u043C\u0435\u0440!");
+        }
+        var rows = [];
+        var i = 0;
+        cams.forEach(function (item) {
+            rows[i] = rows[i] || [];
+            if (rows[i].length > 2) {
+                i++;
+                rows[i] = rows[i] || [];
+            }
+            rows[i].push(item);
+        });
+        if (cams.length === 4) {
+            rows = [[cams[0], cams[1]], [cams[2], cams[3]]];
+        }
+        console.log(rows);
+        return React.createElement(Rows_1.Rows, { rows: rows });
+    };
+    Grid.prototype.getcamArr = function () {
+        var cams = this.camtoCamMayBeActive(this.props.items);
+        var maxItems = this.props.gridMaxItems;
+        var countItems = cams.length;
+        var startIndex = maxItems * this.props.grigPage;
+        var maxIndex = startIndex + maxItems - 1;
+        maxIndex = maxIndex >= countItems ? countItems - 1 : maxIndex;
+        if (maxIndex < startIndex) {
+            return [];
+        }
+        var camArr = cams.filter(function (item, i) {
+            var status;
+            if (i < startIndex || i > maxIndex) {
+                status = false;
+            }
+            else {
+                status = true;
+            }
+            i++;
+            return status;
+        });
+        return camArr;
+    };
+    Grid.prototype.camtoCamMayBeActive = function (cams) {
+        var _this = this;
+        return cams.map(function (item, i) {
+            return __assign({}, item, { active: i === _this.props.gridActiveItemPosition });
+        });
+    };
+    Grid.prototype.key = function (e) {
+        var key = e.key;
+        if (isNumber(key)) {
+            this.props.changeStateCams({
+                gridMaxItems: Number(key)
+            });
+        }
+        function isNumber(key) {
+            var number = Number(key);
+            if (number === number) {
+                return true;
+            }
+            else {
+                return false;
+            }
+        }
+    };
+    Grid.prototype.setRef = function (ref) {
+        this.ref = ref;
+    };
+    Grid.prototype.componentDidMount = function () {
+        this.ref.focus();
+        if (this.props.items.length > 0) {
+            return;
+        }
+        this.props.changeStateCams({
+            gridLoading: true
+        });
+        this.props.loadCamItems();
+    };
+    return Grid;
+}(React.Component));
+exports["default"] = react_redux_1.connect(function (state) { return state.cams; }, function (disptach) {
+    return redux_1.bindActionCreators({
+        changeStateCams: cam_1.changeStateCams,
+        loadCamItems: cam_1.loadCamItems
+    }, disptach);
+})(Grid);
+
+
+/***/ }),
+/* 43 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+exports.__esModule = true;
+var style_1 = __webpack_require__(4);
+exports.gridStyle = {
+    top: "100px",
+    left: "0px",
+    right: "0px",
+    bottom: "0px",
+    position: "absolute",
+    background: "#212121"
+};
+exports.noItemsMessageStyle = {
+    color: style_1.color2,
+    fontFamily: style_1.fontFamily1,
+    fontSize: style_1.fontSize1,
+    position: "relative",
+    top: "20px",
+    left: "100px"
+};
+exports.loadingStyle = {
+    position: "relative",
+    display: "block",
+    margin: "auto",
+    top: "35%"
+};
+
+
+/***/ }),
+/* 44 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+var __extends = (this && this.__extends) || (function () {
+    var extendStatics = function (d, b) {
+        extendStatics = Object.setPrototypeOf ||
+            ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+            function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+        return extendStatics(d, b);
+    };
+    return function (d, b) {
+        extendStatics(d, b);
+        function __() { this.constructor = d; }
+        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+    };
+})();
+exports.__esModule = true;
+var React = __webpack_require__(0);
+var CamItem_1 = __webpack_require__(45);
 var Rows = /** @class */ (function (_super) {
     __extends(Rows, _super);
     function Rows() {
@@ -5137,9 +5300,7 @@ var Rows = /** @class */ (function (_super) {
     }
     Rows.prototype.render = function () {
         var _this = this;
-        var i = 0;
-        console.log(this.props.rows);
-        var rows = this.props.rows.map(function (item) {
+        var rows = this.props.rows.map(function (item, i) {
             i++;
             return _this.createRow("rowsId" + i, item, _this.props.rows.length);
         });
@@ -5151,10 +5312,9 @@ var Rows = /** @class */ (function (_super) {
         var _this = this;
         var height = Math.round(100 / rowsCount) + "%";
         var style = { height: height, position: "relative" };
-        var i = -1;
-        var items = row.map(function (item) {
+        var items = row.map(function (item, i) {
             i++;
-            return _this.createItem(item, i, row.length, key);
+            return _this.createItem(item, i - 1, row.length, key);
         });
         return (React.createElement("div", { style: style, key: key }, items));
     };
@@ -5171,30 +5331,276 @@ var Rows = /** @class */ (function (_super) {
             position: "absolute"
         };
         return (React.createElement("div", { style: style, key: keyPrefix + "_camItem_" + position },
-            React.createElement(CamItem, { cam: cam })));
+            React.createElement(CamItem_1.CamItem, { cam: cam })));
     };
     return Rows;
 }(React.Component));
 exports.Rows = Rows;
+
+
+/***/ }),
+/* 45 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+var __extends = (this && this.__extends) || (function () {
+    var extendStatics = function (d, b) {
+        extendStatics = Object.setPrototypeOf ||
+            ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+            function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+        return extendStatics(d, b);
+    };
+    return function (d, b) {
+        extendStatics(d, b);
+        function __() { this.constructor = d; }
+        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+    };
+})();
+exports.__esModule = true;
+var React = __webpack_require__(0);
+var CamBody_1 = __webpack_require__(46);
+var style_1 = __webpack_require__(12);
 var CamItem = /** @class */ (function (_super) {
     __extends(CamItem, _super);
     function CamItem() {
         return _super !== null && _super.apply(this, arguments) || this;
     }
     CamItem.prototype.render = function () {
-        var style = {
-            background: "blue",
-            border: "5px solid black",
-            top: "10px",
-            left: "10px",
-            right: "10px",
-            bottom: "10px",
-            position: "absolute"
-        };
-        return React.createElement("div", { style: style }, "item");
+        var style = this.props.cam.active ? style_1.camItemActiveStyle : style_1.camItemStyle;
+        var _nameStyle = this.props.cam.active ? style_1.nameActiveStyle : style_1.nameStyle;
+        return (React.createElement("div", { style: style },
+            React.createElement(CamBody_1["default"], { cam: this.props.cam }),
+            React.createElement("p", { style: _nameStyle }, this.props.cam.Name)));
     };
     return CamItem;
 }(React.Component));
+exports.CamItem = CamItem;
+
+
+/***/ }),
+/* 46 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+var __extends = (this && this.__extends) || (function () {
+    var extendStatics = function (d, b) {
+        extendStatics = Object.setPrototypeOf ||
+            ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+            function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+        return extendStatics(d, b);
+    };
+    return function (d, b) {
+        extendStatics(d, b);
+        function __() { this.constructor = d; }
+        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+    };
+})();
+var __assign = (this && this.__assign) || function () {
+    __assign = Object.assign || function(t) {
+        for (var s, i = 1, n = arguments.length; i < n; i++) {
+            s = arguments[i];
+            for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p))
+                t[p] = s[p];
+        }
+        return t;
+    };
+    return __assign.apply(this, arguments);
+};
+var __generator = (this && this.__generator) || function (thisArg, body) {
+    var _ = { label: 0, sent: function() { if (t[0] & 1) throw t[1]; return t[1]; }, trys: [], ops: [] }, f, y, t, g;
+    return g = { next: verb(0), "throw": verb(1), "return": verb(2) }, typeof Symbol === "function" && (g[Symbol.iterator] = function() { return this; }), g;
+    function verb(n) { return function (v) { return step([n, v]); }; }
+    function step(op) {
+        if (f) throw new TypeError("Generator is already executing.");
+        while (_) try {
+            if (f = 1, y && (t = op[0] & 2 ? y["return"] : op[0] ? y["throw"] || ((t = y["return"]) && t.call(y), 0) : y.next) && !(t = t.call(y, op[1])).done) return t;
+            if (y = 0, t) op = [op[0] & 2, t.value];
+            switch (op[0]) {
+                case 0: case 1: t = op; break;
+                case 4: _.label++; return { value: op[1], done: false };
+                case 5: _.label++; y = op[1]; op = [0]; continue;
+                case 7: op = _.ops.pop(); _.trys.pop(); continue;
+                default:
+                    if (!(t = _.trys, t = t.length > 0 && t[t.length - 1]) && (op[0] === 6 || op[0] === 2)) { _ = 0; continue; }
+                    if (op[0] === 3 && (!t || (op[1] > t[0] && op[1] < t[3]))) { _.label = op[1]; break; }
+                    if (op[0] === 6 && _.label < t[1]) { _.label = t[1]; t = op; break; }
+                    if (t && _.label < t[2]) { _.label = t[2]; _.ops.push(op); break; }
+                    if (t[2]) _.ops.pop();
+                    _.trys.pop(); continue;
+            }
+            op = body.call(thisArg, _);
+        } catch (e) { op = [6, e]; y = 0; } finally { f = t = 0; }
+        if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
+    }
+};
+var __read = (this && this.__read) || function (o, n) {
+    var m = typeof Symbol === "function" && o[Symbol.iterator];
+    if (!m) return o;
+    var i = m.call(o), r, ar = [], e;
+    try {
+        while ((n === void 0 || n-- > 0) && !(r = i.next()).done) ar.push(r.value);
+    }
+    catch (error) { e = { error: error }; }
+    finally {
+        try {
+            if (r && !r.done && (m = i["return"])) m.call(i);
+        }
+        finally { if (e) throw e.error; }
+    }
+    return ar;
+};
+exports.__esModule = true;
+var React = __webpack_require__(0);
+var style_1 = __webpack_require__(12);
+var utilites_1 = __webpack_require__(8);
+var HTTP_1 = __webpack_require__(9);
+var react_redux_1 = __webpack_require__(2);
+var CamBody = /** @class */ (function (_super) {
+    __extends(CamBody, _super);
+    function CamBody(props) {
+        var _this = _super.call(this, props) || this;
+        _this.mount = false;
+        _this.state = {
+            imgUrl: ""
+        };
+        return _this;
+    }
+    CamBody.prototype.render = function () {
+        return React.createElement("div", { style: style_1.camBodyStyle }, this.getImg());
+    };
+    CamBody.prototype.getImg = function () {
+        var _a;
+        var display1 = "none";
+        var display2 = "block";
+        if (this.state.imgUrl) {
+            _a = __read([display2, display1], 2), display1 = _a[0], display2 = _a[1];
+        }
+        var loadingUrl = this.props.cam.active
+            ? "./../forpost-app/img/loading_2.gif"
+            : "./../forpost-app/img/loading_1.gif";
+        return (React.createElement("div", { style: style_1.imgWrapStyle },
+            React.createElement("img", { style: __assign({}, style_1.imgCamStyle, { display: display1 }), src: this.state.imgUrl }),
+            React.createElement("img", { style: __assign({}, style_1.imgLoadingStyle, { display: display2 }), src: loadingUrl })));
+    };
+    CamBody.prototype.componentDidMount = function () {
+        var self = this;
+        self.mount = true;
+        self.generator = new utilites_1.SelfGuidedGenerator(function (generator) {
+            var data;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0: return [4 /*yield*/, HTTP_1.httpGetTranslation(self.props.SessionID, self.props.cam.CameraID, "JPG", generator.next.bind(generator))];
+                    case 1:
+                        data = _a.sent();
+                        return [4 /*yield*/, utilites_1.delay(1000, generator.next.bind(generator))];
+                    case 2:
+                        _a.sent();
+                        self.setState(__assign({}, self.state, { imgUrl: data.URL }));
+                        _a.label = 3;
+                    case 3:
+                        if (!self.mount) return [3 /*break*/, 5];
+                        return [4 /*yield*/, utilites_1.delay(1000, generator.next.bind(generator))];
+                    case 4:
+                        _a.sent();
+                        self.setState(__assign({}, self.state, { imgUrl: data.URL + "?_" + Math.random() }));
+                        return [3 /*break*/, 3];
+                    case 5: return [2 /*return*/];
+                }
+            });
+        });
+    };
+    CamBody.prototype.componentWillUnmount = function () {
+        this.mount = false;
+        this.generator["return"]();
+    };
+    return CamBody;
+}(React.Component));
+exports["default"] = react_redux_1.connect(function (state) {
+    return {
+        SessionID: state.auth.SessionID
+    };
+})(CamBody);
+
+
+/***/ }),
+/* 47 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+exports.__esModule = true;
+var ACTION_TYPE_CONST_1 = __webpack_require__(5);
+exports.chageView = function (payload) { return ({
+    type: ACTION_TYPE_CONST_1.CHANGE_VIEW,
+    payload: payload
+}); };
+
+
+/***/ }),
+/* 48 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+var __generator = (this && this.__generator) || function (thisArg, body) {
+    var _ = { label: 0, sent: function() { if (t[0] & 1) throw t[1]; return t[1]; }, trys: [], ops: [] }, f, y, t, g;
+    return g = { next: verb(0), "throw": verb(1), "return": verb(2) }, typeof Symbol === "function" && (g[Symbol.iterator] = function() { return this; }), g;
+    function verb(n) { return function (v) { return step([n, v]); }; }
+    function step(op) {
+        if (f) throw new TypeError("Generator is already executing.");
+        while (_) try {
+            if (f = 1, y && (t = op[0] & 2 ? y["return"] : op[0] ? y["throw"] || ((t = y["return"]) && t.call(y), 0) : y.next) && !(t = t.call(y, op[1])).done) return t;
+            if (y = 0, t) op = [op[0] & 2, t.value];
+            switch (op[0]) {
+                case 0: case 1: t = op; break;
+                case 4: _.label++; return { value: op[1], done: false };
+                case 5: _.label++; y = op[1]; op = [0]; continue;
+                case 7: op = _.ops.pop(); _.trys.pop(); continue;
+                default:
+                    if (!(t = _.trys, t = t.length > 0 && t[t.length - 1]) && (op[0] === 6 || op[0] === 2)) { _ = 0; continue; }
+                    if (op[0] === 3 && (!t || (op[1] > t[0] && op[1] < t[3]))) { _.label = op[1]; break; }
+                    if (op[0] === 6 && _.label < t[1]) { _.label = t[1]; t = op; break; }
+                    if (t && _.label < t[2]) { _.label = t[2]; _.ops.push(op); break; }
+                    if (t[2]) _.ops.pop();
+                    _.trys.pop(); continue;
+            }
+            op = body.call(thisArg, _);
+        } catch (e) { op = [6, e]; y = 0; } finally { f = t = 0; }
+        if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
+    }
+};
+exports.__esModule = true;
+var ACTION_TYPE_CONST_1 = __webpack_require__(5);
+var utilites_1 = __webpack_require__(8);
+var HTTP_1 = __webpack_require__(9);
+exports.changeStateCams = function (payload) { return ({
+    type: ACTION_TYPE_CONST_1.CHANGE_CAMS_STATE,
+    payload: payload
+}); };
+exports.loadCamItems = function () { return function (dispatch, getState) {
+    new utilites_1.SelfGuidedGenerator(function (gen) {
+        var auth, items;
+        return __generator(this, function (_a) {
+            switch (_a.label) {
+                case 0:
+                    auth = getState().auth;
+                    if (!auth.SessionID) {
+                        return [2 /*return*/];
+                    }
+                    return [4 /*yield*/, HTTP_1.getCameras(auth.SessionID, gen.next.bind(gen))];
+                case 1:
+                    items = _a.sent();
+                    dispatch(exports.changeStateCams({
+                        gridLoading: false,
+                        items: items
+                    }));
+                    return [2 /*return*/];
+            }
+        });
+    });
+}; };
 
 
 /***/ })

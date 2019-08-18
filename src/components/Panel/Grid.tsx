@@ -1,19 +1,44 @@
 import * as React from "react";
 import { IstateCams, Istate, ICam } from "../../state/Istate";
 import { connect } from "react-redux";
-import { gridStyle } from "./style";
+import { gridStyle, noItemsMessageStyle, loadingStyle } from "./style";
 import { Rows } from "./Rows";
+import {
+  changeStateCams,
+  IChangeStateCamsActionCreator,
+  loadCamItems,
+  IloadCamItems
+} from "../../action/cam";
+import { bindActionCreators } from "redux";
 
 export interface ICamMayBeActive extends ICam {
   active: boolean;
 }
 
-type Props = IstateCams;
+type Props = IstateCams & IDispatchProps;
 class Grid extends React.Component<Props> {
+  private ref: HTMLElement;
   render() {
+    return (
+      <div
+        style={gridStyle}
+        onKeyDown={this.key.bind(this)}
+        ref={this.setRef.bind(this)}
+        tabIndex={0}
+      >
+        {this.renderLogic()}
+      </div>
+    );
+  }
+  renderLogic() {
+    if (this.props.gridLoading) {
+      return (
+        <img style={loadingStyle} src="./../forpost-app/img/loading_3.gif" />
+      );
+    }
     let cams = this.getcamArr();
     if (cams.length <= 0) {
-      return <div style={gridStyle}>Нет доступных видеокамер</div>;
+      return <p style={noItemsMessageStyle}>Нет доступных видеокамер!</p>;
     }
     let rows: ICamMayBeActive[][] = [];
 
@@ -30,11 +55,8 @@ class Grid extends React.Component<Props> {
     if (cams.length === 4) {
       rows = [[cams[0], cams[1]], [cams[2], cams[3]]];
     }
-    return (
-      <div style={gridStyle}>
-        <Rows rows={rows} />
-      </div>
-    );
+    console.log(rows);
+    return <Rows rows={rows} />;
   }
   getcamArr(): ICamMayBeActive[] {
     let cams = this.camtoCamMayBeActive(this.props.items);
@@ -46,8 +68,7 @@ class Grid extends React.Component<Props> {
     if (maxIndex < startIndex) {
       return [];
     }
-    var i = 0;
-    let camArr = cams.filter(item => {
+    let camArr = cams.filter((item, i) => {
       let status: boolean;
       if (i < startIndex || i > maxIndex) {
         status = false;
@@ -61,11 +82,55 @@ class Grid extends React.Component<Props> {
     return camArr;
   }
   camtoCamMayBeActive(cams: ICam[]): ICamMayBeActive[] {
-    let i = 0;
-    return cams.map(item => {
+    return cams.map((item, i) => {
       return { ...item, active: i === this.props.gridActiveItemPosition };
     });
   }
+  key(e: React.KeyboardEvent) {
+    const { key } = e;
+
+    if (isNumber(key)) {
+      this.props.changeStateCams({
+        gridMaxItems: Number(key)
+      });
+    }
+    function isNumber(key: string) {
+      let number = Number(key);
+      if (number === number) {
+        return true;
+      } else {
+        return false;
+      }
+    }
+  }
+  setRef(ref: HTMLElement) {
+    this.ref = ref;
+  }
+  componentDidMount() {
+    this.ref.focus();
+    if (this.props.items.length > 0) {
+      return;
+    }
+    this.props.changeStateCams({
+      gridLoading: true
+    });
+    this.props.loadCamItems();
+  }
 }
 
-export default connect<IstateCams>((state: Istate) => state.cams)(Grid);
+interface IDispatchProps {
+  changeStateCams: IChangeStateCamsActionCreator;
+  loadCamItems: IloadCamItems;
+}
+
+export default connect<IstateCams, IDispatchProps>(
+  (state: Istate) => state.cams,
+  disptach =>
+    bindActionCreators(
+      {
+        changeStateCams,
+        loadCamItems
+      },
+      disptach
+    )
+)(Grid);
