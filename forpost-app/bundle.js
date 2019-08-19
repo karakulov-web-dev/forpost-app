@@ -78,6 +78,7 @@ module.exports = React;
 exports.__esModule = true;
 exports.AUTH_ERROR = "AUTH_ERROR";
 exports.AUTH_SUCCESS = "AUTH_SUCCESS";
+exports.AUTH_LOADING = "AUTH_LOADING";
 exports.CHANGE_VIEW = "CHANGE_VIEW";
 exports.CHANGE_CAMS_STATE = "CHANGE_CAMS_STATE";
 
@@ -2119,7 +2120,8 @@ var defaultState = {
     password: "",
     save: false,
     error: "",
-    SessionID: ""
+    SessionID: "",
+    waitLoading: false
 };
 exports.auth = function (state, action) {
     if (state === void 0) { state = defaultState; }
@@ -2129,6 +2131,9 @@ exports.auth = function (state, action) {
     if (action.type === ACTION_TYPE_CONST_1.AUTH_SUCCESS) {
         return auth_success(state, __assign({}, action.payload));
     }
+    if (action.type === ACTION_TYPE_CONST_1.AUTH_LOADING) {
+        return auth_loading(state, action.payload);
+    }
     return state;
 };
 function auth_error(state, error) {
@@ -2136,6 +2141,9 @@ function auth_error(state, error) {
 }
 function auth_success(state, payload) {
     return __assign({}, state, payload, { error: "" });
+}
+function auth_loading(state, waitLoading) {
+    return __assign({}, state, { waitLoading: waitLoading });
 }
 
 
@@ -2298,36 +2306,59 @@ var LoginForm = /** @class */ (function (_super) {
         return _this;
     }
     LoginForm.prototype.render = function () {
+        /**
+      *
+      *   if (this.props.waitLoading) {
+          return <img src="./../forpost-app/img/loading_2.gif" />;
+        }
+    
+      *
+      *
+      */
         return (React.createElement("form", { style: style_1.loginFormStyle, onKeyDown: this.key.bind(this), onSubmit: this.submit.bind(this), ref: this.setRef.bind(this, "formRef") },
-            React.createElement("fieldset", null,
-                React.createElement("legend", null,
-                    React.createElement("h1", { style: { color: style_2.color1, fontSize: "45px" } }, "\u0412\u0445\u043E\u0434")),
-                React.createElement("div", null,
-                    React.createElement("label", { style: style_1.labelStyle },
-                        "\u041B\u043E\u0433\u0438\u043D:",
-                        React.createElement("input", { type: "text", style: this.mayBeFocusStyle(style_1.inputStyle, "loginRef"), ref: this.setRef.bind(this, "loginRef") }))),
-                React.createElement("div", null,
-                    React.createElement("label", { style: style_1.labelStyle },
-                        "\u041F\u0430\u0440\u043E\u043B\u044C:",
-                        React.createElement("input", { type: "password", style: this.mayBeFocusStyle(style_1.inputStyle, "passwordRef"), ref: this.setRef.bind(this, "passwordRef") }))),
-                React.createElement("div", null,
-                    React.createElement("label", { style: style_1.labelStyle },
-                        "\u0417\u0430\u043F\u043E\u043C\u043D\u0438\u0442\u044C:",
-                        React.createElement("img", { src: this.checkboxImgUrl(), style: this.mayBeFocusStyle({
-                                width: "30px",
-                                height: "30px",
-                                position: "absolute",
-                                left: "147px",
-                                top: "0px"
-                            }, "inputRef"), tabIndex: -1, ref: this.setRef.bind(this, "inputRef") }))),
-                React.createElement("div", null,
-                    React.createElement("label", { style: __assign({}, style_1.labelStyle, { top: "-10px" }) },
-                        React.createElement("input", { type: "submit", value: "\u0412\u043E\u0439\u0442\u0438", style: this.mayBeFocusStyle(style_1.inputStyle, "submitRef"), ref: this.setRef.bind(this, "submitRef") })))),
+            this.ifElseLoading(),
             React.createElement("p", { style: {
                     fontSize: style_1.fontSize1,
                     color: style_1.colorError,
                     fontFamily: style_1.fontFamily1
                 } }, this.props.error)));
+    };
+    LoginForm.prototype.ifElseLoading = function () {
+        if (this.props.waitLoading) {
+            return (React.createElement("img", { src: "./../forpost-app/img/loading_4.gif", style: {
+                    margin: "100px auto",
+                    display: "block"
+                } }));
+        }
+        else {
+            return this.fieldset();
+        }
+    };
+    LoginForm.prototype.fieldset = function () {
+        return (React.createElement("fieldset", null,
+            React.createElement("legend", null,
+                React.createElement("h1", { style: { color: style_2.color1, fontSize: "45px" } }, "\u0412\u0445\u043E\u0434")),
+            React.createElement("div", null,
+                React.createElement("label", { style: style_1.labelStyle },
+                    "\u041B\u043E\u0433\u0438\u043D:",
+                    React.createElement("input", { type: "text", style: this.mayBeFocusStyle(style_1.inputStyle, "loginRef"), ref: this.setRef.bind(this, "loginRef") }))),
+            React.createElement("div", null,
+                React.createElement("label", { style: style_1.labelStyle },
+                    "\u041F\u0430\u0440\u043E\u043B\u044C:",
+                    React.createElement("input", { type: "password", style: this.mayBeFocusStyle(style_1.inputStyle, "passwordRef"), ref: this.setRef.bind(this, "passwordRef") }))),
+            React.createElement("div", null,
+                React.createElement("label", { style: style_1.labelStyle },
+                    "\u0417\u0430\u043F\u043E\u043C\u043D\u0438\u0442\u044C:",
+                    React.createElement("img", { src: this.checkboxImgUrl(), style: this.mayBeFocusStyle({
+                            width: "30px",
+                            height: "30px",
+                            position: "absolute",
+                            left: "147px",
+                            top: "0px"
+                        }, "inputRef"), tabIndex: -1, ref: this.setRef.bind(this, "inputRef") }))),
+            React.createElement("div", null,
+                React.createElement("label", { style: __assign({}, style_1.labelStyle, { top: "-10px" }) },
+                    React.createElement("input", { type: "submit", value: "\u0412\u043E\u0439\u0442\u0438", style: this.mayBeFocusStyle(style_1.inputStyle, "submitRef"), ref: this.setRef.bind(this, "submitRef") })))));
     };
     LoginForm.prototype.setRef = function (name, elem) {
         this.refArrStore.push(elem);
@@ -2423,7 +2454,8 @@ var LoginForm = /** @class */ (function (_super) {
 }(React.Component));
 var LoginFormContainer = react_redux_1.connect(function (state) {
     return {
-        error: state.auth.error
+        error: state.auth.error,
+        waitLoading: state.auth.waitLoading
     };
 }, function (dispatch) {
     return redux_1.bindActionCreators({
@@ -2487,29 +2519,66 @@ var authSuccess = function (SessionID, login, password, save) {
         }
     };
 };
+var authLoading = function (payload) { return ({
+    type: "AUTH_LOADING",
+    payload: payload
+}); };
 exports.auth = function (login, password, save) { return function (dispath, getState) {
     new utilites_1.SelfGuidedGenerator(function (self) {
-        var data;
+        var data, profileJson;
         return __generator(this, function (_a) {
             switch (_a.label) {
                 case 0:
                     dispath(authError(""));
+                    dispath(authLoading(true));
                     return [4 /*yield*/, HTTP_1.httpAutReq(login, password, self.next.bind(self))];
                 case 1:
                     data = _a.sent();
+                    return [4 /*yield*/, utilites_1.delay(1000, self.next.bind(self))];
+                case 2:
+                    _a.sent();
+                    dispath(authLoading(false));
                     if (data.Error) {
                         dispath(authError(data.Error));
                         return [2 /*return*/];
                     }
                     dispath(authSuccess(data.SessionID, login, password, save));
                     dispath(app_1.chageView("/panel"));
+                    if (save) {
+                        profileJson = JSON.stringify({
+                            login: login,
+                            password: password
+                        });
+                        try {
+                            stb.RDir("setenv forpost_app_profile " + profileJson);
+                        }
+                        catch (e) {
+                            localStorage.setItem("forpost_app_profile", profileJson);
+                            console.log(e);
+                        }
+                    }
                     return [2 /*return*/];
             }
         });
     });
 }; };
 exports.tryAutoLogin = function () { return function (dispath, getState) {
-    dispath(exports.auth("s.karakulov", "123456", true));
+    var profile;
+    var profileJson;
+    try {
+        profileJson = stb.RDir("getenv forpost_app_profile");
+    }
+    catch (e) {
+        profileJson = localStorage.getItem("forpost_app_profile");
+        console.log(e);
+    }
+    if (profileJson) {
+        profile = JSON.parse(profileJson);
+    }
+    else {
+        return;
+    }
+    dispath(exports.auth(profile.login, profile.password, false));
 }; };
 
 
@@ -2667,7 +2736,6 @@ var Grid = /** @class */ (function (_super) {
         if (cams.length === 4) {
             rows = [[cams[0], cams[1]], [cams[2], cams[3]]];
         }
-        console.log(rows);
         return React.createElement(Rows_1.Rows, { rows: rows });
     };
     Grid.prototype.getcamArr = function () {

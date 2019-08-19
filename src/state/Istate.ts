@@ -13,6 +13,7 @@ export interface IstateAuth {
   save: boolean;
   error: string;
   SessionID: string;
+  waitLoading: boolean;
 }
 export interface IstateCams {
   items: ICam[];

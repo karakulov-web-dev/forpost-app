@@ -1,13 +1,18 @@
 import { IstateAuth } from "../state/Istate";
 import { IAuthAnyAction, IAuthSuccessPayload } from "../action/auth";
-import { AUTH_ERROR, AUTH_SUCCESS } from "../action/ACTION_TYPE_CONST";
+import {
+  AUTH_ERROR,
+  AUTH_SUCCESS,
+  AUTH_LOADING
+} from "../action/ACTION_TYPE_CONST";
 
 let defaultState: IstateAuth = {
   login: "",
   password: "",
   save: false,
   error: "",
-  SessionID: ""
+  SessionID: "",
+  waitLoading: false
 };
 export const auth = (
   state: IstateAuth = defaultState,
@@ -18,6 +23,9 @@ export const auth = (
   }
   if (action.type === AUTH_SUCCESS) {
     return auth_success(state, { ...action.payload });
+  }
+  if (action.type === AUTH_LOADING) {
+    return auth_loading(state, action.payload);
   }
   return state;
 };
@@ -34,4 +42,7 @@ function auth_success(
     ...payload,
     error: ""
   };
+}
+function auth_loading(state: IstateAuth, waitLoading: boolean) {
+  return { ...state, waitLoading };
 }

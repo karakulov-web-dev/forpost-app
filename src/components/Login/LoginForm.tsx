@@ -25,6 +25,7 @@ interface IRefStore {
 
 interface IProps {
   error: string;
+  waitLoading: boolean;
   submit: IAuthActionCreator;
   tryAutoLogin: ItryAutoLogin;
 }
@@ -34,6 +35,15 @@ class LoginForm extends React.Component<IProps> {
   refStore: IRefStore = {};
   saveFormCheckBoxStatus: boolean = false;
   render() {
+    /**
+  * 
+  *   if (this.props.waitLoading) {
+      return <img src="./../forpost-app/img/loading_2.gif" />;
+    }
+
+  * 
+  * 
+  */
     return (
       <form
         style={loginFormStyle}
@@ -41,61 +51,7 @@ class LoginForm extends React.Component<IProps> {
         onSubmit={this.submit.bind(this)}
         ref={this.setRef.bind(this, "formRef")}
       >
-        <fieldset>
-          <legend>
-            <h1 style={{ color: color1, fontSize: "45px" }}>Вход</h1>
-          </legend>
-          <div>
-            <label style={labelStyle}>
-              Логин:
-              <input
-                type="text"
-                style={this.mayBeFocusStyle(inputStyle, "loginRef")}
-                ref={this.setRef.bind(this, "loginRef")}
-              />
-            </label>
-          </div>
-          <div>
-            <label style={labelStyle}>
-              Пароль:
-              <input
-                type="password"
-                style={this.mayBeFocusStyle(inputStyle, "passwordRef")}
-                ref={this.setRef.bind(this, "passwordRef")}
-              />
-            </label>
-          </div>
-          <div>
-            <label style={labelStyle}>
-              Запомнить:
-              <img
-                src={this.checkboxImgUrl()}
-                style={this.mayBeFocusStyle(
-                  {
-                    width: "30px",
-                    height: "30px",
-                    position: "absolute",
-                    left: "147px",
-                    top: "0px"
-                  },
-                  "inputRef"
-                )}
-                tabIndex={-1}
-                ref={this.setRef.bind(this, "inputRef")}
-              />
-            </label>
-          </div>
-          <div>
-            <label style={{ ...labelStyle, top: "-10px" }}>
-              <input
-                type="submit"
-                value="Войти"
-                style={this.mayBeFocusStyle(inputStyle, "submitRef")}
-                ref={this.setRef.bind(this, "submitRef")}
-              />
-            </label>
-          </div>
-        </fieldset>
+        {this.ifElseLoading()}
         <p
           style={{
             fontSize: fontSize1,
@@ -106,6 +62,80 @@ class LoginForm extends React.Component<IProps> {
           {this.props.error}
         </p>
       </form>
+    );
+  }
+  ifElseLoading() {
+    if (this.props.waitLoading) {
+      return (
+        <img
+          src="./../forpost-app/img/loading_4.gif"
+          style={{
+            margin: "100px auto",
+            display: "block"
+          }}
+        />
+      );
+    } else {
+      return this.fieldset();
+    }
+  }
+  fieldset() {
+    return (
+      <fieldset>
+        <legend>
+          <h1 style={{ color: color1, fontSize: "45px" }}>Вход</h1>
+        </legend>
+        <div>
+          <label style={labelStyle}>
+            Логин:
+            <input
+              type="text"
+              style={this.mayBeFocusStyle(inputStyle, "loginRef")}
+              ref={this.setRef.bind(this, "loginRef")}
+            />
+          </label>
+        </div>
+        <div>
+          <label style={labelStyle}>
+            Пароль:
+            <input
+              type="password"
+              style={this.mayBeFocusStyle(inputStyle, "passwordRef")}
+              ref={this.setRef.bind(this, "passwordRef")}
+            />
+          </label>
+        </div>
+        <div>
+          <label style={labelStyle}>
+            Запомнить:
+            <img
+              src={this.checkboxImgUrl()}
+              style={this.mayBeFocusStyle(
+                {
+                  width: "30px",
+                  height: "30px",
+                  position: "absolute",
+                  left: "147px",
+                  top: "0px"
+                },
+                "inputRef"
+              )}
+              tabIndex={-1}
+              ref={this.setRef.bind(this, "inputRef")}
+            />
+          </label>
+        </div>
+        <div>
+          <label style={{ ...labelStyle, top: "-10px" }}>
+            <input
+              type="submit"
+              value="Войти"
+              style={this.mayBeFocusStyle(inputStyle, "submitRef")}
+              ref={this.setRef.bind(this, "submitRef")}
+            />
+          </label>
+        </div>
+      </fieldset>
     );
   }
   setRef(name: string, elem: HTMLElement) {
@@ -213,6 +243,7 @@ class LoginForm extends React.Component<IProps> {
 
 interface IStateProps {
   error: string;
+  waitLoading: boolean;
 }
 
 interface IDispatchProps {
@@ -223,7 +254,8 @@ interface IDispatchProps {
 const LoginFormContainer = connect<IStateProps, IDispatchProps>(
   (state: Istate) => {
     return {
-      error: state.auth.error
+      error: state.auth.error,
+      waitLoading: state.auth.waitLoading
     };
   },
   dispatch =>
