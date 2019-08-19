@@ -84,7 +84,7 @@ class CamBody extends React.Component<IProp, ICamBodyState> {
         ...self.state,
         imgUrl: data.URL
       });
-      while (self.mount) {
+      while (false) {
         yield delay(20000, generator.next.bind(generator));
         self.setState({
           ...self.state,

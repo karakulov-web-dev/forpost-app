@@ -2700,6 +2700,26 @@ var __assign = (this && this.__assign) || function () {
     };
     return __assign.apply(this, arguments);
 };
+var __read = (this && this.__read) || function (o, n) {
+    var m = typeof Symbol === "function" && o[Symbol.iterator];
+    if (!m) return o;
+    var i = m.call(o), r, ar = [], e;
+    try {
+        while ((n === void 0 || n-- > 0) && !(r = i.next()).done) ar.push(r.value);
+    }
+    catch (error) { e = { error: error }; }
+    finally {
+        try {
+            if (r && !r.done && (m = i["return"])) m.call(i);
+        }
+        finally { if (e) throw e.error; }
+    }
+    return ar;
+};
+var __spread = (this && this.__spread) || function () {
+    for (var ar = [], i = 0; i < arguments.length; i++) ar = ar.concat(__read(arguments[i]));
+    return ar;
+};
 exports.__esModule = true;
 var React = __webpack_require__(0);
 var react_redux_1 = __webpack_require__(4);
@@ -2716,6 +2736,7 @@ var Grid = /** @class */ (function (_super) {
         return (React.createElement("div", { style: style_1.gridStyle, onKeyDown: this.key.bind(this), ref: this.setRef.bind(this), tabIndex: 1 }, this.renderLogic()));
     };
     Grid.prototype.renderLogic = function () {
+        var _this = this;
         if (this.props.gridLoading) {
             return (React.createElement("img", { style: style_1.loadingStyle, src: "./../forpost-app/img/loading_3.gif" }));
         }
@@ -2723,20 +2744,20 @@ var Grid = /** @class */ (function (_super) {
         if (cams.length <= 0) {
             return React.createElement("p", { style: style_1.noItemsMessageStyle }, "\u041D\u0435\u0442 \u0434\u043E\u0441\u0442\u0443\u043F\u043D\u044B\u0445 \u0432\u0438\u0434\u0435\u043E\u043A\u0430\u043C\u0435\u0440!");
         }
-        var rows = [];
+        this.rows = [];
         var i = 0;
         cams.forEach(function (item) {
-            rows[i] = rows[i] || [];
-            if (rows[i].length > 2) {
+            _this.rows[i] = _this.rows[i] || [];
+            if (_this.rows[i].length > 2) {
                 i++;
-                rows[i] = rows[i] || [];
+                _this.rows[i] = _this.rows[i] || [];
             }
-            rows[i].push(item);
+            _this.rows[i].push(item);
         });
         if (cams.length === 4) {
-            rows = [[cams[0], cams[1]], [cams[2], cams[3]]];
+            this.rows = [[cams[0], cams[1]], [cams[2], cams[3]]];
         }
-        return React.createElement(Rows_1.Rows, { rows: rows });
+        return React.createElement(Rows_1.Rows, { rows: this.rows });
     };
     Grid.prototype.getcamArr = function () {
         var cams = this.camtoCamMayBeActive(this.props.items);
@@ -2769,7 +2790,20 @@ var Grid = /** @class */ (function (_super) {
     };
     Grid.prototype.key = function (e) {
         var key = e.key;
-        console.log(e.keyCode);
+        switch (key) {
+            case "ArrowRight":
+                this.changeActivePosition(1, 0);
+                break;
+            case "ArrowLeft":
+                this.changeActivePosition(-1, 0);
+                break;
+            case "ArrowUp":
+                this.changeActivePosition(0, -1);
+                break;
+            case "ArrowDown":
+                this.changeActivePosition(0, 1);
+                break;
+        }
         var numbersKeyMap = {
             "49": 1,
             "50": 2,
@@ -2783,9 +2817,33 @@ var Grid = /** @class */ (function (_super) {
         };
         if (typeof numbersKeyMap[String(e.keyCode)] !== "undefined") {
             this.props.changeStateCams({
-                gridMaxItems: numbersKeyMap[String(e.keyCode)]
+                gridMaxItems: numbersKeyMap[String(e.keyCode)],
+                gridActiveItemPosition: 0
             });
         }
+    };
+    Grid.prototype.changeActivePosition = function (x, y) {
+        var flatRowsArr = [].concat.apply([], __spread(this.rows));
+        var activeItem = flatRowsArr[this.props.gridActiveItemPosition];
+        var activeItemInRow = 0;
+        var activeRowIndex = this.rows.reduce(function (p, c, i, a) {
+            var activeItemIndex = c.indexOf(activeItem);
+            if (activeItemIndex !== -1) {
+                activeItemInRow = activeItemIndex;
+                return i;
+            }
+            else {
+                return p;
+            }
+        }, 0);
+        var newActiveItem = typeof this.rows[activeRowIndex + y] !== "undefined" &&
+            typeof this.rows[activeRowIndex + y][activeItemInRow + x] !== "undefined"
+            ? this.rows[activeRowIndex + y][activeItemInRow + x]
+            : activeItem;
+        var gridActiveItemPosition = flatRowsArr.indexOf(newActiveItem);
+        this.props.changeStateCams({
+            gridActiveItemPosition: gridActiveItemPosition
+        });
     };
     Grid.prototype.setRef = function (ref) {
         this.ref = ref;
@@ -3076,7 +3134,7 @@ var CamBody = /** @class */ (function (_super) {
                         self.setState(__assign({}, self.state, { imgUrl: data.URL }));
                         _a.label = 3;
                     case 3:
-                        if (!self.mount) return [3 /*break*/, 5];
+                        if (true) return [3 /*break*/, 5];
                         return [4 /*yield*/, utilites_1.delay(20000, generator.next.bind(generator))];
                     case 4:
                         _a.sent();

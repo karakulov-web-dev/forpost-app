@@ -17,6 +17,7 @@ export interface ICamMayBeActive extends ICam {
 
 type Props = IstateCams & IDispatchProps;
 class Grid extends React.Component<Props> {
+  private rows: ICamMayBeActive[][];
   private ref: HTMLElement;
   render() {
     return (
@@ -40,22 +41,22 @@ class Grid extends React.Component<Props> {
     if (cams.length <= 0) {
       return <p style={noItemsMessageStyle}>Нет доступных видеокамер!</p>;
     }
-    let rows: ICamMayBeActive[][] = [];
+    this.rows = [];
 
     let i = 0;
     cams.forEach(item => {
-      rows[i] = rows[i] || [];
-      if (rows[i].length > 2) {
+      this.rows[i] = this.rows[i] || [];
+      if (this.rows[i].length > 2) {
         i++;
-        rows[i] = rows[i] || [];
+        this.rows[i] = this.rows[i] || [];
       }
-      rows[i].push(item);
+      this.rows[i].push(item);
     });
 
     if (cams.length === 4) {
-      rows = [[cams[0], cams[1]], [cams[2], cams[3]]];
+      this.rows = [[cams[0], cams[1]], [cams[2], cams[3]]];
     }
-    return <Rows rows={rows} />;
+    return <Rows rows={this.rows} />;
   }
   getcamArr(): ICamMayBeActive[] {
     let cams = this.camtoCamMayBeActive(this.props.items);
@@ -88,7 +89,20 @@ class Grid extends React.Component<Props> {
   key(e: React.KeyboardEvent) {
     const { key } = e;
 
-    console.log(e.keyCode);
+    switch (key) {
+      case "ArrowRight":
+        this.changeActivePosition(1, 0);
+        break;
+      case "ArrowLeft":
+        this.changeActivePosition(-1, 0);
+        break;
+      case "ArrowUp":
+        this.changeActivePosition(0, -1);
+        break;
+      case "ArrowDown":
+        this.changeActivePosition(0, 1);
+        break;
+    }
 
     interface InumbersMap {
       [key: string]: number;
@@ -107,9 +121,35 @@ class Grid extends React.Component<Props> {
 
     if (typeof numbersKeyMap[String(e.keyCode)] !== "undefined") {
       this.props.changeStateCams({
-        gridMaxItems: numbersKeyMap[String(e.keyCode)]
+        gridMaxItems: numbersKeyMap[String(e.keyCode)],
+        gridActiveItemPosition: 0
       });
     }
+  }
+  changeActivePosition(x: number, y: number) {
+    let flatRowsArr = [].concat(...this.rows);
+    let activeItem = flatRowsArr[this.props.gridActiveItemPosition];
+    var activeItemInRow = 0;
+    let activeRowIndex = this.rows.reduce((p, c, i, a) => {
+      let activeItemIndex = c.indexOf(activeItem);
+      if (activeItemIndex !== -1) {
+        activeItemInRow = activeItemIndex;
+        return i;
+      } else {
+        return p;
+      }
+    }, 0);
+
+    let newActiveItem =
+      typeof this.rows[activeRowIndex + y] !== "undefined" &&
+      typeof this.rows[activeRowIndex + y][activeItemInRow + x] !== "undefined"
+        ? this.rows[activeRowIndex + y][activeItemInRow + x]
+        : activeItem;
+
+    let gridActiveItemPosition = flatRowsArr.indexOf(newActiveItem);
+    this.props.changeStateCams({
+      gridActiveItemPosition
+    });
   }
   setRef(ref: HTMLElement) {
     this.ref = ref;
