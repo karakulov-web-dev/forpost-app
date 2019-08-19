@@ -7,7 +7,7 @@ let defaultState: IstateAuth = {
   password: "",
   save: false,
   error: "",
-  SessionID: "ehfp50u4d04husbratlk9bsjf2"
+  SessionID: ""
 };
 export const auth = (
   state: IstateAuth = defaultState,

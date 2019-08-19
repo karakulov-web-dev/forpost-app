@@ -3,7 +3,7 @@ import { CHANGE_VIEW } from "../action/ACTION_TYPE_CONST";
 import { IAppAnyAction } from "../action/app";
 
 let defaultState: IstateApp = {
-  view: "/panel"
+  view: "/login"
 };
 
 export const app = (

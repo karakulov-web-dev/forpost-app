@@ -18,18 +18,15 @@ export const httpAutReq: IHttpAuthReq = (
   var data = `Login=${login}&Password=${password}`;
 
   var xhr = new XMLHttpRequest();
-  xhr.withCredentials = true;
+  xhr.open("POST", "http://cam.rikt.ru/api/login", true);
+  xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+  xhr.send(data);
 
   xhr.addEventListener("readystatechange", function() {
     if (xhr.readyState === 4) {
       cb(JSON.parse(xhr.responseText));
     }
   });
-
-  xhr.open("POST", "http://cam.rikt.ru/api/login", true);
-  xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-
-  xhr.send(data);
 };
 
 interface IHttpGetTranslation {
@@ -59,18 +56,17 @@ export const httpGetTranslation: IHttpGetTranslation = (
   var data = `SessionID=${SessionID}&CameraID=${CameraID}&Format=${Format}`;
 
   var xhr = new XMLHttpRequest();
-  xhr.withCredentials = true;
+
+  xhr.open("POST", "http://cam.rikt.ru/api/GetTranslationURL", true);
+  xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+
+  xhr.send(data);
 
   xhr.addEventListener("readystatechange", function() {
     if (xhr.readyState === 4) {
       cb(JSON.parse(xhr.responseText));
     }
   });
-
-  xhr.open("POST", "http://cam.rikt.ru/api/GetTranslationURL", true);
-  xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-
-  xhr.send(data);
 };
 
 interface IHttpStopTranslationCb {
@@ -84,17 +80,16 @@ export const httpStopTranslation: IHttpStopTranslation = (URL, cb) => {
   var data = "op=stop";
 
   var xhr = new XMLHttpRequest();
-  xhr.withCredentials = true;
+
+  xhr.open("POST", URL, true);
+  xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+  xhr.send(data);
 
   xhr.addEventListener("readystatechange", function() {
     if (xhr.readyState === 4) {
       cb();
     }
   });
-
-  xhr.open("POST", URL, true);
-  xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-  xhr.send(data);
 };
 
 interface IHttpGetCameras {
@@ -126,17 +121,13 @@ interface IGetCamerasItem {
 
 export const getCameras: IHttpGetCameras = (SessionID, cb) => {
   var data = `SessionID=${SessionID}`;
-
   var xhr = new XMLHttpRequest();
-  xhr.withCredentials = true;
-
+  xhr.open("POST", "http://cam.rikt.ru/api/GetCameras");
+  xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+  xhr.send(data);
   xhr.addEventListener("readystatechange", function() {
     if (xhr.readyState === 4) {
       cb(JSON.parse(xhr.responseText));
     }
   });
-
-  xhr.open("POST", "http://cam.rikt.ru/api/GetCameras");
-  xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-  xhr.send(data);
 };
