@@ -26,7 +26,8 @@ export const nameStyle: React.CSSProperties = {
   bottom: "0px",
   color: color2,
   fontSize: fontSize1,
-  fontFamily: fontFamily1
+  fontFamily: fontFamily1,
+  marginBottom: "15px"
 };
 
 export const nameActiveStyle: React.CSSProperties = {
@@ -39,7 +40,7 @@ export const camBodyStyle: React.CSSProperties = {
   top: "10px",
   left: "10px",
   right: "10px",
-  bottom: "85px"
+  bottom: "60px"
 };
 
 export const imgWrapStyle: React.CSSProperties = {

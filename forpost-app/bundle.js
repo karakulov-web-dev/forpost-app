@@ -1222,7 +1222,8 @@ exports.nameStyle = {
     bottom: "0px",
     color: exports.color2,
     fontSize: style_1.fontSize1,
-    fontFamily: style_1.fontFamily1
+    fontFamily: style_1.fontFamily1,
+    marginBottom: "15px"
 };
 exports.nameActiveStyle = __assign({}, exports.nameStyle, { color: style_1.color1 });
 exports.camBodyStyle = {
@@ -1230,7 +1231,7 @@ exports.camBodyStyle = {
     top: "10px",
     left: "10px",
     right: "10px",
-    bottom: "85px"
+    bottom: "60px"
 };
 exports.imgWrapStyle = {
     position: "absolute",
@@ -2416,6 +2417,7 @@ var LoginForm = /** @class */ (function (_super) {
     LoginForm.prototype.componentDidMount = function () {
         this.refArrStore[0].focus();
         this.setState({});
+        this.props.tryAutoLogin();
     };
     return LoginForm;
 }(React.Component));
@@ -2425,7 +2427,8 @@ var LoginFormContainer = react_redux_1.connect(function (state) {
     };
 }, function (dispatch) {
     return redux_1.bindActionCreators({
-        submit: auth_1.auth
+        submit: auth_1.auth,
+        tryAutoLogin: auth_1.tryAutoLogin
     }, dispatch);
 })(LoginForm);
 exports["default"] = LoginFormContainer;
@@ -2504,6 +2507,9 @@ exports.auth = function (login, password, save) { return function (dispath, getS
             }
         });
     });
+}; };
+exports.tryAutoLogin = function () { return function (dispath, getState) {
+    dispath(exports.auth("s.karakulov", "123456", true));
 }; };
 
 
@@ -2638,7 +2644,7 @@ var Grid = /** @class */ (function (_super) {
         return _super !== null && _super.apply(this, arguments) || this;
     }
     Grid.prototype.render = function () {
-        return (React.createElement("div", { style: style_1.gridStyle, onKeyDown: this.key.bind(this), ref: this.setRef.bind(this), tabIndex: 0 }, this.renderLogic()));
+        return (React.createElement("div", { style: style_1.gridStyle, onKeyDown: this.key.bind(this), ref: this.setRef.bind(this), tabIndex: 1 }, this.renderLogic()));
     };
     Grid.prototype.renderLogic = function () {
         if (this.props.gridLoading) {
@@ -2695,19 +2701,22 @@ var Grid = /** @class */ (function (_super) {
     };
     Grid.prototype.key = function (e) {
         var key = e.key;
-        if (isNumber(key)) {
+        console.log(e.keyCode);
+        var numbersKeyMap = {
+            "49": 1,
+            "50": 2,
+            "51": 3,
+            "52": 4,
+            "53": 5,
+            "54": 6,
+            "55": 7,
+            "56": 8,
+            "57": 9
+        };
+        if (typeof numbersKeyMap[String(e.keyCode)] !== "undefined") {
             this.props.changeStateCams({
-                gridMaxItems: Number(key)
+                gridMaxItems: numbersKeyMap[String(e.keyCode)]
             });
-        }
-        function isNumber(key) {
-            var number = Number(key);
-            if (number === number) {
-                return true;
-            }
-            else {
-                return false;
-            }
         }
     };
     Grid.prototype.setRef = function (ref) {
@@ -2747,7 +2756,9 @@ exports.gridStyle = {
     right: "0px",
     bottom: "0px",
     position: "absolute",
-    background: "#212121"
+    background: "#212121",
+    paddingLeft: "50px",
+    paddingRight: "50px"
 };
 exports.noItemsMessageStyle = {
     color: style_1.color2,
@@ -2964,6 +2975,9 @@ var CamBody = /** @class */ (function (_super) {
     CamBody.prototype.render = function () {
         return React.createElement("div", { style: style_1.camBodyStyle }, this.getImg());
     };
+    CamBody.prototype.setImgRef = function (elem) {
+        this.refImg = elem;
+    };
     CamBody.prototype.getImg = function () {
         var _a;
         var display1 = "none";
@@ -2975,7 +2989,7 @@ var CamBody = /** @class */ (function (_super) {
             ? "./../forpost-app/img/loading_2.gif"
             : "./../forpost-app/img/loading_1.gif";
         return (React.createElement("div", { style: style_1.imgWrapStyle },
-            React.createElement("img", { style: __assign({}, style_1.imgCamStyle, { display: display1 }), src: this.state.imgUrl }),
+            React.createElement("img", { style: __assign({}, style_1.imgCamStyle, { display: display1 }), src: this.state.imgUrl, ref: this.setImgRef.bind(this) }),
             React.createElement("img", { style: __assign({}, style_1.imgLoadingStyle, { display: display2 }), src: loadingUrl })));
     };
     CamBody.prototype.componentDidMount = function () {
@@ -2992,11 +3006,10 @@ var CamBody = /** @class */ (function (_super) {
                     case 2:
                         _a.sent();
                         self.setState(__assign({}, self.state, { imgUrl: data.URL }));
-                        console.log(data.URL);
                         _a.label = 3;
                     case 3:
                         if (!self.mount) return [3 /*break*/, 5];
-                        return [4 /*yield*/, utilites_1.delay(10000, generator.next.bind(generator))];
+                        return [4 /*yield*/, utilites_1.delay(20000, generator.next.bind(generator))];
                     case 4:
                         _a.sent();
                         self.setState(__assign({}, self.state, { imgUrl: data.URL + "?_" + Math.random() }));

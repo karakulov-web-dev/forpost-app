@@ -10,8 +10,13 @@ import {
 import { color1 } from "../style";
 import { connect } from "react-redux";
 import { Istate } from "../../state/Istate";
-import { bindActionCreators, Dispatch, ActionCreator } from "redux";
-import { auth, IAuthActionCreator } from "../../action/auth";
+import { bindActionCreators } from "redux";
+import {
+  auth,
+  IAuthActionCreator,
+  ItryAutoLogin,
+  tryAutoLogin
+} from "../../action/auth";
 declare const stb: any;
 
 interface IRefStore {
@@ -21,6 +26,7 @@ interface IRefStore {
 interface IProps {
   error: string;
   submit: IAuthActionCreator;
+  tryAutoLogin: ItryAutoLogin;
 }
 
 class LoginForm extends React.Component<IProps> {
@@ -201,6 +207,7 @@ class LoginForm extends React.Component<IProps> {
   componentDidMount() {
     this.refArrStore[0].focus();
     this.setState({});
+    this.props.tryAutoLogin();
   }
 }
 
@@ -210,6 +217,7 @@ interface IStateProps {
 
 interface IDispatchProps {
   submit: IAuthActionCreator;
+  tryAutoLogin: ItryAutoLogin;
 }
 
 const LoginFormContainer = connect<IStateProps, IDispatchProps>(
@@ -221,7 +229,8 @@ const LoginFormContainer = connect<IStateProps, IDispatchProps>(
   dispatch =>
     bindActionCreators(
       {
-        submit: auth
+        submit: auth,
+        tryAutoLogin
       },
       dispatch
     )

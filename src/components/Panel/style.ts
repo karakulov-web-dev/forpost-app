@@ -6,7 +6,9 @@ export const gridStyle: React.CSSProperties = {
   right: "0px",
   bottom: "0px",
   position: "absolute",
-  background: "#212121"
+  background: "#212121",
+  paddingLeft: "50px",
+  paddingRight: "50px"
 };
 
 export const noItemsMessageStyle: React.CSSProperties = {

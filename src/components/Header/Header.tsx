@@ -1,4 +1,4 @@
-import * as React from "React";
+import * as React from "react";
 import { headerStyle, logoStyle, nameAppStyle } from "./style";
 
 export default class Header extends React.Component {

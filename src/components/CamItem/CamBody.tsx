@@ -25,6 +25,7 @@ interface ICamBodyState {
 class CamBody extends React.Component<IProp, ICamBodyState> {
   private mount: boolean = false;
   private generator: SelfGuidedGenerator;
+  private refImg: HTMLImageElement;
   constructor(props: IProp) {
     super(props);
     this.state = {
@@ -33,6 +34,9 @@ class CamBody extends React.Component<IProp, ICamBodyState> {
   }
   render() {
     return <div style={camBodyStyle}>{this.getImg()}</div>;
+  }
+  setImgRef(elem: HTMLImageElement) {
+    this.refImg = elem;
   }
   getImg() {
     let display1 = "none";
@@ -53,6 +57,7 @@ class CamBody extends React.Component<IProp, ICamBodyState> {
             display: display1
           }}
           src={this.state.imgUrl}
+          ref={this.setImgRef.bind(this)}
         />
         <img
           style={{
@@ -80,7 +85,7 @@ class CamBody extends React.Component<IProp, ICamBodyState> {
         imgUrl: data.URL
       });
       while (self.mount) {
-        yield delay(1000, generator.next.bind(generator));
+        yield delay(20000, generator.next.bind(generator));
         self.setState({
           ...self.state,
           imgUrl: data.URL + "?_" + Math.random()

@@ -24,7 +24,7 @@ class Grid extends React.Component<Props> {
         style={gridStyle}
         onKeyDown={this.key.bind(this)}
         ref={this.setRef.bind(this)}
-        tabIndex={0}
+        tabIndex={1}
       >
         {this.renderLogic()}
       </div>
@@ -89,18 +89,27 @@ class Grid extends React.Component<Props> {
   key(e: React.KeyboardEvent) {
     const { key } = e;
 
-    if (isNumber(key)) {
-      this.props.changeStateCams({
-        gridMaxItems: Number(key)
-      });
+    console.log(e.keyCode);
+
+    interface InumbersMap {
+      [key: string]: number;
     }
-    function isNumber(key: string) {
-      let number = Number(key);
-      if (number === number) {
-        return true;
-      } else {
-        return false;
-      }
+    const numbersKeyMap: InumbersMap = {
+      "49": 1,
+      "50": 2,
+      "51": 3,
+      "52": 4,
+      "53": 5,
+      "54": 6,
+      "55": 7,
+      "56": 8,
+      "57": 9
+    };
+
+    if (typeof numbersKeyMap[String(e.keyCode)] !== "undefined") {
+      this.props.changeStateCams({
+        gridMaxItems: numbersKeyMap[String(e.keyCode)]
+      });
     }
   }
   setRef(ref: HTMLElement) {

@@ -72,3 +72,11 @@ export const auth: IAuthActionCreator = (login, password, save) => (
     dispath(chageView("/panel"));
   });
 };
+
+export interface ItryAutoLogin {
+  (): IAction;
+}
+
+export const tryAutoLogin: ItryAutoLogin = () => (dispath, getState) => {
+  dispath(auth("s.karakulov", "123456", true));
+};
