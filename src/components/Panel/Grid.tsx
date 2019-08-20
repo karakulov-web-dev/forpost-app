@@ -56,6 +56,11 @@ class Grid extends React.Component<Props> {
     if (cams.length === 4) {
       this.rows = [[cams[0], cams[1]], [cams[2], cams[3]]];
     }
+
+    if (cams.length === 3) {
+      this.rows = [[cams[0], cams[1]], [cams[2]]];
+    }
+
     return <Rows rows={this.rows} />;
   }
   getcamArr(): ICamMayBeActive[] {

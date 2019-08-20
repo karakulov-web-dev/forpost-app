@@ -26,6 +26,15 @@
     } catch (e) {
       console.log(e);
     }
+    try {
+      stb = stb ? stb : {}
+      stb.mac = stb.RDir("MACAddress").toLocaleLowerCase()
+      stb.__type__ = stb.mac.substring(0, 8) === "10:27:be" ? "tvip" : "mag"
+    } catch (e) {
+      stb.mac = "no mac on device"
+      stb.__type__ = "browser"
+      console.log(e)
+    }
       </script>
     <div id="reactRoot"></div>
     <!-- React Dependencies -->

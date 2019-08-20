@@ -10,6 +10,7 @@ import { SelfGuidedGenerator, delay } from "../../utilites";
 import { httpGetTranslation, IHttpGetTranslationResult } from "../../HTTP";
 import { connect } from "react-redux";
 import { Istate } from "../../state/Istate";
+declare var stb: any;
 
 type IProp = ICamBodyProps & IstateProp;
 interface IstateProp {
@@ -39,11 +40,11 @@ class CamBody extends React.Component<IProp, ICamBodyState> {
     this.refImg = elem;
   }
   getImg() {
-    let display1 = "none";
-    let display2 = "block";
+    let displayMedia = "none";
+    let displayLoading = "block";
 
     if (this.state.imgUrl) {
-      [display1, display2] = [display2, display1];
+      [displayMedia, displayLoading] = [displayLoading, displayMedia];
     }
     const loadingUrl = this.props.cam.active
       ? "./../forpost-app/img/loading_2.gif"
@@ -51,41 +52,69 @@ class CamBody extends React.Component<IProp, ICamBodyState> {
 
     return (
       <div style={imgWrapStyle}>
-        <img
-          style={{
-            ...imgCamStyle,
-            display: display1
-          }}
-          src={this.state.imgUrl}
-          ref={this.setImgRef.bind(this)}
-        />
+        {this.getMediaContent(displayMedia)}
         <img
           style={{
             ...imgLoadingStyle,
-            display: display2
+            display: displayLoading
           }}
           src={loadingUrl}
         />
       </div>
     );
   }
+  getMediaContent(display: string) {
+    if (stb.__type__ === "mag") {
+      return (
+        <img
+          style={{
+            ...imgCamStyle,
+            display: display
+          }}
+          src={this.state.imgUrl}
+          ref={this.setImgRef.bind(this)}
+        />
+      );
+    } else {
+      return (
+        <img
+          style={{
+            ...imgCamStyle,
+            display: display
+          }}
+          src={this.state.imgUrl}
+          ref={this.setImgRef.bind(this)}
+        />
+      );
+    }
+  }
   componentDidMount() {
     let self = this;
     self.mount = true;
     self.generator = new SelfGuidedGenerator(function*(generator) {
+      const mediaFormat = stb.__type__ === "mag" ? "JPG" : "JPG";
+
       let data: IHttpGetTranslationResult = yield httpGetTranslation(
         self.props.SessionID,
         self.props.cam.CameraID,
-        "JPG",
+        mediaFormat,
         generator.next.bind(generator)
       );
       yield delay(1000, generator.next.bind(generator));
+
+      let proxy =
+        stb.__type__ === "mag"
+          ? "http://212.77.128.203/nodejsapp/forpost-app-server-side/image?url="
+          : "";
+
+      data.URL = `${proxy}${data.URL}`;
       self.setState({
         ...self.state,
         imgUrl: data.URL
       });
-      while (false) {
-        yield delay(20000, generator.next.bind(generator));
+      while (self.mount) {
+        let delayTime = stb.__type__ === "mag" ? 5000 : 2500;
+        yield delay(delayTime, generator.next.bind(generator));
         self.setState({
           ...self.state,
           imgUrl: data.URL + "?_" + Math.random()

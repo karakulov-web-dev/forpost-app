@@ -2,10 +2,13 @@ import { IstateCams } from "../state/Istate";
 import { ICamsAnyAction, ICamsChangeStateAction } from "../action/cam";
 import { CHANGE_CAMS_STATE } from "../action/ACTION_TYPE_CONST";
 
+declare var stb: any;
+const gridMaxItems = stb.__type__ === "mag" ? 3 : 5;
+
 const defaultState: IstateCams = {
   items: [],
   gridActiveItemPosition: 0,
-  gridMaxItems: 5,
+  gridMaxItems,
   grigPage: 0,
   gridLoading: false
 };

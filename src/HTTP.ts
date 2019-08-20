@@ -1,3 +1,10 @@
+declare var stb: any;
+
+let apiHost =
+  stb.__type__ === "mag"
+    ? "http://212.77.128.203/nodejsapp/cam-rikt-ru"
+    : "http://cam.rikt.ru";
+
 interface IHttpAuthReq {
   (login: string, password: string, cb: IHttpAuthCb): void;
 }
@@ -18,7 +25,7 @@ export const httpAutReq: IHttpAuthReq = (
   var data = `Login=${login}&Password=${password}`;
 
   var xhr = new XMLHttpRequest();
-  xhr.open("POST", "http://cam.rikt.ru/api/login", true);
+  xhr.open("POST", `${apiHost}/api/login`, true);
   xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
   xhr.send(data);
 
@@ -57,7 +64,7 @@ export const httpGetTranslation: IHttpGetTranslation = (
 
   var xhr = new XMLHttpRequest();
 
-  xhr.open("POST", "http://cam.rikt.ru/api/GetTranslationURL", true);
+  xhr.open("POST", `${apiHost}/api/GetTranslationURL`, true);
   xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
 
   xhr.send(data);
@@ -122,7 +129,7 @@ interface IGetCamerasItem {
 export const getCameras: IHttpGetCameras = (SessionID, cb) => {
   var data = `SessionID=${SessionID}`;
   var xhr = new XMLHttpRequest();
-  xhr.open("POST", "http://cam.rikt.ru/api/GetCameras");
+  xhr.open("POST", `${apiHost}/api/GetCameras`);
   xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
   xhr.send(data);
   xhr.addEventListener("readystatechange", function() {

@@ -1028,10 +1028,13 @@ exports.delay = function (time, cb) {
 "use strict";
 
 exports.__esModule = true;
+var apiHost = stb.__type__ === "mag"
+    ? "http://212.77.128.203/nodejsapp/cam-rikt-ru"
+    : "http://cam.rikt.ru";
 exports.httpAutReq = function (login, password, cb) {
     var data = "Login=" + login + "&Password=" + password;
     var xhr = new XMLHttpRequest();
-    xhr.open("POST", "http://cam.rikt.ru/api/login", true);
+    xhr.open("POST", apiHost + "/api/login", true);
     xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
     xhr.send(data);
     xhr.addEventListener("readystatechange", function () {
@@ -1043,7 +1046,7 @@ exports.httpAutReq = function (login, password, cb) {
 exports.httpGetTranslation = function (SessionID, CameraID, Format, cb) {
     var data = "SessionID=" + SessionID + "&CameraID=" + CameraID + "&Format=" + Format;
     var xhr = new XMLHttpRequest();
-    xhr.open("POST", "http://cam.rikt.ru/api/GetTranslationURL", true);
+    xhr.open("POST", apiHost + "/api/GetTranslationURL", true);
     xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
     xhr.send(data);
     xhr.addEventListener("readystatechange", function () {
@@ -1067,7 +1070,7 @@ exports.httpStopTranslation = function (URL, cb) {
 exports.getCameras = function (SessionID, cb) {
     var data = "SessionID=" + SessionID;
     var xhr = new XMLHttpRequest();
-    xhr.open("POST", "http://cam.rikt.ru/api/GetCameras");
+    xhr.open("POST", apiHost + "/api/GetCameras");
     xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
     xhr.send(data);
     xhr.addEventListener("readystatechange", function () {
@@ -2166,10 +2169,11 @@ var __assign = (this && this.__assign) || function () {
 };
 exports.__esModule = true;
 var ACTION_TYPE_CONST_1 = __webpack_require__(1);
+var gridMaxItems = stb.__type__ === "mag" ? 3 : 5;
 var defaultState = {
     items: [],
     gridActiveItemPosition: 0,
-    gridMaxItems: 5,
+    gridMaxItems: gridMaxItems,
     grigPage: 0,
     gridLoading: false
 };
@@ -2757,6 +2761,9 @@ var Grid = /** @class */ (function (_super) {
         if (cams.length === 4) {
             this.rows = [[cams[0], cams[1]], [cams[2], cams[3]]];
         }
+        if (cams.length === 3) {
+            this.rows = [[cams[0], cams[1]], [cams[2]]];
+        }
         return React.createElement(Rows_1.Rows, { rows: this.rows });
     };
     Grid.prototype.getcamArr = function () {
@@ -3106,36 +3113,51 @@ var CamBody = /** @class */ (function (_super) {
     };
     CamBody.prototype.getImg = function () {
         var _a;
-        var display1 = "none";
-        var display2 = "block";
+        var displayMedia = "none";
+        var displayLoading = "block";
         if (this.state.imgUrl) {
-            _a = __read([display2, display1], 2), display1 = _a[0], display2 = _a[1];
+            _a = __read([displayLoading, displayMedia], 2), displayMedia = _a[0], displayLoading = _a[1];
         }
         var loadingUrl = this.props.cam.active
             ? "./../forpost-app/img/loading_2.gif"
             : "./../forpost-app/img/loading_1.gif";
         return (React.createElement("div", { style: style_1.imgWrapStyle },
-            React.createElement("img", { style: __assign({}, style_1.imgCamStyle, { display: display1 }), src: this.state.imgUrl, ref: this.setImgRef.bind(this) }),
-            React.createElement("img", { style: __assign({}, style_1.imgLoadingStyle, { display: display2 }), src: loadingUrl })));
+            this.getMediaContent(displayMedia),
+            React.createElement("img", { style: __assign({}, style_1.imgLoadingStyle, { display: displayLoading }), src: loadingUrl })));
+    };
+    CamBody.prototype.getMediaContent = function (display) {
+        if (stb.__type__ === "mag") {
+            return (React.createElement("img", { style: __assign({}, style_1.imgCamStyle, { display: display }), src: this.state.imgUrl, ref: this.setImgRef.bind(this) }));
+        }
+        else {
+            return (React.createElement("img", { style: __assign({}, style_1.imgCamStyle, { display: display }), src: this.state.imgUrl, ref: this.setImgRef.bind(this) }));
+        }
     };
     CamBody.prototype.componentDidMount = function () {
         var self = this;
         self.mount = true;
         self.generator = new utilites_1.SelfGuidedGenerator(function (generator) {
-            var data;
+            var mediaFormat, data, proxy, delayTime;
             return __generator(this, function (_a) {
                 switch (_a.label) {
-                    case 0: return [4 /*yield*/, HTTP_1.httpGetTranslation(self.props.SessionID, self.props.cam.CameraID, "JPG", generator.next.bind(generator))];
+                    case 0:
+                        mediaFormat = stb.__type__ === "mag" ? "JPG" : "JPG";
+                        return [4 /*yield*/, HTTP_1.httpGetTranslation(self.props.SessionID, self.props.cam.CameraID, mediaFormat, generator.next.bind(generator))];
                     case 1:
                         data = _a.sent();
                         return [4 /*yield*/, utilites_1.delay(1000, generator.next.bind(generator))];
                     case 2:
                         _a.sent();
+                        proxy = stb.__type__ === "mag"
+                            ? "http://212.77.128.203/nodejsapp/forpost-app-server-side/image?url="
+                            : "";
+                        data.URL = "" + proxy + data.URL;
                         self.setState(__assign({}, self.state, { imgUrl: data.URL }));
                         _a.label = 3;
                     case 3:
-                        if (true) return [3 /*break*/, 5];
-                        return [4 /*yield*/, utilites_1.delay(20000, generator.next.bind(generator))];
+                        if (!self.mount) return [3 /*break*/, 5];
+                        delayTime = stb.__type__ === "mag" ? 5000 : 2500;
+                        return [4 /*yield*/, utilites_1.delay(delayTime, generator.next.bind(generator))];
                     case 4:
                         _a.sent();
                         self.setState(__assign({}, self.state, { imgUrl: data.URL + "?_" + Math.random() }));
