@@ -1028,9 +1028,7 @@ exports.delay = function (time, cb) {
 "use strict";
 
 exports.__esModule = true;
-var apiHost = stb.__type__ === "mag"
-    ? "http://212.77.128.203/nodejsapp/cam-rikt-ru"
-    : "http://cam.rikt.ru";
+var apiHost = stb.__type__ === "mag" ? "http://cam.rikt.ru" : "http://cam.rikt.ru";
 exports.httpAutReq = function (login, password, cb) {
     var data = "Login=" + login + "&Password=" + password;
     var xhr = new XMLHttpRequest();
@@ -1068,7 +1066,7 @@ exports.httpStopTranslation = function (URL, cb) {
     });
 };
 exports.getCameras = function (SessionID, cb) {
-    var data = "SessionID=" + SessionID;
+    var data = "SessionID=" + SessionID + "&ActiveOnly=1";
     var xhr = new XMLHttpRequest();
     xhr.open("POST", apiHost + "/api/GetCameras");
     xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
@@ -1251,8 +1249,9 @@ exports.imgCamStyle = {
 };
 exports.imgLoadingStyle = {
     margin: "0 auto",
-    position: "relative",
-    top: "35%"
+    position: "absolute",
+    top: "35%",
+    left: "47%"
 };
 
 
@@ -1284,6 +1283,7 @@ var redux_thunk_1 = __webpack_require__(26);
 var root_1 = __webpack_require__(27);
 var Login_1 = __webpack_require__(31);
 var Panel_1 = __webpack_require__(36);
+var Player_1 = __webpack_require__(43);
 var global = window;
 var store = redux_1.createStore(root_1["default"], redux_1.applyMiddleware(redux_thunk_1["default"]));
 global["store"] = store;
@@ -1298,6 +1298,9 @@ var ViewWrap = /** @class */ (function (_super) {
         }
         else if (this.props.view === "/panel") {
             return React.createElement(Panel_1["default"], null);
+        }
+        else if (this.props.view === "/player") {
+            return React.createElement(Player_1["default"], null);
         }
     };
     return ViewWrap;
@@ -2169,7 +2172,7 @@ var __assign = (this && this.__assign) || function () {
 };
 exports.__esModule = true;
 var ACTION_TYPE_CONST_1 = __webpack_require__(1);
-var gridMaxItems = stb.__type__ === "mag" ? 3 : 5;
+var gridMaxItems = stb.__type__ === "mag" ? 3 : 3;
 var defaultState = {
     items: [],
     gridActiveItemPosition: 0,
@@ -2310,15 +2313,6 @@ var LoginForm = /** @class */ (function (_super) {
         return _this;
     }
     LoginForm.prototype.render = function () {
-        /**
-      *
-      *   if (this.props.waitLoading) {
-          return <img src="./../forpost-app/img/loading_2.gif" />;
-        }
-    
-      *
-      *
-      */
         return (React.createElement("form", { style: style_1.loginFormStyle, onKeyDown: this.key.bind(this), onSubmit: this.submit.bind(this), ref: this.setRef.bind(this, "formRef") },
             this.ifElseLoading(),
             React.createElement("p", { style: {
@@ -2704,6 +2698,33 @@ var __assign = (this && this.__assign) || function () {
     };
     return __assign.apply(this, arguments);
 };
+var __generator = (this && this.__generator) || function (thisArg, body) {
+    var _ = { label: 0, sent: function() { if (t[0] & 1) throw t[1]; return t[1]; }, trys: [], ops: [] }, f, y, t, g;
+    return g = { next: verb(0), "throw": verb(1), "return": verb(2) }, typeof Symbol === "function" && (g[Symbol.iterator] = function() { return this; }), g;
+    function verb(n) { return function (v) { return step([n, v]); }; }
+    function step(op) {
+        if (f) throw new TypeError("Generator is already executing.");
+        while (_) try {
+            if (f = 1, y && (t = op[0] & 2 ? y["return"] : op[0] ? y["throw"] || ((t = y["return"]) && t.call(y), 0) : y.next) && !(t = t.call(y, op[1])).done) return t;
+            if (y = 0, t) op = [op[0] & 2, t.value];
+            switch (op[0]) {
+                case 0: case 1: t = op; break;
+                case 4: _.label++; return { value: op[1], done: false };
+                case 5: _.label++; y = op[1]; op = [0]; continue;
+                case 7: op = _.ops.pop(); _.trys.pop(); continue;
+                default:
+                    if (!(t = _.trys, t = t.length > 0 && t[t.length - 1]) && (op[0] === 6 || op[0] === 2)) { _ = 0; continue; }
+                    if (op[0] === 3 && (!t || (op[1] > t[0] && op[1] < t[3]))) { _.label = op[1]; break; }
+                    if (op[0] === 6 && _.label < t[1]) { _.label = t[1]; t = op; break; }
+                    if (t && _.label < t[2]) { _.label = t[2]; _.ops.push(op); break; }
+                    if (t[2]) _.ops.pop();
+                    _.trys.pop(); continue;
+            }
+            op = body.call(thisArg, _);
+        } catch (e) { op = [6, e]; y = 0; } finally { f = t = 0; }
+        if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
+    }
+};
 var __read = (this && this.__read) || function (o, n) {
     var m = typeof Symbol === "function" && o[Symbol.iterator];
     if (!m) return o;
@@ -2731,13 +2752,17 @@ var style_1 = __webpack_require__(38);
 var Rows_1 = __webpack_require__(39);
 var cam_1 = __webpack_require__(42);
 var redux_1 = __webpack_require__(2);
+var utilites_1 = __webpack_require__(6);
 var Grid = /** @class */ (function (_super) {
     __extends(Grid, _super);
     function Grid() {
         return _super !== null && _super.apply(this, arguments) || this;
     }
     Grid.prototype.render = function () {
-        return (React.createElement("div", { style: style_1.gridStyle, onKeyDown: this.key.bind(this), ref: this.setRef.bind(this), tabIndex: 1 }, this.renderLogic()));
+        return (React.createElement("div", { style: style_1.gridStyle, onKeyDown: this.key.bind(this), ref: this.setRef.bind(this), tabIndex: 1 },
+            this.renderLogic(),
+            this.arrowR(),
+            this.arrowL()));
     };
     Grid.prototype.renderLogic = function () {
         var _this = this;
@@ -2767,7 +2792,7 @@ var Grid = /** @class */ (function (_super) {
         return React.createElement(Rows_1.Rows, { rows: this.rows });
     };
     Grid.prototype.getcamArr = function () {
-        var cams = this.camtoCamMayBeActive(this.props.items);
+        var cams = this.props.items;
         var maxItems = this.props.gridMaxItems;
         var countItems = cams.length;
         var startIndex = maxItems * this.props.grigPage;
@@ -2787,7 +2812,7 @@ var Grid = /** @class */ (function (_super) {
             i++;
             return status;
         });
-        return camArr;
+        return this.camtoCamMayBeActive(camArr);
     };
     Grid.prototype.camtoCamMayBeActive = function (cams) {
         var _this = this;
@@ -2822,10 +2847,28 @@ var Grid = /** @class */ (function (_super) {
             "56": 8,
             "57": 9
         };
-        if (typeof numbersKeyMap[String(e.keyCode)] !== "undefined") {
-            this.props.changeStateCams({
-                gridMaxItems: numbersKeyMap[String(e.keyCode)],
-                gridActiveItemPosition: 0
+        var num = numbersKeyMap[String(e.keyCode)];
+        if (typeof num !== "undefined") {
+            var self_1 = this;
+            new utilites_1.SelfGuidedGenerator(function (g) {
+                return __generator(this, function (_a) {
+                    switch (_a.label) {
+                        case 0:
+                            self_1.props.changeStateCams({
+                                gridLoading: true
+                            });
+                            return [4 /*yield*/, utilites_1.delay(200, g.next.bind(g))];
+                        case 1:
+                            _a.sent();
+                            self_1.props.changeStateCams({
+                                gridMaxItems: num,
+                                gridActiveItemPosition: 0,
+                                grigPage: 0,
+                                gridLoading: false
+                            });
+                            return [2 /*return*/];
+                    }
+                });
             });
         }
     };
@@ -2843,14 +2886,90 @@ var Grid = /** @class */ (function (_super) {
                 return p;
             }
         }, 0);
-        var newActiveItem = typeof this.rows[activeRowIndex + y] !== "undefined" &&
-            typeof this.rows[activeRowIndex + y][activeItemInRow + x] !== "undefined"
-            ? this.rows[activeRowIndex + y][activeItemInRow + x]
-            : activeItem;
+        var newRowType = typeof this.rows[activeRowIndex + y];
+        var newItemType = this.rows[activeRowIndex + y]
+            ? typeof this.rows[activeRowIndex + y][activeItemInRow + x]
+            : "undefined";
+        var newActiveItem;
+        if (newRowType !== "undefined" && newItemType !== "undefined") {
+            newActiveItem = this.rows[activeRowIndex + y][activeItemInRow + x];
+        }
+        else if (newRowType !== "undefined") {
+            if (y) {
+                newActiveItem = this.rows[activeRowIndex + y][this.rows[activeRowIndex + y].length - 1];
+            }
+            else {
+                newActiveItem = activeItem;
+            }
+        }
+        else {
+            newActiveItem = activeItem;
+        }
         var gridActiveItemPosition = flatRowsArr.indexOf(newActiveItem);
         this.props.changeStateCams({
             gridActiveItemPosition: gridActiveItemPosition
         });
+        if (this.props.gridActiveItemPosition === gridActiveItemPosition) {
+            this.changePage(x);
+        }
+    };
+    Grid.prototype.changePage = function (dif) {
+        if (!dif) {
+            return;
+        }
+        var self = this;
+        var grigPage = this.props.grigPage + dif;
+        if (!this.pageExist(grigPage)) {
+            return;
+        }
+        new utilites_1.SelfGuidedGenerator(function (g) {
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0:
+                        self.props.changeStateCams({
+                            gridLoading: true
+                        });
+                        return [4 /*yield*/, utilites_1.delay(200, g.next.bind(g))];
+                    case 1:
+                        _a.sent();
+                        self.props.changeStateCams({
+                            grigPage: grigPage,
+                            gridActiveItemPosition: 0,
+                            gridLoading: false
+                        });
+                        return [2 /*return*/];
+                }
+            });
+        });
+    };
+    Grid.prototype.pageExist = function (page) {
+        var startIndex = this.props.gridMaxItems * page;
+        if (typeof this.props.items[startIndex] === "undefined") {
+            return false;
+        }
+        else {
+            return true;
+        }
+    };
+    Grid.prototype.arrowR = function () {
+        if (this.pageExist(this.props.grigPage + 1)) {
+            return (React.createElement("img", { src: "./../forpost-app/img/arrow-r.png", alt: "arrowR", style: {
+                    display: "block",
+                    position: "absolute",
+                    right: "0px",
+                    top: "46%"
+                } }));
+        }
+    };
+    Grid.prototype.arrowL = function () {
+        if (this.pageExist(this.props.grigPage - 1)) {
+            return (React.createElement("img", { src: "./../forpost-app/img/arrow-l.png", alt: "arrowR", style: {
+                    display: "block",
+                    position: "absolute",
+                    left: "0px",
+                    top: "46%"
+                } }));
+        }
     };
     Grid.prototype.setRef = function (ref) {
         this.ref = ref;
@@ -2905,7 +3024,7 @@ exports.loadingStyle = {
     position: "relative",
     display: "block",
     margin: "auto",
-    top: "35%"
+    marginTop: "20%"
 };
 
 
@@ -3099,6 +3218,13 @@ var CamBody = /** @class */ (function (_super) {
     __extends(CamBody, _super);
     function CamBody(props) {
         var _this = _super.call(this, props) || this;
+        _this.contentCoords = {
+            width: 0,
+            height: 0,
+            left: 0,
+            top: 0
+        };
+        _this.stbPlay = false;
         _this.mount = false;
         _this.state = {
             imgUrl: ""
@@ -3137,7 +3263,7 @@ var CamBody = /** @class */ (function (_super) {
         var self = this;
         self.mount = true;
         self.generator = new utilites_1.SelfGuidedGenerator(function (generator) {
-            var mediaFormat, data, proxy, delayTime;
+            var mediaFormat, data, proxy, img, delayTime;
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0:
@@ -3145,31 +3271,101 @@ var CamBody = /** @class */ (function (_super) {
                         return [4 /*yield*/, HTTP_1.httpGetTranslation(self.props.SessionID, self.props.cam.CameraID, mediaFormat, generator.next.bind(generator))];
                     case 1:
                         data = _a.sent();
-                        return [4 /*yield*/, utilites_1.delay(1000, generator.next.bind(generator))];
-                    case 2:
-                        _a.sent();
-                        proxy = stb.__type__ === "mag"
-                            ? "http://212.77.128.203/nodejsapp/forpost-app-server-side/image?url="
-                            : "";
+                        proxy = stb.__type__ === "mag" ? "" : "";
                         data.URL = "" + proxy + data.URL;
-                        self.setState(__assign({}, self.state, { imgUrl: data.URL }));
-                        _a.label = 3;
+                        img = new Image();
+                        img.onload = function () {
+                            generator.next(true);
+                            img.onload = null;
+                        };
+                        img.src = data.URL;
+                        return [4 /*yield*/];
+                    case 2:
+                        _a.sent(); //---------------
+                        return [4 /*yield*/, utilites_1.delay(200, generator.next.bind(generator))];
                     case 3:
-                        if (!self.mount) return [3 /*break*/, 5];
+                        _a.sent();
+                        self.setState(__assign({}, self.state, { imgUrl: data.URL }));
+                        _a.label = 4;
+                    case 4:
+                        if (!self.mount) return [3 /*break*/, 6];
                         delayTime = stb.__type__ === "mag" ? 5000 : 2500;
                         return [4 /*yield*/, utilites_1.delay(delayTime, generator.next.bind(generator))];
-                    case 4:
+                    case 5:
                         _a.sent();
                         self.setState(__assign({}, self.state, { imgUrl: data.URL + "?_" + Math.random() }));
-                        return [3 /*break*/, 3];
-                    case 5: return [2 /*return*/];
+                        return [3 /*break*/, 4];
+                    case 6: return [2 /*return*/];
                 }
             });
         });
+        return;
+    };
+    CamBody.prototype.componentDidUpdate = function () {
+        var self = this;
+        if (!self.props.cam.active) {
+            self.stbPlay = false;
+            self.contentCoords = {
+                width: 0,
+                height: 0,
+                left: 0,
+                top: 0
+            };
+            return;
+        }
+        var coordImg = self.refImg.getBoundingClientRect();
+        var coord = self.contentCoords;
+        if (!(coordImg.height === coord.height &&
+            coordImg.width === coord.width &&
+            coordImg.top === coord.top &&
+            coordImg.left === coord.left)) {
+            self.contentCoords = coordImg;
+            coord = coordImg;
+            if (self.stbPlay) {
+                try {
+                    stb.SetViewport(coord.width * 1.5, coord.height * 1.5, coord.left * 1.5, coord.top * 1.5);
+                }
+                catch (e) {
+                    console.log(e);
+                }
+            }
+        }
+        if (!self.stbPlay && (stb.__type__ === "mag" || stb.__type__ === "tvip")) {
+            new utilites_1.SelfGuidedGenerator(function (g) {
+                var data;
+                return __generator(this, function (_a) {
+                    switch (_a.label) {
+                        case 0: return [4 /*yield*/, HTTP_1.httpGetTranslation(self.props.SessionID, self.props.cam.CameraID, "HLS", g.next.bind(g))];
+                        case 1:
+                            data = _a.sent();
+                            try {
+                                stb.SetTopWin(0);
+                                stb.SetViewport(coord.width * 1.5, coord.height * 1.5, coord.left * 1.5, coord.top * 1.5);
+                                stb.PlaySolution("auto", data.URL);
+                                stb.SetTopWin(1);
+                                self.stbPlay = true;
+                            }
+                            catch (e) {
+                                console.log(e);
+                            }
+                            return [2 /*return*/];
+                    }
+                });
+            });
+        }
     };
     CamBody.prototype.componentWillUnmount = function () {
         this.mount = false;
         this.generator["return"]();
+        if (this.props.cam.active) {
+            try {
+                stb.Stop();
+                stb.SetTopWin(0);
+            }
+            catch (e) {
+                console.log(e);
+            }
+        }
     };
     return CamBody;
 }(React.Component));
@@ -3243,6 +3439,40 @@ exports.loadCamItems = function () { return function (dispatch, getState) {
         });
     });
 }; };
+
+
+/***/ }),
+/* 43 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+var __extends = (this && this.__extends) || (function () {
+    var extendStatics = function (d, b) {
+        extendStatics = Object.setPrototypeOf ||
+            ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+            function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+        return extendStatics(d, b);
+    };
+    return function (d, b) {
+        extendStatics(d, b);
+        function __() { this.constructor = d; }
+        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+    };
+})();
+exports.__esModule = true;
+var React = __webpack_require__(0);
+var Player = /** @class */ (function (_super) {
+    __extends(Player, _super);
+    function Player() {
+        return _super !== null && _super.apply(this, arguments) || this;
+    }
+    Player.prototype.render = function () {
+        return React.createElement("div", null, "player");
+    };
+    return Player;
+}(React.Component));
+exports["default"] = Player;
 
 
 /***/ })

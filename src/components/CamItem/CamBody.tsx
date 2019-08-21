@@ -23,7 +23,21 @@ interface ICamBodyState {
   imgUrl: string;
 }
 
+interface ICoords {
+  width: number;
+  height: number;
+  left: number;
+  top: number;
+}
+
 class CamBody extends React.Component<IProp, ICamBodyState> {
+  private contentCoords: ICoords = {
+    width: 0,
+    height: 0,
+    left: 0,
+    top: 0
+  };
+  private stbPlay: boolean = false;
   private mount: boolean = false;
   private generator: SelfGuidedGenerator;
   private refImg: HTMLImageElement;
@@ -100,14 +114,21 @@ class CamBody extends React.Component<IProp, ICamBodyState> {
         mediaFormat,
         generator.next.bind(generator)
       );
-      yield delay(1000, generator.next.bind(generator));
 
-      let proxy =
-        stb.__type__ === "mag"
-          ? "http://212.77.128.203/nodejsapp/forpost-app-server-side/image?url="
-          : "";
+      let proxy = stb.__type__ === "mag" ? "" : "";
 
       data.URL = `${proxy}${data.URL}`;
+
+      let img = new Image();
+      img.onload = () => {
+        generator.next(true);
+        img.onload = null;
+      };
+      img.src = data.URL;
+      yield; //---------------
+
+      yield delay(200, generator.next.bind(generator));
+
       self.setState({
         ...self.state,
         imgUrl: data.URL
@@ -121,10 +142,83 @@ class CamBody extends React.Component<IProp, ICamBodyState> {
         });
       }
     });
+    return;
+  }
+  componentDidUpdate() {
+    const self = this;
+    if (!self.props.cam.active) {
+      self.stbPlay = false;
+      self.contentCoords = {
+        width: 0,
+        height: 0,
+        left: 0,
+        top: 0
+      };
+      return;
+    }
+    let coordImg: ICoords = self.refImg.getBoundingClientRect();
+    let coord: ICoords = self.contentCoords;
+
+    if (
+      !(
+        coordImg.height === coord.height &&
+        coordImg.width === coord.width &&
+        coordImg.top === coord.top &&
+        coordImg.left === coord.left
+      )
+    ) {
+      self.contentCoords = coordImg;
+      coord = coordImg;
+      if (self.stbPlay) {
+        try {
+          stb.SetViewport(
+            coord.width * 1.5,
+            coord.height * 1.5,
+            coord.left * 1.5,
+            coord.top * 1.5
+          );
+        } catch (e) {
+          console.log(e);
+        }
+      }
+    }
+
+    if (!self.stbPlay && (stb.__type__ === "mag" || stb.__type__ === "tvip")) {
+      new SelfGuidedGenerator(function*(g) {
+        let data: IHttpGetTranslationResult = yield httpGetTranslation(
+          self.props.SessionID,
+          self.props.cam.CameraID,
+          "HLS",
+          g.next.bind(g)
+        );
+        try {
+          stb.SetTopWin(0);
+          stb.SetViewport(
+            coord.width * 1.5,
+            coord.height * 1.5,
+            coord.left * 1.5,
+            coord.top * 1.5
+          );
+          stb.PlaySolution("auto", data.URL);
+          stb.SetTopWin(1);
+          self.stbPlay = true;
+        } catch (e) {
+          console.log(e);
+        }
+      });
+    }
   }
   componentWillUnmount() {
     this.mount = false;
     this.generator.return();
+    if (this.props.cam.active) {
+      try {
+        stb.Stop();
+        stb.SetTopWin(0);
+      } catch (e) {
+        console.log(e);
+      }
+    }
   }
 }
 

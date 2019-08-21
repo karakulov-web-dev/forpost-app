@@ -3,7 +3,7 @@ import { ICamsAnyAction, ICamsChangeStateAction } from "../action/cam";
 import { CHANGE_CAMS_STATE } from "../action/ACTION_TYPE_CONST";
 
 declare var stb: any;
-const gridMaxItems = stb.__type__ === "mag" ? 3 : 5;
+const gridMaxItems = stb.__type__ === "mag" ? 3 : 3;
 
 const defaultState: IstateCams = {
   items: [],

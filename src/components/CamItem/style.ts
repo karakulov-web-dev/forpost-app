@@ -59,6 +59,7 @@ export const imgCamStyle: React.CSSProperties = {
 
 export const imgLoadingStyle: React.CSSProperties = {
   margin: "0 auto",
-  position: "relative",
-  top: "35%"
+  position: "absolute",
+  top: "35%",
+  left: "47%"
 };

@@ -10,6 +10,7 @@ import {
   IloadCamItems
 } from "../../action/cam";
 import { bindActionCreators } from "redux";
+import { SelfGuidedGenerator, delay } from "../../utilites";
 
 export interface ICamMayBeActive extends ICam {
   active: boolean;
@@ -28,6 +29,8 @@ class Grid extends React.Component<Props> {
         tabIndex={1}
       >
         {this.renderLogic()}
+        {this.arrowR()}
+        {this.arrowL()}
       </div>
     );
   }
@@ -64,7 +67,7 @@ class Grid extends React.Component<Props> {
     return <Rows rows={this.rows} />;
   }
   getcamArr(): ICamMayBeActive[] {
-    let cams = this.camtoCamMayBeActive(this.props.items);
+    let cams = this.props.items;
     const maxItems = this.props.gridMaxItems;
     const countItems = cams.length;
     let startIndex = maxItems * this.props.grigPage;
@@ -83,8 +86,7 @@ class Grid extends React.Component<Props> {
       i++;
       return status;
     });
-
-    return camArr;
+    return this.camtoCamMayBeActive(camArr);
   }
   camtoCamMayBeActive(cams: ICam[]): ICamMayBeActive[] {
     return cams.map((item, i) => {
@@ -124,15 +126,26 @@ class Grid extends React.Component<Props> {
       "57": 9
     };
 
-    if (typeof numbersKeyMap[String(e.keyCode)] !== "undefined") {
-      this.props.changeStateCams({
-        gridMaxItems: numbersKeyMap[String(e.keyCode)],
-        gridActiveItemPosition: 0
+    const num = numbersKeyMap[String(e.keyCode)];
+
+    if (typeof num !== "undefined") {
+      const self = this;
+      new SelfGuidedGenerator(function*(g) {
+        self.props.changeStateCams({
+          gridLoading: true
+        });
+        yield delay(200, g.next.bind(g));
+        self.props.changeStateCams({
+          gridMaxItems: num,
+          gridActiveItemPosition: 0,
+          grigPage: 0,
+          gridLoading: false
+        });
       });
     }
   }
   changeActivePosition(x: number, y: number) {
-    let flatRowsArr = [].concat(...this.rows);
+    let flatRowsArr: ICamMayBeActive[] = [].concat(...this.rows);
     let activeItem = flatRowsArr[this.props.gridActiveItemPosition];
     var activeItemInRow = 0;
     let activeRowIndex = this.rows.reduce((p, c, i, a) => {
@@ -145,16 +158,98 @@ class Grid extends React.Component<Props> {
       }
     }, 0);
 
-    let newActiveItem =
-      typeof this.rows[activeRowIndex + y] !== "undefined" &&
-      typeof this.rows[activeRowIndex + y][activeItemInRow + x] !== "undefined"
-        ? this.rows[activeRowIndex + y][activeItemInRow + x]
-        : activeItem;
+    let newRowType = typeof this.rows[activeRowIndex + y];
+    let newItemType = this.rows[activeRowIndex + y]
+      ? typeof this.rows[activeRowIndex + y][activeItemInRow + x]
+      : "undefined";
+
+    let newActiveItem: ICamMayBeActive;
+    if (newRowType !== "undefined" && newItemType !== "undefined") {
+      newActiveItem = this.rows[activeRowIndex + y][activeItemInRow + x];
+    } else if (newRowType !== "undefined") {
+      if (y) {
+        newActiveItem = this.rows[activeRowIndex + y][
+          this.rows[activeRowIndex + y].length - 1
+        ];
+      } else {
+        newActiveItem = activeItem;
+      }
+    } else {
+      newActiveItem = activeItem;
+    }
 
     let gridActiveItemPosition = flatRowsArr.indexOf(newActiveItem);
+
     this.props.changeStateCams({
       gridActiveItemPosition
     });
+
+    if (this.props.gridActiveItemPosition === gridActiveItemPosition) {
+      this.changePage(x);
+    }
+  }
+  changePage(dif: number) {
+    if (!dif) {
+      return;
+    }
+    const self = this;
+    let grigPage = this.props.grigPage + dif;
+
+    if (!this.pageExist(grigPage)) {
+      return;
+    }
+
+    new SelfGuidedGenerator(function*(g) {
+      self.props.changeStateCams({
+        gridLoading: true
+      });
+      yield delay(200, g.next.bind(g));
+      self.props.changeStateCams({
+        grigPage,
+        gridActiveItemPosition: 0,
+        gridLoading: false
+      });
+    });
+  }
+  pageExist(page: number) {
+    let startIndex = this.props.gridMaxItems * page;
+    if (typeof this.props.items[startIndex] === "undefined") {
+      return false;
+    } else {
+      return true;
+    }
+  }
+  arrowR() {
+    if (this.pageExist(this.props.grigPage + 1)) {
+      return (
+        <img
+          src="./../forpost-app/img/arrow-r.png"
+          alt="arrowR"
+          style={{
+            display: "block",
+            position: "absolute",
+            right: "0px",
+            top: "46%"
+          }}
+        />
+      );
+    }
+  }
+  arrowL() {
+    if (this.pageExist(this.props.grigPage - 1)) {
+      return (
+        <img
+          src="./../forpost-app/img/arrow-l.png"
+          alt="arrowR"
+          style={{
+            display: "block",
+            position: "absolute",
+            left: "0px",
+            top: "46%"
+          }}
+        />
+      );
+    }
   }
   setRef(ref: HTMLElement) {
     this.ref = ref;

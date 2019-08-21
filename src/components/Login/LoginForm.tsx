@@ -35,15 +35,6 @@ class LoginForm extends React.Component<IProps> {
   refStore: IRefStore = {};
   saveFormCheckBoxStatus: boolean = false;
   render() {
-    /**
-  * 
-  *   if (this.props.waitLoading) {
-      return <img src="./../forpost-app/img/loading_2.gif" />;
-    }
-
-  * 
-  * 
-  */
     return (
       <form
         style={loginFormStyle}

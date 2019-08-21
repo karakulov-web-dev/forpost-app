@@ -17,6 +17,7 @@
       stb.SetVideoState(1);
       stb.SetTopWin(0);
       stb.SetVolume(100);
+      stb.SetPIG(-1, -1, -1, -1);
       var stbEvent = {
         onEvent: function (event) {},
         event: 0
@@ -44,7 +45,14 @@
     <script type="text/javascript" src="./libs/react.js"></script>
     <script type="text/javascript" src="./libs/react-dom.js"></script>
     <!--React Main -->
-    <script type="text/javascript" src="./bundle.js"></script>
+
+    <script type="text/javascript">
+      (function () {
+       var script = document.createElement("script")
+       script.src = "./bundle.js?="+ Math.random()
+       document.getElementsByTagName("body")[0].appendChild(script)
+      })()
+    </script>
    <!--- <script type="text/javascript" src="http://localhost:35729/livereload.js"></script> -->
   </body>
 </html>

@@ -24,5 +24,5 @@ export const loadingStyle: React.CSSProperties = {
   position: "relative",
   display: "block",
   margin: "auto",
-  top: "35%"
+  marginTop: "20%"
 };

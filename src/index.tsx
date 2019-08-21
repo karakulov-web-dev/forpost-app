@@ -7,6 +7,7 @@ import rootReducer from "./reducers/root";
 import { Istate, IViewName } from "./state/Istate";
 import Login from "./components/Login/Login";
 import Panel from "./components/Panel/Panel";
+import Player from "./components/Player/Player";
 
 const global: any = window;
 
@@ -23,6 +24,8 @@ class ViewWrap extends React.Component<Iprops> {
       return <Login />;
     } else if (this.props.view === "/panel") {
       return <Panel />;
+    } else if (this.props.view === "/player") {
+      return <Player />;
     }
   }
 }

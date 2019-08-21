@@ -1,9 +1,7 @@
 declare var stb: any;
 
 let apiHost =
-  stb.__type__ === "mag"
-    ? "http://212.77.128.203/nodejsapp/cam-rikt-ru"
-    : "http://cam.rikt.ru";
+  stb.__type__ === "mag" ? "http://cam.rikt.ru" : "http://cam.rikt.ru";
 
 interface IHttpAuthReq {
   (login: string, password: string, cb: IHttpAuthCb): void;
@@ -127,7 +125,7 @@ interface IGetCamerasItem {
 }
 
 export const getCameras: IHttpGetCameras = (SessionID, cb) => {
-  var data = `SessionID=${SessionID}`;
+  var data = `SessionID=${SessionID}&ActiveOnly=1`;
   var xhr = new XMLHttpRequest();
   xhr.open("POST", `${apiHost}/api/GetCameras`);
   xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
