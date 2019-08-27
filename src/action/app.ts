@@ -3,12 +3,16 @@ import { IViewName } from "../state/Istate";
 
 export type IAppAnyAction = IChangeView;
 
-interface IChangeView {
+export interface IChangeView {
   type: CHANGE_VIEW_TYPE;
   payload: IViewName;
 }
 
-export const chageView = (payload: IViewName): IChangeView => ({
+export interface IChangeViewCreater {
+  (payload: IViewName): IChangeView;
+}
+
+export const chageView: IChangeViewCreater = payload => ({
   type: CHANGE_VIEW,
   payload
 });

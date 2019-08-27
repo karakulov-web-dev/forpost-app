@@ -4,6 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <link rel="stylesheet" href="./app_aspect.css" />
     <title>Document</title>
   <body>
     <script type="text/javascript">
@@ -17,13 +18,23 @@
       stb.SetVideoState(1);
       stb.SetTopWin(0);
       stb.SetVolume(100);
-      stb.SetPIG(-1, -1, -1, -1);
       var stbEvent = {
-        onEvent: function (event) {},
+        onEvent: function (event) {
+          stb.__eventListeners.forEach(function (cb) {
+            cb(event)
+          })
+        },
         event: 0
       };
       stb.EnableServiceButton(false);
       stb.EnableVKButton(false);
+      stb.__eventListeners = []
+      stb.addEventListener = function (cb) {
+        stb.__eventListeners.push(cb)
+      } 
+      stb.rmEvenListener = function (cb) {
+        stb.__eventListeners.splice(stb.__eventListeners.indexOf(cb), 1)
+      }
     } catch (e) {
       console.log(e);
     }
@@ -38,6 +49,8 @@
     }
       </script>
     <div id="reactRoot"></div>
+    <div id="aspect"></div>
+    <script type="text/javascript" src="./aspectRatioManager.js"></script>
     <!-- React Dependencies -->
     <script type="text/javascript" src="./libs/es5-shim.min.js"></script>
     <script type="text/javascript" src="./libs/es5-sham.min.js"></script>

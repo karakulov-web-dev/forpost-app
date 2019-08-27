@@ -1,4 +1,10 @@
-import { fontSize1, fontFamily1, color1, color2 as _color2 } from "../style";
+import {
+  fontSize1,
+  fontFamily1,
+  color1,
+  color2 as _color2,
+  imgLoadingStyle as _imgLoadingStyle
+} from "../style";
 
 export const color2 = _color2;
 export const color3 = "#383838";
@@ -57,9 +63,4 @@ export const imgCamStyle: React.CSSProperties = {
   margin: "0 auto"
 };
 
-export const imgLoadingStyle: React.CSSProperties = {
-  margin: "0 auto",
-  position: "absolute",
-  top: "35%",
-  left: "47%"
-};
+export const imgLoadingStyle = _imgLoadingStyle;

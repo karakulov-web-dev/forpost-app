@@ -60,7 +60,7 @@
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 12);
+/******/ 	return __webpack_require__(__webpack_require__.s = 14);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -71,20 +71,6 @@ module.exports = React;
 
 /***/ }),
 /* 1 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-exports.__esModule = true;
-exports.AUTH_ERROR = "AUTH_ERROR";
-exports.AUTH_SUCCESS = "AUTH_SUCCESS";
-exports.AUTH_LOADING = "AUTH_LOADING";
-exports.CHANGE_VIEW = "CHANGE_VIEW";
-exports.CHANGE_CAMS_STATE = "CHANGE_CAMS_STATE";
-
-
-/***/ }),
-/* 2 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -95,7 +81,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "combineReducers", function() { return combineReducers; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "compose", function() { return compose; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "createStore", function() { return createStore; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_symbol_observable__ = __webpack_require__(20);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_symbol_observable__ = __webpack_require__(22);
 
 
 /**
@@ -758,7 +744,21 @@ if (process.env.NODE_ENV !== 'production' && typeof isCrushed.name === 'string' 
 
 
 
-/* WEBPACK VAR INJECTION */}.call(__webpack_exports__, __webpack_require__(5)))
+/* WEBPACK VAR INJECTION */}.call(__webpack_exports__, __webpack_require__(7)))
+
+/***/ }),
+/* 2 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+exports.__esModule = true;
+exports.AUTH_ERROR = "AUTH_ERROR";
+exports.AUTH_SUCCESS = "AUTH_SUCCESS";
+exports.AUTH_LOADING = "AUTH_LOADING";
+exports.CHANGE_VIEW = "CHANGE_VIEW";
+exports.CHANGE_CAMS_STATE = "CHANGE_CAMS_STATE";
+
 
 /***/ }),
 /* 3 */
@@ -777,6 +777,12 @@ exports.abstracktStyleFullWidhtElem = {
     left: "0px",
     right: "0px"
 };
+exports.imgLoadingStyle = {
+    margin: "0 auto",
+    position: "absolute",
+    top: "35%",
+    left: "47%"
+};
 
 
 /***/ }),
@@ -794,7 +800,7 @@ var _react = __webpack_require__(0);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _componentsCreateAll = __webpack_require__(14);
+var _componentsCreateAll = __webpack_require__(16);
 
 var _componentsCreateAll2 = _interopRequireDefault(_componentsCreateAll);
 
@@ -807,6 +813,90 @@ exports.connect = connect;
 
 /***/ }),
 /* 5 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+exports.__esModule = true;
+var SelfGuidedGenerator = /** @class */ (function () {
+    function SelfGuidedGenerator(generatorCreater) {
+        this.generator = generatorCreater(this);
+        this.generator.next();
+    }
+    SelfGuidedGenerator.prototype.next = function (arg) {
+        return this.generator.next(arg);
+    };
+    SelfGuidedGenerator.prototype["return"] = function (arg) {
+        return this.generator["return"](arg);
+    };
+    return SelfGuidedGenerator;
+}());
+exports.SelfGuidedGenerator = SelfGuidedGenerator;
+exports.delay = function (time, cb) {
+    setTimeout(cb, time);
+};
+
+
+/***/ }),
+/* 6 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+exports.__esModule = true;
+var apiHost = stb.__type__ === "mag" ? "http://cam.rikt.ru" : "http://cam.rikt.ru";
+exports.httpAutReq = function (login, password, cb) {
+    var data = "Login=" + login + "&Password=" + password;
+    var xhr = new XMLHttpRequest();
+    xhr.open("POST", apiHost + "/api/login", true);
+    xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+    xhr.send(data);
+    xhr.addEventListener("readystatechange", function () {
+        if (xhr.readyState === 4) {
+            cb(JSON.parse(xhr.responseText));
+        }
+    });
+};
+exports.httpGetTranslation = function (SessionID, CameraID, Format, cb) {
+    var data = "SessionID=" + SessionID + "&CameraID=" + CameraID + "&Format=" + Format;
+    var xhr = new XMLHttpRequest();
+    xhr.open("POST", apiHost + "/api/GetTranslationURL", true);
+    xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+    xhr.send(data);
+    xhr.addEventListener("readystatechange", function () {
+        if (xhr.readyState === 4) {
+            cb(JSON.parse(xhr.responseText));
+        }
+    });
+};
+exports.httpStopTranslation = function (URL, cb) {
+    var data = "op=stop";
+    var xhr = new XMLHttpRequest();
+    xhr.open("POST", URL, true);
+    xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+    xhr.send(data);
+    xhr.addEventListener("readystatechange", function () {
+        if (xhr.readyState === 4) {
+            cb();
+        }
+    });
+};
+exports.getCameras = function (SessionID, cb) {
+    var data = "SessionID=" + SessionID + "&ActiveOnly=1";
+    var xhr = new XMLHttpRequest();
+    xhr.open("POST", apiHost + "/api/GetCameras");
+    xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+    xhr.send(data);
+    xhr.addEventListener("readystatechange", function () {
+        if (xhr.readyState === 4) {
+            cb(JSON.parse(xhr.responseText));
+        }
+    });
+};
+
+
+/***/ }),
+/* 7 */
 /***/ (function(module, exports) {
 
 // shim for using process in browser
@@ -996,91 +1086,71 @@ process.umask = function() { return 0; };
 
 
 /***/ }),
-/* 6 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-exports.__esModule = true;
-var SelfGuidedGenerator = /** @class */ (function () {
-    function SelfGuidedGenerator(generatorCreater) {
-        this.generator = generatorCreater(this);
-        this.generator.next();
-    }
-    SelfGuidedGenerator.prototype.next = function (arg) {
-        return this.generator.next(arg);
-    };
-    SelfGuidedGenerator.prototype["return"] = function (arg) {
-        return this.generator["return"](arg);
-    };
-    return SelfGuidedGenerator;
-}());
-exports.SelfGuidedGenerator = SelfGuidedGenerator;
-exports.delay = function (time, cb) {
-    setTimeout(cb, time);
-};
-
-
-/***/ }),
-/* 7 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-exports.__esModule = true;
-var apiHost = stb.__type__ === "mag" ? "http://cam.rikt.ru" : "http://cam.rikt.ru";
-exports.httpAutReq = function (login, password, cb) {
-    var data = "Login=" + login + "&Password=" + password;
-    var xhr = new XMLHttpRequest();
-    xhr.open("POST", apiHost + "/api/login", true);
-    xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-    xhr.send(data);
-    xhr.addEventListener("readystatechange", function () {
-        if (xhr.readyState === 4) {
-            cb(JSON.parse(xhr.responseText));
-        }
-    });
-};
-exports.httpGetTranslation = function (SessionID, CameraID, Format, cb) {
-    var data = "SessionID=" + SessionID + "&CameraID=" + CameraID + "&Format=" + Format;
-    var xhr = new XMLHttpRequest();
-    xhr.open("POST", apiHost + "/api/GetTranslationURL", true);
-    xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-    xhr.send(data);
-    xhr.addEventListener("readystatechange", function () {
-        if (xhr.readyState === 4) {
-            cb(JSON.parse(xhr.responseText));
-        }
-    });
-};
-exports.httpStopTranslation = function (URL, cb) {
-    var data = "op=stop";
-    var xhr = new XMLHttpRequest();
-    xhr.open("POST", URL, true);
-    xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-    xhr.send(data);
-    xhr.addEventListener("readystatechange", function () {
-        if (xhr.readyState === 4) {
-            cb();
-        }
-    });
-};
-exports.getCameras = function (SessionID, cb) {
-    var data = "SessionID=" + SessionID + "&ActiveOnly=1";
-    var xhr = new XMLHttpRequest();
-    xhr.open("POST", apiHost + "/api/GetCameras");
-    xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-    xhr.send(data);
-    xhr.addEventListener("readystatechange", function () {
-        if (xhr.readyState === 4) {
-            cb(JSON.parse(xhr.responseText));
-        }
-    });
-};
-
-
-/***/ }),
 /* 8 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+exports.__esModule = true;
+var ACTION_TYPE_CONST_1 = __webpack_require__(2);
+exports.chageView = function (payload) { return ({
+    type: ACTION_TYPE_CONST_1.CHANGE_VIEW,
+    payload: payload
+}); };
+
+
+/***/ }),
+/* 9 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+var __assign = (this && this.__assign) || function () {
+    __assign = Object.assign || function(t) {
+        for (var s, i = 1, n = arguments.length; i < n; i++) {
+            s = arguments[i];
+            for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p))
+                t[p] = s[p];
+        }
+        return t;
+    };
+    return __assign.apply(this, arguments);
+};
+exports.__esModule = true;
+var style_1 = __webpack_require__(3);
+var fullScreenStyle = {
+    position: "absolute",
+    top: "0px",
+    left: "0px",
+    right: "0px",
+    bottom: "0px",
+    height: "100%",
+    width: "100%"
+};
+exports.style = __assign({}, fullScreenStyle);
+exports.imgLoadingStyle = style_1.imgLoadingStyle;
+exports.playerBodyStyle = __assign({}, fullScreenStyle);
+exports.controlPanelStyle = {
+    position: "absolute",
+    bottom: "0px",
+    left: "0px",
+    right: "0px",
+    height: "120px",
+    background: "url(./../forpost-app/img/layerControlBg.png)",
+    backgroundRepeat: "repeat-x"
+};
+exports.playerButtonsStyle = {
+    borderBottom: "2px solid #6A6A6A",
+    position: "absolute",
+    top: "0px",
+    left: "0px",
+    right: "0px",
+    height: "50px"
+};
+
+
+/***/ }),
+/* 10 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1100,7 +1170,7 @@ function createStoreShape(PropTypes) {
 module.exports = exports["default"];
 
 /***/ }),
-/* 9 */
+/* 11 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1149,7 +1219,7 @@ exports.inputStyle = {
 
 
 /***/ }),
-/* 10 */
+/* 12 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1169,7 +1239,7 @@ var __extends = (this && this.__extends) || (function () {
 })();
 exports.__esModule = true;
 var React = __webpack_require__(0);
-var style_1 = __webpack_require__(35);
+var style_1 = __webpack_require__(36);
 var Header = /** @class */ (function (_super) {
     __extends(Header, _super);
     function Header() {
@@ -1186,7 +1256,7 @@ exports["default"] = Header;
 
 
 /***/ }),
-/* 11 */
+/* 13 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1247,16 +1317,11 @@ exports.imgCamStyle = {
     maxWidth: "100%",
     margin: "0 auto"
 };
-exports.imgLoadingStyle = {
-    margin: "0 auto",
-    position: "absolute",
-    top: "35%",
-    left: "47%"
-};
+exports.imgLoadingStyle = style_1.imgLoadingStyle;
 
 
 /***/ }),
-/* 12 */
+/* 14 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1276,14 +1341,14 @@ var __extends = (this && this.__extends) || (function () {
 })();
 exports.__esModule = true;
 var React = __webpack_require__(0);
-var ReactDOM = __webpack_require__(13);
+var ReactDOM = __webpack_require__(15);
 var react_redux_1 = __webpack_require__(4);
-var redux_1 = __webpack_require__(2);
-var redux_thunk_1 = __webpack_require__(26);
-var root_1 = __webpack_require__(27);
-var Login_1 = __webpack_require__(31);
-var Panel_1 = __webpack_require__(36);
-var Player_1 = __webpack_require__(43);
+var redux_1 = __webpack_require__(1);
+var redux_thunk_1 = __webpack_require__(28);
+var root_1 = __webpack_require__(29);
+var Login_1 = __webpack_require__(33);
+var Panel_1 = __webpack_require__(37);
+var Player_1 = __webpack_require__(44);
 var global = window;
 var store = redux_1.createStore(root_1["default"], redux_1.applyMiddleware(redux_thunk_1["default"]));
 global["store"] = store;
@@ -1313,13 +1378,13 @@ ReactDOM.render(React.createElement(react_redux_1.Provider, { store: store },
 
 
 /***/ }),
-/* 13 */
+/* 15 */
 /***/ (function(module, exports) {
 
 module.exports = ReactDOM;
 
 /***/ }),
-/* 14 */
+/* 16 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1330,11 +1395,11 @@ exports['default'] = createAll;
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 
-var _createProvider = __webpack_require__(15);
+var _createProvider = __webpack_require__(17);
 
 var _createProvider2 = _interopRequireDefault(_createProvider);
 
-var _createConnect = __webpack_require__(16);
+var _createConnect = __webpack_require__(18);
 
 var _createConnect2 = _interopRequireDefault(_createConnect);
 
@@ -1348,7 +1413,7 @@ function createAll(React) {
 module.exports = exports['default'];
 
 /***/ }),
-/* 15 */
+/* 17 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1363,7 +1428,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 
 function _inherits(subClass, superClass) { if (typeof superClass !== 'function' && superClass !== null) { throw new TypeError('Super expression must either be null or a function, not ' + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-var _utilsCreateStoreShape = __webpack_require__(8);
+var _utilsCreateStoreShape = __webpack_require__(10);
 
 var _utilsCreateStoreShape2 = _interopRequireDefault(_utilsCreateStoreShape);
 
@@ -1473,7 +1538,7 @@ function createProvider(React) {
 module.exports = exports['default'];
 
 /***/ }),
-/* 16 */
+/* 18 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1491,27 +1556,27 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 
 function _inherits(subClass, superClass) { if (typeof superClass !== 'function' && superClass !== null) { throw new TypeError('Super expression must either be null or a function, not ' + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-var _utilsCreateStoreShape = __webpack_require__(8);
+var _utilsCreateStoreShape = __webpack_require__(10);
 
 var _utilsCreateStoreShape2 = _interopRequireDefault(_utilsCreateStoreShape);
 
-var _utilsShallowEqual = __webpack_require__(17);
+var _utilsShallowEqual = __webpack_require__(19);
 
 var _utilsShallowEqual2 = _interopRequireDefault(_utilsShallowEqual);
 
-var _utilsIsPlainObject = __webpack_require__(18);
+var _utilsIsPlainObject = __webpack_require__(20);
 
 var _utilsIsPlainObject2 = _interopRequireDefault(_utilsIsPlainObject);
 
-var _utilsWrapActionCreators = __webpack_require__(19);
+var _utilsWrapActionCreators = __webpack_require__(21);
 
 var _utilsWrapActionCreators2 = _interopRequireDefault(_utilsWrapActionCreators);
 
-var _hoistNonReactStatics = __webpack_require__(24);
+var _hoistNonReactStatics = __webpack_require__(26);
 
 var _hoistNonReactStatics2 = _interopRequireDefault(_hoistNonReactStatics);
 
-var _invariant = __webpack_require__(25);
+var _invariant = __webpack_require__(27);
 
 var _invariant2 = _interopRequireDefault(_invariant);
 
@@ -1740,10 +1805,10 @@ function createConnect(React) {
 }
 
 module.exports = exports['default'];
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(5)))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(7)))
 
 /***/ }),
-/* 17 */
+/* 19 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1778,7 +1843,7 @@ function shallowEqual(objA, objB) {
 module.exports = exports["default"];
 
 /***/ }),
-/* 18 */
+/* 20 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1814,7 +1879,7 @@ function isPlainObject(obj) {
 module.exports = exports['default'];
 
 /***/ }),
-/* 19 */
+/* 21 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1823,7 +1888,7 @@ module.exports = exports['default'];
 exports.__esModule = true;
 exports['default'] = wrapActionCreators;
 
-var _redux = __webpack_require__(2);
+var _redux = __webpack_require__(1);
 
 function wrapActionCreators(actionCreators) {
   return function (dispatch) {
@@ -1834,11 +1899,11 @@ function wrapActionCreators(actionCreators) {
 module.exports = exports['default'];
 
 /***/ }),
-/* 20 */
+/* 22 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* WEBPACK VAR INJECTION */(function(global, module) {/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__ponyfill_js__ = __webpack_require__(23);
+/* WEBPACK VAR INJECTION */(function(global, module) {/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__ponyfill_js__ = __webpack_require__(25);
 /* global window */
 
 
@@ -1859,10 +1924,10 @@ if (typeof self !== 'undefined') {
 var result = Object(__WEBPACK_IMPORTED_MODULE_0__ponyfill_js__["a" /* default */])(root);
 /* harmony default export */ __webpack_exports__["a"] = (result);
 
-/* WEBPACK VAR INJECTION */}.call(__webpack_exports__, __webpack_require__(21), __webpack_require__(22)(module)))
+/* WEBPACK VAR INJECTION */}.call(__webpack_exports__, __webpack_require__(23), __webpack_require__(24)(module)))
 
 /***/ }),
-/* 21 */
+/* 23 */
 /***/ (function(module, exports) {
 
 var g;
@@ -1889,7 +1954,7 @@ module.exports = g;
 
 
 /***/ }),
-/* 22 */
+/* 24 */
 /***/ (function(module, exports) {
 
 module.exports = function(originalModule) {
@@ -1919,7 +1984,7 @@ module.exports = function(originalModule) {
 
 
 /***/ }),
-/* 23 */
+/* 25 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -1944,7 +2009,7 @@ function symbolObservablePonyfill(root) {
 
 
 /***/ }),
-/* 24 */
+/* 26 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2001,7 +2066,7 @@ module.exports = function hoistNonReactStatics(targetComponent, sourceComponent,
 
 
 /***/ }),
-/* 25 */
+/* 27 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2055,10 +2120,10 @@ var invariant = function(condition, format, a, b, c, d, e, f) {
 
 module.exports = invariant;
 
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(5)))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(7)))
 
 /***/ }),
-/* 26 */
+/* 28 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -2085,16 +2150,16 @@ thunk.withExtraArgument = createThunkMiddleware;
 /* harmony default export */ __webpack_exports__["default"] = (thunk);
 
 /***/ }),
-/* 27 */
+/* 29 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 exports.__esModule = true;
-var redux_1 = __webpack_require__(2);
-var auth_1 = __webpack_require__(28);
-var cams_1 = __webpack_require__(29);
-var app_1 = __webpack_require__(30);
+var redux_1 = __webpack_require__(1);
+var auth_1 = __webpack_require__(30);
+var cams_1 = __webpack_require__(31);
+var app_1 = __webpack_require__(32);
 exports["default"] = redux_1.combineReducers({
     app: app_1.app,
     auth: auth_1.auth,
@@ -2103,7 +2168,7 @@ exports["default"] = redux_1.combineReducers({
 
 
 /***/ }),
-/* 28 */
+/* 30 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2120,7 +2185,7 @@ var __assign = (this && this.__assign) || function () {
     return __assign.apply(this, arguments);
 };
 exports.__esModule = true;
-var ACTION_TYPE_CONST_1 = __webpack_require__(1);
+var ACTION_TYPE_CONST_1 = __webpack_require__(2);
 var defaultState = {
     login: "",
     password: "",
@@ -2154,7 +2219,7 @@ function auth_loading(state, waitLoading) {
 
 
 /***/ }),
-/* 29 */
+/* 31 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2171,14 +2236,15 @@ var __assign = (this && this.__assign) || function () {
     return __assign.apply(this, arguments);
 };
 exports.__esModule = true;
-var ACTION_TYPE_CONST_1 = __webpack_require__(1);
+var ACTION_TYPE_CONST_1 = __webpack_require__(2);
 var gridMaxItems = stb.__type__ === "mag" ? 3 : 3;
 var defaultState = {
     items: [],
     gridActiveItemPosition: 0,
     gridMaxItems: gridMaxItems,
     grigPage: 0,
-    gridLoading: false
+    gridLoading: false,
+    currentPlay: undefined
 };
 exports.cams = function (state, action) {
     if (state === void 0) { state = defaultState; }
@@ -2193,7 +2259,7 @@ var changeCamsState = function (state, action) {
 
 
 /***/ }),
-/* 30 */
+/* 32 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2210,7 +2276,7 @@ var __assign = (this && this.__assign) || function () {
     return __assign.apply(this, arguments);
 };
 exports.__esModule = true;
-var ACTION_TYPE_CONST_1 = __webpack_require__(1);
+var ACTION_TYPE_CONST_1 = __webpack_require__(2);
 var defaultState = {
     view: "/login"
 };
@@ -2227,7 +2293,7 @@ function changeView(state, view) {
 
 
 /***/ }),
-/* 31 */
+/* 33 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2247,9 +2313,9 @@ var __extends = (this && this.__extends) || (function () {
 })();
 exports.__esModule = true;
 var React = __webpack_require__(0);
-var LoginForm_1 = __webpack_require__(32);
-var style_1 = __webpack_require__(9);
-var Header_1 = __webpack_require__(10);
+var LoginForm_1 = __webpack_require__(34);
+var style_1 = __webpack_require__(11);
+var Header_1 = __webpack_require__(12);
 var Login = /** @class */ (function (_super) {
     __extends(Login, _super);
     function Login() {
@@ -2267,7 +2333,7 @@ exports["default"] = Login;
 
 
 /***/ }),
-/* 32 */
+/* 34 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2298,11 +2364,11 @@ var __assign = (this && this.__assign) || function () {
 };
 exports.__esModule = true;
 var React = __webpack_require__(0);
-var style_1 = __webpack_require__(9);
+var style_1 = __webpack_require__(11);
 var style_2 = __webpack_require__(3);
 var react_redux_1 = __webpack_require__(4);
-var redux_1 = __webpack_require__(2);
-var auth_1 = __webpack_require__(33);
+var redux_1 = __webpack_require__(1);
+var auth_1 = __webpack_require__(35);
 var LoginForm = /** @class */ (function (_super) {
     __extends(LoginForm, _super);
     function LoginForm() {
@@ -2465,7 +2531,7 @@ exports["default"] = LoginFormContainer;
 
 
 /***/ }),
-/* 33 */
+/* 35 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2498,10 +2564,10 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
     }
 };
 exports.__esModule = true;
-var utilites_1 = __webpack_require__(6);
-var HTTP_1 = __webpack_require__(7);
-var ACTION_TYPE_CONST_1 = __webpack_require__(1);
-var app_1 = __webpack_require__(34);
+var utilites_1 = __webpack_require__(5);
+var HTTP_1 = __webpack_require__(6);
+var ACTION_TYPE_CONST_1 = __webpack_require__(2);
+var app_1 = __webpack_require__(8);
 var authError = function (payload) { return ({
     type: ACTION_TYPE_CONST_1.AUTH_ERROR,
     payload: payload
@@ -2581,21 +2647,7 @@ exports.tryAutoLogin = function () { return function (dispath, getState) {
 
 
 /***/ }),
-/* 34 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-exports.__esModule = true;
-var ACTION_TYPE_CONST_1 = __webpack_require__(1);
-exports.chageView = function (payload) { return ({
-    type: ACTION_TYPE_CONST_1.CHANGE_VIEW,
-    payload: payload
-}); };
-
-
-/***/ }),
-/* 35 */
+/* 36 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2631,7 +2683,7 @@ exports.nameAppStyle = {
 
 
 /***/ }),
-/* 36 */
+/* 37 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2651,8 +2703,8 @@ var __extends = (this && this.__extends) || (function () {
 })();
 exports.__esModule = true;
 var React = __webpack_require__(0);
-var Header_1 = __webpack_require__(10);
-var Grid_1 = __webpack_require__(37);
+var Header_1 = __webpack_require__(12);
+var Grid_1 = __webpack_require__(38);
 var Panel = /** @class */ (function (_super) {
     __extends(Panel, _super);
     function Panel() {
@@ -2669,7 +2721,7 @@ exports["default"] = Panel;
 
 
 /***/ }),
-/* 37 */
+/* 38 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2748,11 +2800,11 @@ var __spread = (this && this.__spread) || function () {
 exports.__esModule = true;
 var React = __webpack_require__(0);
 var react_redux_1 = __webpack_require__(4);
-var style_1 = __webpack_require__(38);
-var Rows_1 = __webpack_require__(39);
-var cam_1 = __webpack_require__(42);
-var redux_1 = __webpack_require__(2);
-var utilites_1 = __webpack_require__(6);
+var style_1 = __webpack_require__(39);
+var Rows_1 = __webpack_require__(40);
+var cam_1 = __webpack_require__(43);
+var redux_1 = __webpack_require__(1);
+var utilites_1 = __webpack_require__(5);
 var Grid = /** @class */ (function (_super) {
     __extends(Grid, _super);
     function Grid() {
@@ -2822,6 +2874,12 @@ var Grid = /** @class */ (function (_super) {
     };
     Grid.prototype.key = function (e) {
         var key = e.key;
+        if (key === "Enter") {
+            var flatRowsArr = [].concat.apply([], __spread(this.rows));
+            var activeItem = flatRowsArr[this.props.gridActiveItemPosition];
+            this.props.changeStateCams(__assign({}, this.props, { currentPlay: activeItem }));
+            this.props.play();
+        }
         switch (key) {
             case "ArrowRight":
                 this.changeActivePosition(1, 0);
@@ -2953,22 +3011,12 @@ var Grid = /** @class */ (function (_super) {
     };
     Grid.prototype.arrowR = function () {
         if (this.pageExist(this.props.grigPage + 1)) {
-            return (React.createElement("img", { src: "./../forpost-app/img/arrow-r.png", alt: "arrowR", style: {
-                    display: "block",
-                    position: "absolute",
-                    right: "0px",
-                    top: "46%"
-                } }));
+            return (React.createElement("img", { src: "./../forpost-app/img/arrow-r.png", alt: "arrowR", style: style_1.arrowRStyle }));
         }
     };
     Grid.prototype.arrowL = function () {
         if (this.pageExist(this.props.grigPage - 1)) {
-            return (React.createElement("img", { src: "./../forpost-app/img/arrow-l.png", alt: "arrowR", style: {
-                    display: "block",
-                    position: "absolute",
-                    left: "0px",
-                    top: "46%"
-                } }));
+            return (React.createElement("img", { src: "./../forpost-app/img/arrow-l.png", alt: "arrowL", style: style_1.arrowLStyle }));
         }
     };
     Grid.prototype.setRef = function (ref) {
@@ -2989,19 +3037,22 @@ var Grid = /** @class */ (function (_super) {
 exports["default"] = react_redux_1.connect(function (state) { return state.cams; }, function (disptach) {
     return redux_1.bindActionCreators({
         changeStateCams: cam_1.changeStateCams,
-        loadCamItems: cam_1.loadCamItems
+        loadCamItems: cam_1.loadCamItems,
+        play: cam_1.play
     }, disptach);
 })(Grid);
 
 
 /***/ }),
-/* 38 */
+/* 39 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 exports.__esModule = true;
 var style_1 = __webpack_require__(3);
+var paddingLeft = stb.__type__ === "mag" ? "80px" : "50px";
+var paddingRight = stb.__type__ === "mag" ? "80px" : "50px";
 exports.gridStyle = {
     top: "100px",
     left: "0px",
@@ -3009,8 +3060,8 @@ exports.gridStyle = {
     bottom: "0px",
     position: "absolute",
     background: "#212121",
-    paddingLeft: "50px",
-    paddingRight: "50px"
+    paddingLeft: paddingLeft,
+    paddingRight: paddingRight
 };
 exports.noItemsMessageStyle = {
     color: style_1.color2,
@@ -3026,10 +3077,24 @@ exports.loadingStyle = {
     margin: "auto",
     marginTop: "20%"
 };
+var left = stb.__type__ === "mag" ? "30px" : "0px";
+var right = stb.__type__ === "mag" ? "30px" : "0px";
+exports.arrowRStyle = {
+    display: "block",
+    position: "absolute",
+    right: right,
+    top: "46%"
+};
+exports.arrowLStyle = {
+    display: "block",
+    position: "absolute",
+    left: left,
+    top: "46%"
+};
 
 
 /***/ }),
-/* 39 */
+/* 40 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3049,7 +3114,7 @@ var __extends = (this && this.__extends) || (function () {
 })();
 exports.__esModule = true;
 var React = __webpack_require__(0);
-var CamItem_1 = __webpack_require__(40);
+var CamItem_1 = __webpack_require__(41);
 var Rows = /** @class */ (function (_super) {
     __extends(Rows, _super);
     function Rows() {
@@ -3096,7 +3161,7 @@ exports.Rows = Rows;
 
 
 /***/ }),
-/* 40 */
+/* 41 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3116,8 +3181,8 @@ var __extends = (this && this.__extends) || (function () {
 })();
 exports.__esModule = true;
 var React = __webpack_require__(0);
-var CamBody_1 = __webpack_require__(41);
-var style_1 = __webpack_require__(11);
+var CamBody_1 = __webpack_require__(42);
+var style_1 = __webpack_require__(13);
 var CamItem = /** @class */ (function (_super) {
     __extends(CamItem, _super);
     function CamItem() {
@@ -3136,7 +3201,7 @@ exports.CamItem = CamItem;
 
 
 /***/ }),
-/* 41 */
+/* 42 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3210,9 +3275,9 @@ var __read = (this && this.__read) || function (o, n) {
 };
 exports.__esModule = true;
 var React = __webpack_require__(0);
-var style_1 = __webpack_require__(11);
-var utilites_1 = __webpack_require__(6);
-var HTTP_1 = __webpack_require__(7);
+var style_1 = __webpack_require__(13);
+var utilites_1 = __webpack_require__(5);
+var HTTP_1 = __webpack_require__(6);
 var react_redux_1 = __webpack_require__(4);
 var CamBody = /** @class */ (function (_super) {
     __extends(CamBody, _super);
@@ -3377,7 +3442,7 @@ exports["default"] = react_redux_1.connect(function (state) {
 
 
 /***/ }),
-/* 42 */
+/* 43 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3410,9 +3475,10 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
     }
 };
 exports.__esModule = true;
-var ACTION_TYPE_CONST_1 = __webpack_require__(1);
-var utilites_1 = __webpack_require__(6);
-var HTTP_1 = __webpack_require__(7);
+var ACTION_TYPE_CONST_1 = __webpack_require__(2);
+var utilites_1 = __webpack_require__(5);
+var HTTP_1 = __webpack_require__(6);
+var app_1 = __webpack_require__(8);
 exports.changeStateCams = function (payload) { return ({
     type: ACTION_TYPE_CONST_1.CHANGE_CAMS_STATE,
     payload: payload
@@ -3439,10 +3505,157 @@ exports.loadCamItems = function () { return function (dispatch, getState) {
         });
     });
 }; };
+exports.play = function () { return function (dispatch, getState) {
+    dispatch(app_1.chageView("/player"));
+}; };
 
 
 /***/ }),
-/* 43 */
+/* 44 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+var __extends = (this && this.__extends) || (function () {
+    var extendStatics = function (d, b) {
+        extendStatics = Object.setPrototypeOf ||
+            ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+            function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+        return extendStatics(d, b);
+    };
+    return function (d, b) {
+        extendStatics(d, b);
+        function __() { this.constructor = d; }
+        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+    };
+})();
+var __assign = (this && this.__assign) || function () {
+    __assign = Object.assign || function(t) {
+        for (var s, i = 1, n = arguments.length; i < n; i++) {
+            s = arguments[i];
+            for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p))
+                t[p] = s[p];
+        }
+        return t;
+    };
+    return __assign.apply(this, arguments);
+};
+var __generator = (this && this.__generator) || function (thisArg, body) {
+    var _ = { label: 0, sent: function() { if (t[0] & 1) throw t[1]; return t[1]; }, trys: [], ops: [] }, f, y, t, g;
+    return g = { next: verb(0), "throw": verb(1), "return": verb(2) }, typeof Symbol === "function" && (g[Symbol.iterator] = function() { return this; }), g;
+    function verb(n) { return function (v) { return step([n, v]); }; }
+    function step(op) {
+        if (f) throw new TypeError("Generator is already executing.");
+        while (_) try {
+            if (f = 1, y && (t = op[0] & 2 ? y["return"] : op[0] ? y["throw"] || ((t = y["return"]) && t.call(y), 0) : y.next) && !(t = t.call(y, op[1])).done) return t;
+            if (y = 0, t) op = [op[0] & 2, t.value];
+            switch (op[0]) {
+                case 0: case 1: t = op; break;
+                case 4: _.label++; return { value: op[1], done: false };
+                case 5: _.label++; y = op[1]; op = [0]; continue;
+                case 7: op = _.ops.pop(); _.trys.pop(); continue;
+                default:
+                    if (!(t = _.trys, t = t.length > 0 && t[t.length - 1]) && (op[0] === 6 || op[0] === 2)) { _ = 0; continue; }
+                    if (op[0] === 3 && (!t || (op[1] > t[0] && op[1] < t[3]))) { _.label = op[1]; break; }
+                    if (op[0] === 6 && _.label < t[1]) { _.label = t[1]; t = op; break; }
+                    if (t && _.label < t[2]) { _.label = t[2]; _.ops.push(op); break; }
+                    if (t[2]) _.ops.pop();
+                    _.trys.pop(); continue;
+            }
+            op = body.call(thisArg, _);
+        } catch (e) { op = [6, e]; y = 0; } finally { f = t = 0; }
+        if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
+    }
+};
+exports.__esModule = true;
+var React = __webpack_require__(0);
+var react_redux_1 = __webpack_require__(4);
+var app_1 = __webpack_require__(8);
+var redux_1 = __webpack_require__(1);
+var Body_1 = __webpack_require__(45);
+var style_1 = __webpack_require__(9);
+var utilites_1 = __webpack_require__(5);
+var HTTP_1 = __webpack_require__(6);
+var Player = /** @class */ (function (_super) {
+    __extends(Player, _super);
+    function Player(props) {
+        var _this = _super.call(this, props) || this;
+        _this.state = {
+            loading: true,
+            playStatus: false
+        };
+        return _this;
+    }
+    Player.prototype.render = function () {
+        return React.createElement("div", { style: style_1.style }, this.content());
+    };
+    Player.prototype.content = function () {
+        if (this.state.loading) {
+            return this.loadingImg();
+        }
+        else {
+            return this.getBody();
+        }
+    };
+    Player.prototype.loadingImg = function () {
+        return (React.createElement("img", { style: style_1.imgLoadingStyle, src: "./../forpost-app/img/loading_5.gif" }));
+    };
+    Player.prototype.getBody = function () {
+        return (React.createElement(Body_1["default"], { items: this.props.items, gridActiveItemPosition: this.props.gridActiveItemPosition, gridMaxItems: this.props.gridMaxItems, grigPage: this.props.grigPage, gridLoading: this.props.gridLoading, chageView: this.props.chageView, loading: this.state.loading, playStatus: this.state.playStatus, playerChangeState: this.playerChangeState, currentPlay: this.props.currentPlay, SessionID: this.props.SessionID }));
+    };
+    Player.prototype.playerChangeState = function (newState) {
+        this.setState(__assign({}, this.state, newState));
+    };
+    Player.prototype.componentDidMount = function () {
+        var self = this;
+        new utilites_1.SelfGuidedGenerator(function (g) {
+            var data, eventListener_1, e_1;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0: return [4 /*yield*/, HTTP_1.httpGetTranslation(self.props.SessionID, self.props.currentPlay.CameraID, "HLS", g.next.bind(g))];
+                    case 1:
+                        data = _a.sent();
+                        _a.label = 2;
+                    case 2:
+                        _a.trys.push([2, 4, , 5]);
+                        stb.SetTopWin(0);
+                        stb.SetPIG(1, 0, 0, 0);
+                        stb.PlaySolution("auto", data.URL);
+                        eventListener_1 = function (event) {
+                            if (event == 4) {
+                                g.next(true);
+                                stb.rmEvenListener(eventListener_1);
+                            }
+                        };
+                        stb.addEventListener(eventListener_1);
+                        return [4 /*yield*/];
+                    case 3:
+                        _a.sent();
+                        return [3 /*break*/, 5];
+                    case 4:
+                        e_1 = _a.sent();
+                        console.log(e_1);
+                        return [3 /*break*/, 5];
+                    case 5:
+                        self.playerChangeState(__assign({}, self.state, { loading: false, playStatus: true }));
+                        return [2 /*return*/];
+                }
+            });
+        });
+    };
+    return Player;
+}(React.Component));
+exports["default"] = react_redux_1.connect(function (state) {
+    return __assign({}, state.cams, { SessionID: state.auth.SessionID });
+}, function (disptach) {
+    return redux_1.bindActionCreators({
+        chageView: app_1.chageView
+    }, disptach);
+})(Player);
+
+
+/***/ }),
+/* 45 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3462,17 +3675,152 @@ var __extends = (this && this.__extends) || (function () {
 })();
 exports.__esModule = true;
 var React = __webpack_require__(0);
-var Player = /** @class */ (function (_super) {
-    __extends(Player, _super);
-    function Player() {
+var style_1 = __webpack_require__(9);
+var ControlPanel_1 = __webpack_require__(46);
+var PlayerBody = /** @class */ (function (_super) {
+    __extends(PlayerBody, _super);
+    function PlayerBody(props) {
+        return _super.call(this, props) || this;
+    }
+    PlayerBody.prototype.render = function () {
+        return (React.createElement("div", { tabIndex: 1, ref: this.setElem.bind(this), onKeyDown: this.key.bind(this), style: style_1.playerBodyStyle },
+            React.createElement(ControlPanel_1["default"], null)));
+    };
+    PlayerBody.prototype.componentDidMount = function () {
+        this.elem.focus();
+    };
+    PlayerBody.prototype.setElem = function (elem) {
+        this.elem = elem;
+    };
+    PlayerBody.prototype.key = function (e) {
+        console.log(e.key);
+        if (e.key === "Backspace" || e.key === "Escape") {
+            this.props.chageView("/panel");
+            try {
+                stb.Stop();
+            }
+            catch (e) {
+                console.log(e);
+            }
+        }
+    };
+    return PlayerBody;
+}(React.Component));
+exports["default"] = PlayerBody;
+
+
+/***/ }),
+/* 46 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+var __extends = (this && this.__extends) || (function () {
+    var extendStatics = function (d, b) {
+        extendStatics = Object.setPrototypeOf ||
+            ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+            function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+        return extendStatics(d, b);
+    };
+    return function (d, b) {
+        extendStatics(d, b);
+        function __() { this.constructor = d; }
+        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+    };
+})();
+exports.__esModule = true;
+var React = __webpack_require__(0);
+var style_1 = __webpack_require__(9);
+var PlayerButtons_1 = __webpack_require__(47);
+var ControlPanel = /** @class */ (function (_super) {
+    __extends(ControlPanel, _super);
+    function ControlPanel() {
         return _super !== null && _super.apply(this, arguments) || this;
     }
-    Player.prototype.render = function () {
-        return React.createElement("div", null, "player");
+    ControlPanel.prototype.render = function () {
+        return (React.createElement("div", { style: style_1.controlPanelStyle },
+            React.createElement(PlayerButtons_1["default"], null),
+            React.createElement("div", null)));
     };
-    return Player;
+    return ControlPanel;
 }(React.Component));
-exports["default"] = Player;
+exports["default"] = ControlPanel;
+
+
+/***/ }),
+/* 47 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+var __extends = (this && this.__extends) || (function () {
+    var extendStatics = function (d, b) {
+        extendStatics = Object.setPrototypeOf ||
+            ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+            function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+        return extendStatics(d, b);
+    };
+    return function (d, b) {
+        extendStatics(d, b);
+        function __() { this.constructor = d; }
+        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+    };
+})();
+exports.__esModule = true;
+var React = __webpack_require__(0);
+var style_1 = __webpack_require__(9);
+var PlayPauseButton_1 = __webpack_require__(48);
+var PlayerButtons = /** @class */ (function (_super) {
+    __extends(PlayerButtons, _super);
+    function PlayerButtons() {
+        return _super !== null && _super.apply(this, arguments) || this;
+    }
+    PlayerButtons.prototype.render = function () {
+        return (React.createElement("div", { style: style_1.playerButtonsStyle },
+            React.createElement(PlayPauseButton_1["default"], null)));
+    };
+    return PlayerButtons;
+}(React.Component));
+exports["default"] = PlayerButtons;
+
+
+/***/ }),
+/* 48 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+var __extends = (this && this.__extends) || (function () {
+    var extendStatics = function (d, b) {
+        extendStatics = Object.setPrototypeOf ||
+            ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+            function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+        return extendStatics(d, b);
+    };
+    return function (d, b) {
+        extendStatics(d, b);
+        function __() { this.constructor = d; }
+        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+    };
+})();
+exports.__esModule = true;
+var React = __webpack_require__(0);
+var PlayPauseButton = /** @class */ (function (_super) {
+    __extends(PlayPauseButton, _super);
+    function PlayPauseButton() {
+        return _super !== null && _super.apply(this, arguments) || this;
+    }
+    PlayPauseButton.prototype.render = function () {
+        return (React.createElement("img", { style: {
+                position: "absolute",
+                left: "0px",
+                top: "0px",
+                display: "block"
+            }, src: "./../forpost-app/img/baseline_pause_white_24dp.png" }));
+    };
+    return PlayPauseButton;
+}(React.Component));
+exports["default"] = PlayPauseButton;
 
 
 /***/ })

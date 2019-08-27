@@ -3,6 +3,7 @@ import { ICam } from "../state/Istate";
 import { IAction } from "./action";
 import { SelfGuidedGenerator, delay } from "../utilites";
 import { getCameras, IGetCamerasResult } from "../HTTP";
+import { chageView } from "./app";
 
 export type ICamsAnyAction = ICamsChangeStateAction;
 
@@ -17,6 +18,7 @@ interface IChangeStateActionPayload {
   gridMaxItems?: number;
   grigPage?: number;
   gridLoading?: boolean;
+  currentPlay?: ICam | undefined;
 }
 
 export interface IChangeStateCamsActionCreator {
@@ -48,4 +50,12 @@ export const loadCamItems: IloadCamItems = () => (dispatch, getState) => {
       })
     );
   });
+};
+
+export interface IPlayCam {
+  (): IAction;
+}
+
+export const play: IPlayCam = () => (dispatch, getState) => {
+  dispatch(chageView("/player"));
 };

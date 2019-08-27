@@ -1,5 +1,9 @@
 import { color2, fontFamily1, fontSize1 } from "../style";
 
+declare var stb: any;
+
+const paddingLeft = stb.__type__ === "mag" ? "80px" : "50px";
+const paddingRight = stb.__type__ === "mag" ? "80px" : "50px";
 export const gridStyle: React.CSSProperties = {
   top: "100px",
   left: "0px",
@@ -7,8 +11,8 @@ export const gridStyle: React.CSSProperties = {
   bottom: "0px",
   position: "absolute",
   background: "#212121",
-  paddingLeft: "50px",
-  paddingRight: "50px"
+  paddingLeft,
+  paddingRight
 };
 
 export const noItemsMessageStyle: React.CSSProperties = {
@@ -25,4 +29,19 @@ export const loadingStyle: React.CSSProperties = {
   display: "block",
   margin: "auto",
   marginTop: "20%"
+};
+
+const left = stb.__type__ === "mag" ? "30px" : "0px";
+const right = stb.__type__ === "mag" ? "30px" : "0px";
+export const arrowRStyle: React.CSSProperties = {
+  display: "block",
+  position: "absolute",
+  right,
+  top: "46%"
+};
+export const arrowLStyle: React.CSSProperties = {
+  display: "block",
+  position: "absolute",
+  left,
+  top: "46%"
 };

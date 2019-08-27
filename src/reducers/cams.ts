@@ -10,7 +10,8 @@ const defaultState: IstateCams = {
   gridActiveItemPosition: 0,
   gridMaxItems,
   grigPage: 0,
-  gridLoading: false
+  gridLoading: false,
+  currentPlay: undefined
 };
 
 export const cams = (

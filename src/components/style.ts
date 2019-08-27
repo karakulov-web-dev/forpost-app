@@ -9,3 +9,10 @@ export const abstracktStyleFullWidhtElem: React.CSSProperties = {
   left: "0px",
   right: "0px"
 };
+
+export const imgLoadingStyle: React.CSSProperties = {
+  margin: "0 auto",
+  position: "absolute",
+  top: "35%",
+  left: "47%"
+};

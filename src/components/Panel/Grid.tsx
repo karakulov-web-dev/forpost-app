@@ -1,16 +1,27 @@
 import * as React from "react";
 import { IstateCams, Istate, ICam } from "../../state/Istate";
 import { connect } from "react-redux";
-import { gridStyle, noItemsMessageStyle, loadingStyle } from "./style";
+import {
+  gridStyle,
+  noItemsMessageStyle,
+  loadingStyle,
+  arrowRStyle,
+  arrowLStyle
+} from "./style";
 import { Rows } from "./Rows";
 import {
   changeStateCams,
   IChangeStateCamsActionCreator,
   loadCamItems,
-  IloadCamItems
+  IloadCamItems,
+  IPlayCam,
+  play
 } from "../../action/cam";
 import { bindActionCreators } from "redux";
 import { SelfGuidedGenerator, delay } from "../../utilites";
+
+declare var location: any;
+declare var stb: any;
 
 export interface ICamMayBeActive extends ICam {
   active: boolean;
@@ -95,6 +106,13 @@ class Grid extends React.Component<Props> {
   }
   key(e: React.KeyboardEvent) {
     const { key } = e;
+
+    if (key === "Enter") {
+      let flatRowsArr: ICamMayBeActive[] = [].concat(...this.rows);
+      let activeItem = flatRowsArr[this.props.gridActiveItemPosition];
+      this.props.changeStateCams({ ...this.props, currentPlay: activeItem });
+      this.props.play();
+    }
 
     switch (key) {
       case "ArrowRight":
@@ -225,12 +243,7 @@ class Grid extends React.Component<Props> {
         <img
           src="./../forpost-app/img/arrow-r.png"
           alt="arrowR"
-          style={{
-            display: "block",
-            position: "absolute",
-            right: "0px",
-            top: "46%"
-          }}
+          style={arrowRStyle}
         />
       );
     }
@@ -240,13 +253,8 @@ class Grid extends React.Component<Props> {
       return (
         <img
           src="./../forpost-app/img/arrow-l.png"
-          alt="arrowR"
-          style={{
-            display: "block",
-            position: "absolute",
-            left: "0px",
-            top: "46%"
-          }}
+          alt="arrowL"
+          style={arrowLStyle}
         />
       );
     }
@@ -269,6 +277,7 @@ class Grid extends React.Component<Props> {
 interface IDispatchProps {
   changeStateCams: IChangeStateCamsActionCreator;
   loadCamItems: IloadCamItems;
+  play: IPlayCam;
 }
 
 export default connect<IstateCams, IDispatchProps>(
@@ -277,7 +286,8 @@ export default connect<IstateCams, IDispatchProps>(
     bindActionCreators(
       {
         changeStateCams,
-        loadCamItems
+        loadCamItems,
+        play
       },
       disptach
     )

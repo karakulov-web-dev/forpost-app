@@ -21,6 +21,7 @@ export interface IstateCams {
   gridMaxItems: number;
   grigPage: number;
   gridLoading: boolean;
+  currentPlay: ICam | undefined;
 }
 export interface ICam {
   CameraID: number;
@@ -39,4 +40,4 @@ export interface ICam {
   Lon: number;
 }
 
-export type IViewName = "/login" | "/panel";
+export type IViewName = "/login" | "/panel" | "/player";
