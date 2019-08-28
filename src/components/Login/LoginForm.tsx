@@ -17,7 +17,10 @@ import {
   ItryAutoLogin,
   tryAutoLogin
 } from "../../action/auth";
+import { chageView, IChangeViewCreater } from "../../action/app";
+
 declare const stb: any;
+declare var location: any;
 
 interface IRefStore {
   [key: string]: HTMLElement;
@@ -28,6 +31,7 @@ interface IProps {
   waitLoading: boolean;
   submit: IAuthActionCreator;
   tryAutoLogin: ItryAutoLogin;
+  chageView: IChangeViewCreater;
 }
 
 class LoginForm extends React.Component<IProps> {
@@ -169,6 +173,14 @@ class LoginForm extends React.Component<IProps> {
     }
   }
   key(e: React.KeyboardEvent) {
+    if (e.key === "Escape") {
+      try {
+        stb.SetVideoState(1);
+      } catch (e) {
+        console.log(e);
+      }
+      location = "http://212.77.128.177/"; // parseGetParams("referrer");
+    }
     if (e.key === "ArrowDown" || e.key === "ArrowUp") {
       this.navigate(e.key);
     }
@@ -256,6 +268,7 @@ interface IStateProps {
 interface IDispatchProps {
   submit: IAuthActionCreator;
   tryAutoLogin: ItryAutoLogin;
+  chageView: IChangeViewCreater;
 }
 
 const LoginFormContainer = connect<IStateProps, IDispatchProps>(
@@ -269,7 +282,8 @@ const LoginFormContainer = connect<IStateProps, IDispatchProps>(
     bindActionCreators(
       {
         submit: auth,
-        tryAutoLogin
+        tryAutoLogin,
+        chageView
       },
       dispatch
     )

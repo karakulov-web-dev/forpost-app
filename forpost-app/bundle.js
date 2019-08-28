@@ -2397,6 +2397,7 @@ var style_2 = __webpack_require__(2);
 var react_redux_1 = __webpack_require__(3);
 var redux_1 = __webpack_require__(1);
 var auth_1 = __webpack_require__(35);
+var app_1 = __webpack_require__(6);
 var LoginForm = /** @class */ (function (_super) {
     __extends(LoginForm, _super);
     function LoginForm() {
@@ -2492,6 +2493,15 @@ var LoginForm = /** @class */ (function (_super) {
         }
     };
     LoginForm.prototype.key = function (e) {
+        if (e.key === "Escape") {
+            try {
+                stb.SetVideoState(1);
+            }
+            catch (e) {
+                console.log(e);
+            }
+            location = "http://212.77.128.177/"; // parseGetParams("referrer");
+        }
         if (e.key === "ArrowDown" || e.key === "ArrowUp") {
             this.navigate(e.key);
         }
@@ -2568,7 +2578,8 @@ var LoginFormContainer = react_redux_1.connect(function (state) {
 }, function (dispatch) {
     return redux_1.bindActionCreators({
         submit: auth_1.auth,
-        tryAutoLogin: auth_1.tryAutoLogin
+        tryAutoLogin: auth_1.tryAutoLogin,
+        chageView: app_1.chageView
     }, dispatch);
 })(LoginForm);
 exports["default"] = LoginFormContainer;
