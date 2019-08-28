@@ -6,17 +6,22 @@ import {
   fontFamily1 as fontFamily
 } from "../style";
 
+declare var stb: any;
+
 export const colorError = "#b00020";
 export const fontSize1 = fontSize;
 export const fontFamily1 = fontFamily;
 
-export const bodyStyle: React.CSSProperties = {
+let bodyStyle: React.CSSProperties = {
   ...abstracktStyleFullWidhtElem,
-  height: "100%",
+  height: "75%",
   top: "100px",
   bottom: "0px",
-  background: "url(./../forpost-app/img/background1.png) no-repeat"
+  background: "url(./../forpost-app/img/background1.png) no-repeat",
+  borderBottom: `100px solid ${color1}`
 };
+
+export { bodyStyle };
 
 export const loginFormStyle: React.CSSProperties = {
   maxWidth: "520px",
@@ -38,9 +43,15 @@ export const labelStyle: React.CSSProperties = {
   position: "relative"
 };
 
-export const inputStyle: React.CSSProperties = {
+let inputStyle: React.CSSProperties = {
   color: color1,
   fontSize: fontSize1,
   position: "absolute",
   right: "0px"
 };
+
+if (stb.__type__ === "tvip") {
+  inputStyle.border = "2px solid buttonface";
+}
+
+export { inputStyle };

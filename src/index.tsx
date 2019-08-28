@@ -8,6 +8,7 @@ import { Istate, IViewName } from "./state/Istate";
 import Login from "./components/Login/Login";
 import Panel from "./components/Panel/Panel";
 import Player from "./components/Player/Player";
+import Exit from "./components/Login/Exit";
 
 const global: any = window;
 
@@ -26,6 +27,8 @@ class ViewWrap extends React.Component<Iprops> {
       return <Panel />;
     } else if (this.props.view === "/player") {
       return <Player />;
+    } else if (this.props.view === "/exit") {
+      return <Exit />;
     }
   }
 }

@@ -57,7 +57,7 @@ export interface IAuthLoadingAction {
 }
 
 const authLoading = (payload: boolean): IAuthLoadingAction => ({
-  type: "AUTH_LOADING",
+  type: AUTH_LOADING,
   payload
 });
 

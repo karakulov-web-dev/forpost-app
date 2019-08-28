@@ -19,6 +19,7 @@ import {
 } from "../../action/cam";
 import { bindActionCreators } from "redux";
 import { SelfGuidedGenerator, delay } from "../../utilites";
+import { chageView, IChangeViewCreater } from "../../action/app";
 
 declare var location: any;
 declare var stb: any;
@@ -106,6 +107,10 @@ class Grid extends React.Component<Props> {
   }
   key(e: React.KeyboardEvent) {
     const { key } = e;
+
+    if (key === "Escape") {
+      this.props.chageView("/exit");
+    }
 
     if (key === "Enter") {
       let flatRowsArr: ICamMayBeActive[] = [].concat(...this.rows);
@@ -278,6 +283,7 @@ interface IDispatchProps {
   changeStateCams: IChangeStateCamsActionCreator;
   loadCamItems: IloadCamItems;
   play: IPlayCam;
+  chageView: IChangeViewCreater;
 }
 
 export default connect<IstateCams, IDispatchProps>(
@@ -287,7 +293,8 @@ export default connect<IstateCams, IDispatchProps>(
       {
         changeStateCams,
         loadCamItems,
-        play
+        play,
+        chageView
       },
       disptach
     )

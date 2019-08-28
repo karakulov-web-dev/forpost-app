@@ -71,6 +71,31 @@ module.exports = React;
 
 /***/ }),
 /* 1 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+exports.__esModule = true;
+exports.color1 = "#333";
+exports.color2 = "#aaa";
+exports.fontSize1 = "25px";
+exports.fontFamily1 = '"Open Sans", "Lato", sans-serif';
+exports.abstracktStyleFullWidhtElem = {
+    position: "fixed",
+    width: "100%",
+    left: "0px",
+    right: "0px"
+};
+exports.imgLoadingStyle = {
+    margin: "0 auto",
+    position: "absolute",
+    top: "35%",
+    left: "47%"
+};
+
+
+/***/ }),
+/* 2 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -744,10 +769,10 @@ if (process.env.NODE_ENV !== 'production' && typeof isCrushed.name === 'string' 
 
 
 
-/* WEBPACK VAR INJECTION */}.call(__webpack_exports__, __webpack_require__(7)))
+/* WEBPACK VAR INJECTION */}.call(__webpack_exports__, __webpack_require__(8)))
 
 /***/ }),
-/* 2 */
+/* 3 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -758,31 +783,6 @@ exports.AUTH_SUCCESS = "AUTH_SUCCESS";
 exports.AUTH_LOADING = "AUTH_LOADING";
 exports.CHANGE_VIEW = "CHANGE_VIEW";
 exports.CHANGE_CAMS_STATE = "CHANGE_CAMS_STATE";
-
-
-/***/ }),
-/* 3 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-exports.__esModule = true;
-exports.color1 = "#333";
-exports.color2 = "#aaa";
-exports.fontSize1 = "25px";
-exports.fontFamily1 = '"Open Sans", "Lato", sans-serif';
-exports.abstracktStyleFullWidhtElem = {
-    position: "fixed",
-    width: "100%",
-    left: "0px",
-    right: "0px"
-};
-exports.imgLoadingStyle = {
-    margin: "0 auto",
-    position: "absolute",
-    top: "35%",
-    left: "47%"
-};
 
 
 /***/ }),
@@ -835,6 +835,25 @@ exports.SelfGuidedGenerator = SelfGuidedGenerator;
 exports.delay = function (time, cb) {
     setTimeout(cb, time);
 };
+function parseGetParams(par) {
+    var tmp = new Array(); // два вспомагательных
+    var tmp2 = new Array(); // массива
+    var param = {};
+    var get = location.search; // строка GET запроса
+    var result = ""; //переменная результата
+    if (get != "") {
+        tmp = get.substr(1).split("&"); // разделяем переменные
+        for (var i = 0; i < tmp.length; i++) {
+            tmp2 = tmp[i].split("="); // массив param будет содержать
+            param[tmp2[0]] = tmp2[1]; // пары ключ(имя переменной)->значение
+        }
+    }
+    if (typeof param[par] != "undefined") {
+        result = param[par];
+    }
+    return result;
+}
+exports.parseGetParams = parseGetParams;
 
 
 /***/ }),
@@ -897,6 +916,56 @@ exports.getCameras = function (SessionID, cb) {
 
 /***/ }),
 /* 7 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+var __assign = (this && this.__assign) || function () {
+    __assign = Object.assign || function(t) {
+        for (var s, i = 1, n = arguments.length; i < n; i++) {
+            s = arguments[i];
+            for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p))
+                t[p] = s[p];
+        }
+        return t;
+    };
+    return __assign.apply(this, arguments);
+};
+exports.__esModule = true;
+var style_1 = __webpack_require__(1);
+var fullScreenStyle = {
+    position: "absolute",
+    top: "0px",
+    left: "0px",
+    right: "0px",
+    bottom: "0px",
+    height: "100%",
+    width: "100%"
+};
+exports.style = __assign({}, fullScreenStyle);
+exports.imgLoadingStyle = style_1.imgLoadingStyle;
+exports.playerBodyStyle = __assign({}, fullScreenStyle);
+exports.controlPanelStyle = {
+    position: "absolute",
+    bottom: "0px",
+    left: "0px",
+    right: "0px",
+    height: "120px",
+    background: "url(./../forpost-app/img/layerControlBg.png)",
+    backgroundRepeat: "repeat-x"
+};
+exports.playerButtonsStyle = {
+    borderBottom: "2px solid #6A6A6A",
+    position: "absolute",
+    top: "0px",
+    left: "0px",
+    right: "0px",
+    height: "50px"
+};
+
+
+/***/ }),
+/* 8 */
 /***/ (function(module, exports) {
 
 // shim for using process in browser
@@ -1086,20 +1155,6 @@ process.umask = function() { return 0; };
 
 
 /***/ }),
-/* 8 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-exports.__esModule = true;
-var ACTION_TYPE_CONST_1 = __webpack_require__(2);
-exports.chageView = function (payload) { return ({
-    type: ACTION_TYPE_CONST_1.CHANGE_VIEW,
-    payload: payload
-}); };
-
-
-/***/ }),
 /* 9 */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -1117,81 +1172,12 @@ var __assign = (this && this.__assign) || function () {
     return __assign.apply(this, arguments);
 };
 exports.__esModule = true;
-var style_1 = __webpack_require__(3);
-var fullScreenStyle = {
-    position: "absolute",
-    top: "0px",
-    left: "0px",
-    right: "0px",
-    bottom: "0px",
-    height: "100%",
-    width: "100%"
-};
-exports.style = __assign({}, fullScreenStyle);
-exports.imgLoadingStyle = style_1.imgLoadingStyle;
-exports.playerBodyStyle = __assign({}, fullScreenStyle);
-exports.controlPanelStyle = {
-    position: "absolute",
-    bottom: "0px",
-    left: "0px",
-    right: "0px",
-    height: "120px",
-    background: "url(./../forpost-app/img/layerControlBg.png)",
-    backgroundRepeat: "repeat-x"
-};
-exports.playerButtonsStyle = {
-    borderBottom: "2px solid #6A6A6A",
-    position: "absolute",
-    top: "0px",
-    left: "0px",
-    right: "0px",
-    height: "50px"
-};
-
-
-/***/ }),
-/* 10 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-exports.__esModule = true;
-exports["default"] = createStoreShape;
-
-function createStoreShape(PropTypes) {
-  return PropTypes.shape({
-    subscribe: PropTypes.func.isRequired,
-    dispatch: PropTypes.func.isRequired,
-    getState: PropTypes.func.isRequired
-  });
-}
-
-module.exports = exports["default"];
-
-/***/ }),
-/* 11 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-var __assign = (this && this.__assign) || function () {
-    __assign = Object.assign || function(t) {
-        for (var s, i = 1, n = arguments.length; i < n; i++) {
-            s = arguments[i];
-            for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p))
-                t[p] = s[p];
-        }
-        return t;
-    };
-    return __assign.apply(this, arguments);
-};
-exports.__esModule = true;
-var style_1 = __webpack_require__(3);
+var style_1 = __webpack_require__(1);
 exports.colorError = "#b00020";
 exports.fontSize1 = style_1.fontSize1;
 exports.fontFamily1 = style_1.fontFamily1;
-exports.bodyStyle = __assign({}, style_1.abstracktStyleFullWidhtElem, { height: "100%", top: "100px", bottom: "0px", background: "url(./../forpost-app/img/background1.png) no-repeat" });
+var bodyStyle = __assign({}, style_1.abstracktStyleFullWidhtElem, { height: "75%", top: "100px", bottom: "0px", background: "url(./../forpost-app/img/background1.png) no-repeat", borderBottom: "100px solid " + style_1.color1 });
+exports.bodyStyle = bodyStyle;
 exports.loginFormStyle = {
     maxWidth: "520px",
     padding: "19px 29px 50px",
@@ -1210,16 +1196,34 @@ exports.labelStyle = {
     fontSize: "25px",
     position: "relative"
 };
-exports.inputStyle = {
+var inputStyle = {
     color: style_1.color1,
     fontSize: exports.fontSize1,
     position: "absolute",
     right: "0px"
 };
+exports.inputStyle = inputStyle;
+if (stb.__type__ === "tvip") {
+    inputStyle.border = "2px solid buttonface";
+}
 
 
 /***/ }),
-/* 12 */
+/* 10 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+exports.__esModule = true;
+var ACTION_TYPE_CONST_1 = __webpack_require__(3);
+exports.chageView = function (payload) { return ({
+    type: ACTION_TYPE_CONST_1.CHANGE_VIEW,
+    payload: payload
+}); };
+
+
+/***/ }),
+/* 11 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1256,6 +1260,26 @@ exports["default"] = Header;
 
 
 /***/ }),
+/* 12 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+exports.__esModule = true;
+exports["default"] = createStoreShape;
+
+function createStoreShape(PropTypes) {
+  return PropTypes.shape({
+    subscribe: PropTypes.func.isRequired,
+    dispatch: PropTypes.func.isRequired,
+    getState: PropTypes.func.isRequired
+  });
+}
+
+module.exports = exports["default"];
+
+/***/ }),
 /* 13 */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -1273,7 +1297,7 @@ var __assign = (this && this.__assign) || function () {
     return __assign.apply(this, arguments);
 };
 exports.__esModule = true;
-var style_1 = __webpack_require__(3);
+var style_1 = __webpack_require__(1);
 exports.color2 = style_1.color2;
 exports.color3 = "#383838";
 exports.camItemStyle = {
@@ -1343,12 +1367,13 @@ exports.__esModule = true;
 var React = __webpack_require__(0);
 var ReactDOM = __webpack_require__(15);
 var react_redux_1 = __webpack_require__(4);
-var redux_1 = __webpack_require__(1);
+var redux_1 = __webpack_require__(2);
 var redux_thunk_1 = __webpack_require__(28);
 var root_1 = __webpack_require__(29);
 var Login_1 = __webpack_require__(33);
 var Panel_1 = __webpack_require__(37);
 var Player_1 = __webpack_require__(44);
+var Exit_1 = __webpack_require__(49);
 var global = window;
 var store = redux_1.createStore(root_1["default"], redux_1.applyMiddleware(redux_thunk_1["default"]));
 global["store"] = store;
@@ -1366,6 +1391,9 @@ var ViewWrap = /** @class */ (function (_super) {
         }
         else if (this.props.view === "/player") {
             return React.createElement(Player_1["default"], null);
+        }
+        else if (this.props.view === "/exit") {
+            return React.createElement(Exit_1["default"], null);
         }
     };
     return ViewWrap;
@@ -1428,7 +1456,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 
 function _inherits(subClass, superClass) { if (typeof superClass !== 'function' && superClass !== null) { throw new TypeError('Super expression must either be null or a function, not ' + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-var _utilsCreateStoreShape = __webpack_require__(10);
+var _utilsCreateStoreShape = __webpack_require__(12);
 
 var _utilsCreateStoreShape2 = _interopRequireDefault(_utilsCreateStoreShape);
 
@@ -1556,7 +1584,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 
 function _inherits(subClass, superClass) { if (typeof superClass !== 'function' && superClass !== null) { throw new TypeError('Super expression must either be null or a function, not ' + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-var _utilsCreateStoreShape = __webpack_require__(10);
+var _utilsCreateStoreShape = __webpack_require__(12);
 
 var _utilsCreateStoreShape2 = _interopRequireDefault(_utilsCreateStoreShape);
 
@@ -1805,7 +1833,7 @@ function createConnect(React) {
 }
 
 module.exports = exports['default'];
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(7)))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(8)))
 
 /***/ }),
 /* 19 */
@@ -1888,7 +1916,7 @@ module.exports = exports['default'];
 exports.__esModule = true;
 exports['default'] = wrapActionCreators;
 
-var _redux = __webpack_require__(1);
+var _redux = __webpack_require__(2);
 
 function wrapActionCreators(actionCreators) {
   return function (dispatch) {
@@ -2120,7 +2148,7 @@ var invariant = function(condition, format, a, b, c, d, e, f) {
 
 module.exports = invariant;
 
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(7)))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(8)))
 
 /***/ }),
 /* 28 */
@@ -2156,7 +2184,7 @@ thunk.withExtraArgument = createThunkMiddleware;
 "use strict";
 
 exports.__esModule = true;
-var redux_1 = __webpack_require__(1);
+var redux_1 = __webpack_require__(2);
 var auth_1 = __webpack_require__(30);
 var cams_1 = __webpack_require__(31);
 var app_1 = __webpack_require__(32);
@@ -2185,7 +2213,7 @@ var __assign = (this && this.__assign) || function () {
     return __assign.apply(this, arguments);
 };
 exports.__esModule = true;
-var ACTION_TYPE_CONST_1 = __webpack_require__(2);
+var ACTION_TYPE_CONST_1 = __webpack_require__(3);
 var defaultState = {
     login: "",
     password: "",
@@ -2236,7 +2264,7 @@ var __assign = (this && this.__assign) || function () {
     return __assign.apply(this, arguments);
 };
 exports.__esModule = true;
-var ACTION_TYPE_CONST_1 = __webpack_require__(2);
+var ACTION_TYPE_CONST_1 = __webpack_require__(3);
 var gridMaxItems = stb.__type__ === "mag" ? 3 : 3;
 var defaultState = {
     items: [],
@@ -2276,7 +2304,7 @@ var __assign = (this && this.__assign) || function () {
     return __assign.apply(this, arguments);
 };
 exports.__esModule = true;
-var ACTION_TYPE_CONST_1 = __webpack_require__(2);
+var ACTION_TYPE_CONST_1 = __webpack_require__(3);
 var defaultState = {
     view: "/login"
 };
@@ -2314,8 +2342,8 @@ var __extends = (this && this.__extends) || (function () {
 exports.__esModule = true;
 var React = __webpack_require__(0);
 var LoginForm_1 = __webpack_require__(34);
-var style_1 = __webpack_require__(11);
-var Header_1 = __webpack_require__(12);
+var style_1 = __webpack_require__(9);
+var Header_1 = __webpack_require__(11);
 var Login = /** @class */ (function (_super) {
     __extends(Login, _super);
     function Login() {
@@ -2364,10 +2392,10 @@ var __assign = (this && this.__assign) || function () {
 };
 exports.__esModule = true;
 var React = __webpack_require__(0);
-var style_1 = __webpack_require__(11);
-var style_2 = __webpack_require__(3);
+var style_1 = __webpack_require__(9);
+var style_2 = __webpack_require__(1);
 var react_redux_1 = __webpack_require__(4);
-var redux_1 = __webpack_require__(1);
+var redux_1 = __webpack_require__(2);
 var auth_1 = __webpack_require__(35);
 var LoginForm = /** @class */ (function (_super) {
     __extends(LoginForm, _super);
@@ -2566,8 +2594,8 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
 exports.__esModule = true;
 var utilites_1 = __webpack_require__(5);
 var HTTP_1 = __webpack_require__(6);
-var ACTION_TYPE_CONST_1 = __webpack_require__(2);
-var app_1 = __webpack_require__(8);
+var ACTION_TYPE_CONST_1 = __webpack_require__(3);
+var app_1 = __webpack_require__(10);
 var authError = function (payload) { return ({
     type: ACTION_TYPE_CONST_1.AUTH_ERROR,
     payload: payload
@@ -2584,7 +2612,7 @@ var authSuccess = function (SessionID, login, password, save) {
     };
 };
 var authLoading = function (payload) { return ({
-    type: "AUTH_LOADING",
+    type: ACTION_TYPE_CONST_1.AUTH_LOADING,
     payload: payload
 }); };
 exports.auth = function (login, password, save) { return function (dispath, getState) {
@@ -2664,7 +2692,7 @@ var __assign = (this && this.__assign) || function () {
     return __assign.apply(this, arguments);
 };
 exports.__esModule = true;
-var style_1 = __webpack_require__(3);
+var style_1 = __webpack_require__(1);
 exports.headerStyle = __assign({}, style_1.abstracktStyleFullWidhtElem, { height: "100px", top: "0px", background: style_1.color1 });
 exports.logoStyle = {
     height: "60px",
@@ -2703,7 +2731,7 @@ var __extends = (this && this.__extends) || (function () {
 })();
 exports.__esModule = true;
 var React = __webpack_require__(0);
-var Header_1 = __webpack_require__(12);
+var Header_1 = __webpack_require__(11);
 var Grid_1 = __webpack_require__(38);
 var Panel = /** @class */ (function (_super) {
     __extends(Panel, _super);
@@ -2803,8 +2831,9 @@ var react_redux_1 = __webpack_require__(4);
 var style_1 = __webpack_require__(39);
 var Rows_1 = __webpack_require__(40);
 var cam_1 = __webpack_require__(43);
-var redux_1 = __webpack_require__(1);
+var redux_1 = __webpack_require__(2);
 var utilites_1 = __webpack_require__(5);
+var app_1 = __webpack_require__(10);
 var Grid = /** @class */ (function (_super) {
     __extends(Grid, _super);
     function Grid() {
@@ -2874,6 +2903,9 @@ var Grid = /** @class */ (function (_super) {
     };
     Grid.prototype.key = function (e) {
         var key = e.key;
+        if (key === "Escape") {
+            this.props.chageView("/exit");
+        }
         if (key === "Enter") {
             var flatRowsArr = [].concat.apply([], __spread(this.rows));
             var activeItem = flatRowsArr[this.props.gridActiveItemPosition];
@@ -3038,7 +3070,8 @@ exports["default"] = react_redux_1.connect(function (state) { return state.cams;
     return redux_1.bindActionCreators({
         changeStateCams: cam_1.changeStateCams,
         loadCamItems: cam_1.loadCamItems,
-        play: cam_1.play
+        play: cam_1.play,
+        chageView: app_1.chageView
     }, disptach);
 })(Grid);
 
@@ -3050,7 +3083,7 @@ exports["default"] = react_redux_1.connect(function (state) { return state.cams;
 "use strict";
 
 exports.__esModule = true;
-var style_1 = __webpack_require__(3);
+var style_1 = __webpack_require__(1);
 var paddingLeft = stb.__type__ === "mag" ? "80px" : "50px";
 var paddingRight = stb.__type__ === "mag" ? "80px" : "50px";
 exports.gridStyle = {
@@ -3475,10 +3508,10 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
     }
 };
 exports.__esModule = true;
-var ACTION_TYPE_CONST_1 = __webpack_require__(2);
+var ACTION_TYPE_CONST_1 = __webpack_require__(3);
 var utilites_1 = __webpack_require__(5);
 var HTTP_1 = __webpack_require__(6);
-var app_1 = __webpack_require__(8);
+var app_1 = __webpack_require__(10);
 exports.changeStateCams = function (payload) { return ({
     type: ACTION_TYPE_CONST_1.CHANGE_CAMS_STATE,
     payload: payload
@@ -3570,10 +3603,10 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
 exports.__esModule = true;
 var React = __webpack_require__(0);
 var react_redux_1 = __webpack_require__(4);
-var app_1 = __webpack_require__(8);
-var redux_1 = __webpack_require__(1);
+var app_1 = __webpack_require__(10);
+var redux_1 = __webpack_require__(2);
 var Body_1 = __webpack_require__(45);
-var style_1 = __webpack_require__(9);
+var style_1 = __webpack_require__(7);
 var utilites_1 = __webpack_require__(5);
 var HTTP_1 = __webpack_require__(6);
 var Player = /** @class */ (function (_super) {
@@ -3675,7 +3708,7 @@ var __extends = (this && this.__extends) || (function () {
 })();
 exports.__esModule = true;
 var React = __webpack_require__(0);
-var style_1 = __webpack_require__(9);
+var style_1 = __webpack_require__(7);
 var ControlPanel_1 = __webpack_require__(46);
 var PlayerBody = /** @class */ (function (_super) {
     __extends(PlayerBody, _super);
@@ -3730,7 +3763,7 @@ var __extends = (this && this.__extends) || (function () {
 })();
 exports.__esModule = true;
 var React = __webpack_require__(0);
-var style_1 = __webpack_require__(9);
+var style_1 = __webpack_require__(7);
 var PlayerButtons_1 = __webpack_require__(47);
 var ControlPanel = /** @class */ (function (_super) {
     __extends(ControlPanel, _super);
@@ -3768,7 +3801,7 @@ var __extends = (this && this.__extends) || (function () {
 })();
 exports.__esModule = true;
 var React = __webpack_require__(0);
-var style_1 = __webpack_require__(9);
+var style_1 = __webpack_require__(7);
 var PlayPauseButton_1 = __webpack_require__(48);
 var PlayerButtons = /** @class */ (function (_super) {
     __extends(PlayerButtons, _super);
@@ -3821,6 +3854,145 @@ var PlayPauseButton = /** @class */ (function (_super) {
     return PlayPauseButton;
 }(React.Component));
 exports["default"] = PlayPauseButton;
+
+
+/***/ }),
+/* 49 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+var __extends = (this && this.__extends) || (function () {
+    var extendStatics = function (d, b) {
+        extendStatics = Object.setPrototypeOf ||
+            ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+            function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+        return extendStatics(d, b);
+    };
+    return function (d, b) {
+        extendStatics(d, b);
+        function __() { this.constructor = d; }
+        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+    };
+})();
+var __assign = (this && this.__assign) || function () {
+    __assign = Object.assign || function(t) {
+        for (var s, i = 1, n = arguments.length; i < n; i++) {
+            s = arguments[i];
+            for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p))
+                t[p] = s[p];
+        }
+        return t;
+    };
+    return __assign.apply(this, arguments);
+};
+exports.__esModule = true;
+var React = __webpack_require__(0);
+var style_1 = __webpack_require__(9);
+var style_2 = __webpack_require__(1);
+var Header_1 = __webpack_require__(11);
+var utilites_1 = __webpack_require__(5);
+var react_redux_1 = __webpack_require__(4);
+var app_1 = __webpack_require__(10);
+var redux_1 = __webpack_require__(2);
+exports.inputStyle = {
+    color: style_2.color1,
+    fontSize: style_1.fontSize1,
+    width: "100%"
+};
+var Exit = /** @class */ (function (_super) {
+    __extends(Exit, _super);
+    function Exit(props) {
+        var _this = _super.call(this, props) || this;
+        _this.refArrStore = [];
+        _this.refStore = {};
+        return _this;
+    }
+    Exit.prototype.render = function () {
+        return (React.createElement("div", { onKeyDown: this.key.bind(this) },
+            React.createElement(Header_1["default"], null),
+            React.createElement("div", { style: style_1.bodyStyle },
+                React.createElement("div", { style: style_1.loginFormStyle },
+                    React.createElement("fieldset", null,
+                        React.createElement("legend", null,
+                            React.createElement("h1", { style: { color: style_2.color1, fontSize: "30px" } }, "\u0412\u044B \u0434\u0435\u0439\u0441\u0442\u0432\u0438\u0442\u0435\u043B\u044C\u043D\u043E \u0445\u043E\u0442\u0438\u0442\u0435 \u0432\u044B\u0439\u0442\u0438?")),
+                        React.createElement("label", { style: __assign({}, style_1.labelStyle, { top: "-10px", marginTop: "20px" }) },
+                            React.createElement("input", { type: "submit", value: "\u0412\u044B\u0439\u0442\u0438 \u0438\u0437 \u043F\u0440\u0438\u043B\u043E\u0436\u0435\u043D\u0438\u044F", style: this.mayBeFocusStyle(exports.inputStyle, "exitApp"), ref: this.setRef.bind(this, "exitApp"), onKeyDown: this.keyDownItem.bind(this) })),
+                        React.createElement("label", { style: __assign({}, style_1.labelStyle, { top: "-10px" }) },
+                            React.createElement("input", { type: "submit", value: "\u0412\u044B\u0439\u0442\u0438 \u0438\u0437 \u0430\u043A\u043A\u0430\u0443\u043D\u0442\u0430", style: this.mayBeFocusStyle(exports.inputStyle, "exitAcc"), ref: this.setRef.bind(this, "exitAcc"), onKeyDown: this.keyDownItem.bind(this) })),
+                        React.createElement("label", { style: __assign({}, style_1.labelStyle, { top: "-10px" }) },
+                            React.createElement("input", { type: "submit", value: "\u041E\u0442\u043C\u0435\u043D\u0430", style: this.mayBeFocusStyle(exports.inputStyle, "cancel"), ref: this.setRef.bind(this, "cancel"), onKeyDown: this.keyDownItem.bind(this) })))))));
+    };
+    Exit.prototype.setRef = function (name, elem) {
+        this.refArrStore.push(elem);
+        this.refStore[name] = elem;
+    };
+    Exit.prototype.mayBeFocusStyle = function (style, elemName) {
+        if (this.refStore[elemName] === document.activeElement) {
+            return __assign({}, style, { border: "3px solid " + style_2.color1 });
+        }
+        return style;
+    };
+    Exit.prototype.key = function (e) {
+        if (e.key === "ArrowDown" || e.key === "ArrowUp") {
+            this.navigate(e.key);
+            this.setState({});
+        }
+    };
+    Exit.prototype.keyDownItem = function (e) {
+        if (e.key !== "Enter") {
+            return false;
+        }
+        e.stopPropagation();
+        if (this.refStore["exitApp"] === document.activeElement) {
+            try {
+                stb.SetVideoState(1);
+            }
+            catch (e) {
+                console.log(e);
+            }
+            location = utilites_1.parseGetParams("referrer");
+        }
+        else if (this.refStore["exitAcc"] === document.activeElement) {
+            try {
+                stb.RDir("setenv forpost_app_profile  ");
+            }
+            catch (e) {
+                localStorage.removeItem("forpost_app_profile");
+                console.log(e);
+            }
+            this.props.chageView("/login");
+        }
+        else {
+            this.props.chageView("/panel");
+            console.log("cancel");
+        }
+    };
+    Exit.prototype.navigate = function (key) {
+        var dif = 0;
+        if (key === "ArrowDown") {
+            dif = 1;
+        }
+        else if (key === "ArrowUp") {
+            dif = -1;
+        }
+        var index = this.refArrStore.indexOf(document.activeElement);
+        if (index === -1 || !this.refArrStore[index + dif]) {
+            return;
+        }
+        this.refArrStore[index + dif].focus();
+    };
+    Exit.prototype.componentDidMount = function () {
+        this.refArrStore[0].focus();
+        this.setState({});
+    };
+    return Exit;
+}(React.Component));
+exports["default"] = react_redux_1.connect(null, function (dispatch) {
+    return redux_1.bindActionCreators({
+        chageView: app_1.chageView
+    }, dispatch);
+})(Exit);
 
 
 /***/ })
