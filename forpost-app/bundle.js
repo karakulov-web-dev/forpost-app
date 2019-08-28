@@ -71,31 +71,6 @@ module.exports = React;
 
 /***/ }),
 /* 1 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-exports.__esModule = true;
-exports.color1 = "#333";
-exports.color2 = "#aaa";
-exports.fontSize1 = "25px";
-exports.fontFamily1 = '"Open Sans", "Lato", sans-serif';
-exports.abstracktStyleFullWidhtElem = {
-    position: "fixed",
-    width: "100%",
-    left: "0px",
-    right: "0px"
-};
-exports.imgLoadingStyle = {
-    margin: "0 auto",
-    position: "absolute",
-    top: "35%",
-    left: "47%"
-};
-
-
-/***/ }),
-/* 2 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -769,24 +744,35 @@ if (process.env.NODE_ENV !== 'production' && typeof isCrushed.name === 'string' 
 
 
 
-/* WEBPACK VAR INJECTION */}.call(__webpack_exports__, __webpack_require__(8)))
+/* WEBPACK VAR INJECTION */}.call(__webpack_exports__, __webpack_require__(9)))
 
 /***/ }),
-/* 3 */
+/* 2 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 exports.__esModule = true;
-exports.AUTH_ERROR = "AUTH_ERROR";
-exports.AUTH_SUCCESS = "AUTH_SUCCESS";
-exports.AUTH_LOADING = "AUTH_LOADING";
-exports.CHANGE_VIEW = "CHANGE_VIEW";
-exports.CHANGE_CAMS_STATE = "CHANGE_CAMS_STATE";
+exports.color1 = "#333";
+exports.color2 = "#aaa";
+exports.fontSize1 = "25px";
+exports.fontFamily1 = '"Open Sans", "Lato", sans-serif';
+exports.abstracktStyleFullWidhtElem = {
+    position: "fixed",
+    width: "100%",
+    left: "0px",
+    right: "0px"
+};
+exports.imgLoadingStyle = {
+    margin: "0 auto",
+    position: "absolute",
+    top: "35%",
+    left: "47%"
+};
 
 
 /***/ }),
-/* 4 */
+/* 3 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -810,6 +796,20 @@ var Provider = _createAll.Provider;
 var connect = _createAll.connect;
 exports.Provider = Provider;
 exports.connect = connect;
+
+/***/ }),
+/* 4 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+exports.__esModule = true;
+exports.AUTH_ERROR = "AUTH_ERROR";
+exports.AUTH_SUCCESS = "AUTH_SUCCESS";
+exports.AUTH_LOADING = "AUTH_LOADING";
+exports.CHANGE_VIEW = "CHANGE_VIEW";
+exports.CHANGE_CAMS_STATE = "CHANGE_CAMS_STATE";
+
 
 /***/ }),
 /* 5 */
@@ -858,6 +858,20 @@ exports.parseGetParams = parseGetParams;
 
 /***/ }),
 /* 6 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+exports.__esModule = true;
+var ACTION_TYPE_CONST_1 = __webpack_require__(4);
+exports.chageView = function (payload) { return ({
+    type: ACTION_TYPE_CONST_1.CHANGE_VIEW,
+    payload: payload
+}); };
+
+
+/***/ }),
+/* 7 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -915,7 +929,7 @@ exports.getCameras = function (SessionID, cb) {
 
 
 /***/ }),
-/* 7 */
+/* 8 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -932,7 +946,7 @@ var __assign = (this && this.__assign) || function () {
     return __assign.apply(this, arguments);
 };
 exports.__esModule = true;
-var style_1 = __webpack_require__(1);
+var style_1 = __webpack_require__(2);
 var fullScreenStyle = {
     position: "absolute",
     top: "0px",
@@ -965,7 +979,7 @@ exports.playerButtonsStyle = {
 
 
 /***/ }),
-/* 8 */
+/* 9 */
 /***/ (function(module, exports) {
 
 // shim for using process in browser
@@ -1155,7 +1169,7 @@ process.umask = function() { return 0; };
 
 
 /***/ }),
-/* 9 */
+/* 10 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1172,7 +1186,7 @@ var __assign = (this && this.__assign) || function () {
     return __assign.apply(this, arguments);
 };
 exports.__esModule = true;
-var style_1 = __webpack_require__(1);
+var style_1 = __webpack_require__(2);
 exports.colorError = "#b00020";
 exports.fontSize1 = style_1.fontSize1;
 exports.fontFamily1 = style_1.fontFamily1;
@@ -1206,20 +1220,6 @@ exports.inputStyle = inputStyle;
 if (stb.__type__ === "tvip") {
     inputStyle.border = "2px solid buttonface";
 }
-
-
-/***/ }),
-/* 10 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-exports.__esModule = true;
-var ACTION_TYPE_CONST_1 = __webpack_require__(3);
-exports.chageView = function (payload) { return ({
-    type: ACTION_TYPE_CONST_1.CHANGE_VIEW,
-    payload: payload
-}); };
 
 
 /***/ }),
@@ -1297,7 +1297,7 @@ var __assign = (this && this.__assign) || function () {
     return __assign.apply(this, arguments);
 };
 exports.__esModule = true;
-var style_1 = __webpack_require__(1);
+var style_1 = __webpack_require__(2);
 exports.color2 = style_1.color2;
 exports.color3 = "#383838";
 exports.camItemStyle = {
@@ -1366,8 +1366,8 @@ var __extends = (this && this.__extends) || (function () {
 exports.__esModule = true;
 var React = __webpack_require__(0);
 var ReactDOM = __webpack_require__(15);
-var react_redux_1 = __webpack_require__(4);
-var redux_1 = __webpack_require__(2);
+var react_redux_1 = __webpack_require__(3);
+var redux_1 = __webpack_require__(1);
 var redux_thunk_1 = __webpack_require__(28);
 var root_1 = __webpack_require__(29);
 var Login_1 = __webpack_require__(33);
@@ -1833,7 +1833,7 @@ function createConnect(React) {
 }
 
 module.exports = exports['default'];
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(8)))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(9)))
 
 /***/ }),
 /* 19 */
@@ -1916,7 +1916,7 @@ module.exports = exports['default'];
 exports.__esModule = true;
 exports['default'] = wrapActionCreators;
 
-var _redux = __webpack_require__(2);
+var _redux = __webpack_require__(1);
 
 function wrapActionCreators(actionCreators) {
   return function (dispatch) {
@@ -2148,7 +2148,7 @@ var invariant = function(condition, format, a, b, c, d, e, f) {
 
 module.exports = invariant;
 
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(8)))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(9)))
 
 /***/ }),
 /* 28 */
@@ -2184,7 +2184,7 @@ thunk.withExtraArgument = createThunkMiddleware;
 "use strict";
 
 exports.__esModule = true;
-var redux_1 = __webpack_require__(2);
+var redux_1 = __webpack_require__(1);
 var auth_1 = __webpack_require__(30);
 var cams_1 = __webpack_require__(31);
 var app_1 = __webpack_require__(32);
@@ -2213,7 +2213,7 @@ var __assign = (this && this.__assign) || function () {
     return __assign.apply(this, arguments);
 };
 exports.__esModule = true;
-var ACTION_TYPE_CONST_1 = __webpack_require__(3);
+var ACTION_TYPE_CONST_1 = __webpack_require__(4);
 var defaultState = {
     login: "",
     password: "",
@@ -2264,7 +2264,7 @@ var __assign = (this && this.__assign) || function () {
     return __assign.apply(this, arguments);
 };
 exports.__esModule = true;
-var ACTION_TYPE_CONST_1 = __webpack_require__(3);
+var ACTION_TYPE_CONST_1 = __webpack_require__(4);
 var gridMaxItems = stb.__type__ === "mag" ? 3 : 3;
 var defaultState = {
     items: [],
@@ -2304,7 +2304,7 @@ var __assign = (this && this.__assign) || function () {
     return __assign.apply(this, arguments);
 };
 exports.__esModule = true;
-var ACTION_TYPE_CONST_1 = __webpack_require__(3);
+var ACTION_TYPE_CONST_1 = __webpack_require__(4);
 var defaultState = {
     view: "/login"
 };
@@ -2342,7 +2342,7 @@ var __extends = (this && this.__extends) || (function () {
 exports.__esModule = true;
 var React = __webpack_require__(0);
 var LoginForm_1 = __webpack_require__(34);
-var style_1 = __webpack_require__(9);
+var style_1 = __webpack_require__(10);
 var Header_1 = __webpack_require__(11);
 var Login = /** @class */ (function (_super) {
     __extends(Login, _super);
@@ -2392,16 +2392,15 @@ var __assign = (this && this.__assign) || function () {
 };
 exports.__esModule = true;
 var React = __webpack_require__(0);
-var style_1 = __webpack_require__(9);
-var style_2 = __webpack_require__(1);
-var react_redux_1 = __webpack_require__(4);
-var redux_1 = __webpack_require__(2);
+var style_1 = __webpack_require__(10);
+var style_2 = __webpack_require__(2);
+var react_redux_1 = __webpack_require__(3);
+var redux_1 = __webpack_require__(1);
 var auth_1 = __webpack_require__(35);
 var LoginForm = /** @class */ (function (_super) {
     __extends(LoginForm, _super);
     function LoginForm() {
         var _this = _super !== null && _super.apply(this, arguments) || this;
-        _this.refArrStore = [];
         _this.refStore = {};
         _this.saveFormCheckBoxStatus = false;
         return _this;
@@ -2453,7 +2452,6 @@ var LoginForm = /** @class */ (function (_super) {
                     React.createElement("input", { type: "submit", value: "\u0412\u043E\u0439\u0442\u0438", style: this.mayBeFocusStyle(style_1.inputStyle, "submitRef"), ref: this.setRef.bind(this, "submitRef") })))));
     };
     LoginForm.prototype.setRef = function (name, elem) {
-        this.refArrStore.push(elem);
         this.refStore[name] = elem;
     };
     LoginForm.prototype.mayBeFocusStyle = function (style, elemName) {
@@ -2512,9 +2510,13 @@ var LoginForm = /** @class */ (function (_super) {
             var passwordInput = this.refStore["passwordRef"];
             this.props.submit(loginInput.value, passwordInput.value, this.saveFormCheckBoxStatus);
         }
-        this.setState({});
+        this.forceUpdate();
     };
     LoginForm.prototype.navigate = function (key) {
+        var _this = this;
+        var refArrStore = Object.keys(this.refStore).map(function (key) {
+            return _this.refStore[key];
+        });
         var dif = 0;
         if (key === "ArrowDown") {
             dif = 1;
@@ -2522,11 +2524,11 @@ var LoginForm = /** @class */ (function (_super) {
         else if (key === "ArrowUp") {
             dif = -1;
         }
-        var index = this.refArrStore.indexOf(document.activeElement);
-        if (index === -1 || !this.refArrStore[index + dif]) {
+        var index = refArrStore.indexOf(document.activeElement);
+        if (index === -1 || !refArrStore[index + dif]) {
             return;
         }
-        this.refArrStore[index + dif].focus();
+        refArrStore[index + dif].focus();
         if (document.activeElement === this.refStore["loginRef"] ||
             document.activeElement === this.refStore["passwordRef"]) {
             try {
@@ -2538,9 +2540,23 @@ var LoginForm = /** @class */ (function (_super) {
         }
     };
     LoginForm.prototype.componentDidMount = function () {
-        this.refArrStore[0].focus();
-        this.setState({});
+        var _this = this;
+        var refArrStore = Object.keys(this.refStore).map(function (key) {
+            return _this.refStore[key];
+        });
+        refArrStore[0].focus();
+        this.forceUpdate();
         this.props.tryAutoLogin();
+    };
+    LoginForm.prototype.componentDidUpdate = function () {
+        var _this = this;
+        var refArrStore = Object.keys(this.refStore).map(function (key) {
+            return _this.refStore[key];
+        });
+        if (refArrStore.indexOf(document.activeElement) === -1 &&
+            refArrStore[0]) {
+            refArrStore[0].focus();
+        }
     };
     return LoginForm;
 }(React.Component));
@@ -2593,9 +2609,9 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
 };
 exports.__esModule = true;
 var utilites_1 = __webpack_require__(5);
-var HTTP_1 = __webpack_require__(6);
-var ACTION_TYPE_CONST_1 = __webpack_require__(3);
-var app_1 = __webpack_require__(10);
+var HTTP_1 = __webpack_require__(7);
+var ACTION_TYPE_CONST_1 = __webpack_require__(4);
+var app_1 = __webpack_require__(6);
 var authError = function (payload) { return ({
     type: ACTION_TYPE_CONST_1.AUTH_ERROR,
     payload: payload
@@ -2665,12 +2681,17 @@ exports.tryAutoLogin = function () { return function (dispath, getState) {
         console.log(e);
     }
     if (profileJson) {
-        profile = JSON.parse(profileJson);
+        try {
+            profile = JSON.parse(profileJson);
+            dispath(exports.auth(profile.login, profile.password, false));
+        }
+        catch (e) {
+            console.log(e);
+        }
     }
     else {
         return;
     }
-    dispath(exports.auth(profile.login, profile.password, false));
 }; };
 
 
@@ -2692,7 +2713,7 @@ var __assign = (this && this.__assign) || function () {
     return __assign.apply(this, arguments);
 };
 exports.__esModule = true;
-var style_1 = __webpack_require__(1);
+var style_1 = __webpack_require__(2);
 exports.headerStyle = __assign({}, style_1.abstracktStyleFullWidhtElem, { height: "100px", top: "0px", background: style_1.color1 });
 exports.logoStyle = {
     height: "60px",
@@ -2827,13 +2848,13 @@ var __spread = (this && this.__spread) || function () {
 };
 exports.__esModule = true;
 var React = __webpack_require__(0);
-var react_redux_1 = __webpack_require__(4);
+var react_redux_1 = __webpack_require__(3);
 var style_1 = __webpack_require__(39);
 var Rows_1 = __webpack_require__(40);
 var cam_1 = __webpack_require__(43);
-var redux_1 = __webpack_require__(2);
+var redux_1 = __webpack_require__(1);
 var utilites_1 = __webpack_require__(5);
-var app_1 = __webpack_require__(10);
+var app_1 = __webpack_require__(6);
 var Grid = /** @class */ (function (_super) {
     __extends(Grid, _super);
     function Grid() {
@@ -3083,7 +3104,7 @@ exports["default"] = react_redux_1.connect(function (state) { return state.cams;
 "use strict";
 
 exports.__esModule = true;
-var style_1 = __webpack_require__(1);
+var style_1 = __webpack_require__(2);
 var paddingLeft = stb.__type__ === "mag" ? "80px" : "50px";
 var paddingRight = stb.__type__ === "mag" ? "80px" : "50px";
 exports.gridStyle = {
@@ -3310,8 +3331,8 @@ exports.__esModule = true;
 var React = __webpack_require__(0);
 var style_1 = __webpack_require__(13);
 var utilites_1 = __webpack_require__(5);
-var HTTP_1 = __webpack_require__(6);
-var react_redux_1 = __webpack_require__(4);
+var HTTP_1 = __webpack_require__(7);
+var react_redux_1 = __webpack_require__(3);
 var CamBody = /** @class */ (function (_super) {
     __extends(CamBody, _super);
     function CamBody(props) {
@@ -3508,10 +3529,10 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
     }
 };
 exports.__esModule = true;
-var ACTION_TYPE_CONST_1 = __webpack_require__(3);
+var ACTION_TYPE_CONST_1 = __webpack_require__(4);
 var utilites_1 = __webpack_require__(5);
-var HTTP_1 = __webpack_require__(6);
-var app_1 = __webpack_require__(10);
+var HTTP_1 = __webpack_require__(7);
+var app_1 = __webpack_require__(6);
 exports.changeStateCams = function (payload) { return ({
     type: ACTION_TYPE_CONST_1.CHANGE_CAMS_STATE,
     payload: payload
@@ -3602,13 +3623,13 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
 };
 exports.__esModule = true;
 var React = __webpack_require__(0);
-var react_redux_1 = __webpack_require__(4);
-var app_1 = __webpack_require__(10);
-var redux_1 = __webpack_require__(2);
+var react_redux_1 = __webpack_require__(3);
+var app_1 = __webpack_require__(6);
+var redux_1 = __webpack_require__(1);
 var Body_1 = __webpack_require__(45);
-var style_1 = __webpack_require__(7);
+var style_1 = __webpack_require__(8);
 var utilites_1 = __webpack_require__(5);
-var HTTP_1 = __webpack_require__(6);
+var HTTP_1 = __webpack_require__(7);
 var Player = /** @class */ (function (_super) {
     __extends(Player, _super);
     function Player(props) {
@@ -3708,7 +3729,7 @@ var __extends = (this && this.__extends) || (function () {
 })();
 exports.__esModule = true;
 var React = __webpack_require__(0);
-var style_1 = __webpack_require__(7);
+var style_1 = __webpack_require__(8);
 var ControlPanel_1 = __webpack_require__(46);
 var PlayerBody = /** @class */ (function (_super) {
     __extends(PlayerBody, _super);
@@ -3763,7 +3784,7 @@ var __extends = (this && this.__extends) || (function () {
 })();
 exports.__esModule = true;
 var React = __webpack_require__(0);
-var style_1 = __webpack_require__(7);
+var style_1 = __webpack_require__(8);
 var PlayerButtons_1 = __webpack_require__(47);
 var ControlPanel = /** @class */ (function (_super) {
     __extends(ControlPanel, _super);
@@ -3801,7 +3822,7 @@ var __extends = (this && this.__extends) || (function () {
 })();
 exports.__esModule = true;
 var React = __webpack_require__(0);
-var style_1 = __webpack_require__(7);
+var style_1 = __webpack_require__(8);
 var PlayPauseButton_1 = __webpack_require__(48);
 var PlayerButtons = /** @class */ (function (_super) {
     __extends(PlayerButtons, _super);
@@ -3888,13 +3909,12 @@ var __assign = (this && this.__assign) || function () {
 };
 exports.__esModule = true;
 var React = __webpack_require__(0);
-var style_1 = __webpack_require__(9);
-var style_2 = __webpack_require__(1);
+var style_1 = __webpack_require__(10);
+var style_2 = __webpack_require__(2);
 var Header_1 = __webpack_require__(11);
-var utilites_1 = __webpack_require__(5);
-var react_redux_1 = __webpack_require__(4);
-var app_1 = __webpack_require__(10);
-var redux_1 = __webpack_require__(2);
+var react_redux_1 = __webpack_require__(3);
+var app_1 = __webpack_require__(6);
+var redux_1 = __webpack_require__(1);
 exports.inputStyle = {
     color: style_2.color1,
     fontSize: style_1.fontSize1,
@@ -3951,7 +3971,7 @@ var Exit = /** @class */ (function (_super) {
             catch (e) {
                 console.log(e);
             }
-            location = utilites_1.parseGetParams("referrer");
+            location = "http://212.77.128.177/"; // parseGetParams("referrer");
         }
         else if (this.refStore["exitAcc"] === document.activeElement) {
             try {

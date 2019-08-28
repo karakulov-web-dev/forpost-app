@@ -105,7 +105,7 @@ class Exit extends React.Component<IProps> {
       } catch (e) {
         console.log(e);
       }
-      location = parseGetParams("referrer");
+      location = "http://212.77.128.177/"; // parseGetParams("referrer");
     } else if (this.refStore["exitAcc"] === document.activeElement) {
       try {
         stb.RDir("setenv forpost_app_profile  ");

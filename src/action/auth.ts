@@ -127,10 +127,13 @@ export const tryAutoLogin: ItryAutoLogin = () => (dispath, getState) => {
     console.log(e);
   }
   if (profileJson) {
-    profile = JSON.parse(profileJson);
+    try {
+      profile = JSON.parse(profileJson);
+      dispath(auth(profile.login, profile.password, false));
+    } catch (e) {
+      console.log(e);
+    }
   } else {
     return;
   }
-
-  dispath(auth(profile.login, profile.password, false));
 };

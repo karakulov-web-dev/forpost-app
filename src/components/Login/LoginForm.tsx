@@ -31,7 +31,6 @@ interface IProps {
 }
 
 class LoginForm extends React.Component<IProps> {
-  refArrStore: HTMLElement[] = [];
   refStore: IRefStore = {};
   saveFormCheckBoxStatus: boolean = false;
   render() {
@@ -130,7 +129,6 @@ class LoginForm extends React.Component<IProps> {
     );
   }
   setRef(name: string, elem: HTMLElement) {
-    this.refArrStore.push(elem);
     this.refStore[name] = elem;
   }
   mayBeFocusStyle(style: React.CSSProperties, elemName: string) {
@@ -200,20 +198,24 @@ class LoginForm extends React.Component<IProps> {
         this.saveFormCheckBoxStatus
       );
     }
-    this.setState({});
+    this.forceUpdate();
   }
   navigate(key: string) {
+    let refArrStore: HTMLElement[] = Object.keys(this.refStore).map(key => {
+      return this.refStore[key];
+    });
+
     let dif = 0;
     if (key === "ArrowDown") {
       dif = 1;
     } else if (key === "ArrowUp") {
       dif = -1;
     }
-    let index = this.refArrStore.indexOf(document.activeElement as HTMLElement);
-    if (index === -1 || !this.refArrStore[index + dif]) {
+    let index = refArrStore.indexOf(document.activeElement as HTMLElement);
+    if (index === -1 || !refArrStore[index + dif]) {
       return;
     }
-    this.refArrStore[index + dif].focus();
+    refArrStore[index + dif].focus();
     if (
       document.activeElement === this.refStore["loginRef"] ||
       document.activeElement === this.refStore["passwordRef"]
@@ -226,9 +228,23 @@ class LoginForm extends React.Component<IProps> {
     }
   }
   componentDidMount() {
-    this.refArrStore[0].focus();
-    this.setState({});
+    let refArrStore: HTMLElement[] = Object.keys(this.refStore).map(key => {
+      return this.refStore[key];
+    });
+    refArrStore[0].focus();
+    this.forceUpdate();
     this.props.tryAutoLogin();
+  }
+  componentDidUpdate() {
+    let refArrStore: HTMLElement[] = Object.keys(this.refStore).map(key => {
+      return this.refStore[key];
+    });
+    if (
+      refArrStore.indexOf(document.activeElement as HTMLElement) === -1 &&
+      refArrStore[0]
+    ) {
+      refArrStore[0].focus();
+    }
   }
 }
 
