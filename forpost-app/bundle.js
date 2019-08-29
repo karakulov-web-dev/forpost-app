@@ -818,6 +818,20 @@ exports.CHANGE_CAMS_STATE = "CHANGE_CAMS_STATE";
 "use strict";
 
 exports.__esModule = true;
+var ACTION_TYPE_CONST_1 = __webpack_require__(4);
+exports.chageView = function (payload) { return ({
+    type: ACTION_TYPE_CONST_1.CHANGE_VIEW,
+    payload: payload
+}); };
+
+
+/***/ }),
+/* 6 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+exports.__esModule = true;
 var SelfGuidedGenerator = /** @class */ (function () {
     function SelfGuidedGenerator(generatorCreater) {
         this.generator = generatorCreater(this);
@@ -854,20 +868,6 @@ function parseGetParams(par) {
     return result;
 }
 exports.parseGetParams = parseGetParams;
-
-
-/***/ }),
-/* 6 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-exports.__esModule = true;
-var ACTION_TYPE_CONST_1 = __webpack_require__(4);
-exports.chageView = function (payload) { return ({
-    type: ACTION_TYPE_CONST_1.CHANGE_VIEW,
-    payload: payload
-}); };
 
 
 /***/ }),
@@ -2397,7 +2397,7 @@ var style_2 = __webpack_require__(2);
 var react_redux_1 = __webpack_require__(3);
 var redux_1 = __webpack_require__(1);
 var auth_1 = __webpack_require__(35);
-var app_1 = __webpack_require__(6);
+var app_1 = __webpack_require__(5);
 var LoginForm = /** @class */ (function (_super) {
     __extends(LoginForm, _super);
     function LoginForm() {
@@ -2619,10 +2619,10 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
     }
 };
 exports.__esModule = true;
-var utilites_1 = __webpack_require__(5);
+var utilites_1 = __webpack_require__(6);
 var HTTP_1 = __webpack_require__(7);
 var ACTION_TYPE_CONST_1 = __webpack_require__(4);
-var app_1 = __webpack_require__(6);
+var app_1 = __webpack_require__(5);
 var authError = function (payload) { return ({
     type: ACTION_TYPE_CONST_1.AUTH_ERROR,
     payload: payload
@@ -2864,8 +2864,8 @@ var style_1 = __webpack_require__(39);
 var Rows_1 = __webpack_require__(40);
 var cam_1 = __webpack_require__(43);
 var redux_1 = __webpack_require__(1);
-var utilites_1 = __webpack_require__(5);
-var app_1 = __webpack_require__(6);
+var utilites_1 = __webpack_require__(6);
+var app_1 = __webpack_require__(5);
 var Grid = /** @class */ (function (_super) {
     __extends(Grid, _super);
     function Grid() {
@@ -3341,7 +3341,7 @@ var __read = (this && this.__read) || function (o, n) {
 exports.__esModule = true;
 var React = __webpack_require__(0);
 var style_1 = __webpack_require__(13);
-var utilites_1 = __webpack_require__(5);
+var utilites_1 = __webpack_require__(6);
 var HTTP_1 = __webpack_require__(7);
 var react_redux_1 = __webpack_require__(3);
 var CamBody = /** @class */ (function (_super) {
@@ -3541,9 +3541,9 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
 };
 exports.__esModule = true;
 var ACTION_TYPE_CONST_1 = __webpack_require__(4);
-var utilites_1 = __webpack_require__(5);
+var utilites_1 = __webpack_require__(6);
 var HTTP_1 = __webpack_require__(7);
-var app_1 = __webpack_require__(6);
+var app_1 = __webpack_require__(5);
 exports.changeStateCams = function (payload) { return ({
     type: ACTION_TYPE_CONST_1.CHANGE_CAMS_STATE,
     payload: payload
@@ -3635,11 +3635,11 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
 exports.__esModule = true;
 var React = __webpack_require__(0);
 var react_redux_1 = __webpack_require__(3);
-var app_1 = __webpack_require__(6);
+var app_1 = __webpack_require__(5);
 var redux_1 = __webpack_require__(1);
 var Body_1 = __webpack_require__(45);
 var style_1 = __webpack_require__(8);
-var utilites_1 = __webpack_require__(5);
+var utilites_1 = __webpack_require__(6);
 var HTTP_1 = __webpack_require__(7);
 var Player = /** @class */ (function (_super) {
     __extends(Player, _super);
@@ -3666,7 +3666,7 @@ var Player = /** @class */ (function (_super) {
         return (React.createElement("img", { style: style_1.imgLoadingStyle, src: "./../forpost-app/img/loading_5.gif" }));
     };
     Player.prototype.getBody = function () {
-        return (React.createElement(Body_1["default"], { items: this.props.items, gridActiveItemPosition: this.props.gridActiveItemPosition, gridMaxItems: this.props.gridMaxItems, grigPage: this.props.grigPage, gridLoading: this.props.gridLoading, chageView: this.props.chageView, loading: this.state.loading, playStatus: this.state.playStatus, playerChangeState: this.playerChangeState, currentPlay: this.props.currentPlay, SessionID: this.props.SessionID }));
+        return (React.createElement(Body_1["default"], { items: this.props.items, gridActiveItemPosition: this.props.gridActiveItemPosition, gridMaxItems: this.props.gridMaxItems, grigPage: this.props.grigPage, gridLoading: this.props.gridLoading, chageView: this.props.chageView, playerState: this.state, playerChangeState: this.playerChangeState.bind(this), currentPlay: this.props.currentPlay, SessionID: this.props.SessionID }));
     };
     Player.prototype.playerChangeState = function (newState) {
         this.setState(__assign({}, this.state, newState));
@@ -3738,6 +3738,17 @@ var __extends = (this && this.__extends) || (function () {
         d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
     };
 })();
+var __assign = (this && this.__assign) || function () {
+    __assign = Object.assign || function(t) {
+        for (var s, i = 1, n = arguments.length; i < n; i++) {
+            s = arguments[i];
+            for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p))
+                t[p] = s[p];
+        }
+        return t;
+    };
+    return __assign.apply(this, arguments);
+};
 exports.__esModule = true;
 var React = __webpack_require__(0);
 var style_1 = __webpack_require__(8);
@@ -3745,20 +3756,26 @@ var ControlPanel_1 = __webpack_require__(46);
 var PlayerBody = /** @class */ (function (_super) {
     __extends(PlayerBody, _super);
     function PlayerBody(props) {
-        return _super.call(this, props) || this;
+        var _this = _super.call(this, props) || this;
+        _this.state = {
+            panelVisible: true
+        };
+        _this.controlPanelStatus = new ControlPanelStatusChanger(_this);
+        return _this;
     }
     PlayerBody.prototype.render = function () {
-        return (React.createElement("div", { tabIndex: 1, ref: this.setElem.bind(this), onKeyDown: this.key.bind(this), style: style_1.playerBodyStyle },
-            React.createElement(ControlPanel_1["default"], null)));
+        return (React.createElement("div", { tabIndex: 1, ref: this.setElem.bind(this), onKeyDown: this.key.bind(this), style: style_1.playerBodyStyle }, this.controlPanel()));
     };
     PlayerBody.prototype.componentDidMount = function () {
         this.elem.focus();
+        this.controlPanelStatus.show();
     };
     PlayerBody.prototype.setElem = function (elem) {
         this.elem = elem;
     };
     PlayerBody.prototype.key = function (e) {
-        console.log(e.key);
+        console.log(e.keyCode);
+        this.controlPanelStatus.show();
         if (e.key === "Backspace" || e.key === "Escape") {
             this.props.chageView("/panel");
             try {
@@ -3768,10 +3785,55 @@ var PlayerBody = /** @class */ (function (_super) {
                 console.log(e);
             }
         }
+        if (e.keyCode === 82 && this.props.playerState.playStatus) {
+            this.props.playerChangeState(__assign({}, this.props.playerState, { playStatus: false }));
+            try {
+                stb.Pause();
+            }
+            catch (e) {
+                console.log(e);
+            }
+        }
+        else if (e.keyCode === 82 && !this.props.playerState.playStatus) {
+            this.props.playerChangeState(__assign({}, this.props.playerState, { playStatus: true }));
+            try {
+                stb.Continue();
+            }
+            catch (e) {
+                console.log(e);
+            }
+        }
+    };
+    PlayerBody.prototype.controlPanel = function () {
+        return this.state.panelVisible ? (React.createElement(ControlPanel_1["default"], { playStatus: this.props.playerState.playStatus })) : null;
     };
     return PlayerBody;
 }(React.Component));
 exports["default"] = PlayerBody;
+var ControlPanelStatusChanger = /** @class */ (function () {
+    function ControlPanelStatusChanger(playerBody) {
+        this.panelAlwaysShow = false;
+        this.player = playerBody;
+    }
+    ControlPanelStatusChanger.prototype.show = function () {
+        if (!this.player.state.panelVisible) {
+            this.player.setState(__assign({}, this.player.state, { panelVisible: true }));
+        }
+        if (!this.panelAlwaysShow) {
+            this.visibleTimeout(10000);
+        }
+    };
+    ControlPanelStatusChanger.prototype.hide = function () {
+        if (!this.panelAlwaysShow) {
+            this.player.setState(__assign({}, this.player.state, { panelVisible: false }));
+        }
+    };
+    ControlPanelStatusChanger.prototype.visibleTimeout = function (ms) {
+        clearTimeout(this.timeoutId);
+        this.timeoutId = setTimeout(this.hide.bind(this), ms);
+    };
+    return ControlPanelStatusChanger;
+}());
 
 
 /***/ }),
@@ -3804,7 +3866,7 @@ var ControlPanel = /** @class */ (function (_super) {
     }
     ControlPanel.prototype.render = function () {
         return (React.createElement("div", { style: style_1.controlPanelStyle },
-            React.createElement(PlayerButtons_1["default"], null),
+            React.createElement(PlayerButtons_1["default"], { playStatus: this.props.playStatus }),
             React.createElement("div", null)));
     };
     return ControlPanel;
@@ -3842,7 +3904,7 @@ var PlayerButtons = /** @class */ (function (_super) {
     }
     PlayerButtons.prototype.render = function () {
         return (React.createElement("div", { style: style_1.playerButtonsStyle },
-            React.createElement(PlayPauseButton_1["default"], null)));
+            React.createElement(PlayPauseButton_1["default"], { playStatus: this.props.playStatus })));
     };
     return PlayerButtons;
 }(React.Component));
@@ -3876,12 +3938,18 @@ var PlayPauseButton = /** @class */ (function (_super) {
         return _super !== null && _super.apply(this, arguments) || this;
     }
     PlayPauseButton.prototype.render = function () {
+        console.log(this.props.playStatus);
         return (React.createElement("img", { style: {
                 position: "absolute",
-                left: "0px",
+                left: "60px",
                 top: "0px",
                 display: "block"
-            }, src: "./../forpost-app/img/baseline_pause_white_24dp.png" }));
+            }, src: this.img() }));
+    };
+    PlayPauseButton.prototype.img = function () {
+        return this.props.playStatus
+            ? "./../forpost-app/img/baseline_pause_white_24dp.png"
+            : "./../forpost-app/img/baseline_play_arrow_white_24dp.png";
     };
     return PlayPauseButton;
 }(React.Component));
@@ -3924,7 +3992,7 @@ var style_1 = __webpack_require__(10);
 var style_2 = __webpack_require__(2);
 var Header_1 = __webpack_require__(11);
 var react_redux_1 = __webpack_require__(3);
-var app_1 = __webpack_require__(6);
+var app_1 = __webpack_require__(5);
 var redux_1 = __webpack_require__(1);
 exports.inputStyle = {
     color: style_2.color1,

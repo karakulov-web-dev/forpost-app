@@ -17,8 +17,12 @@ export interface IComponentState {
   playStatus: boolean;
 }
 
+interface IStateContainer {
+  playerState: IComponentState;
+}
+
 export type IPropBodyComponent = IProp &
-  IComponentState &
+  IStateContainer &
   IplayerChangeStateProp;
 
 interface IplayerChangeState {
@@ -60,9 +64,8 @@ class Player extends React.Component<IProp, IComponentState> {
         grigPage={this.props.grigPage}
         gridLoading={this.props.gridLoading}
         chageView={this.props.chageView}
-        loading={this.state.loading}
-        playStatus={this.state.playStatus}
-        playerChangeState={this.playerChangeState}
+        playerState={this.state}
+        playerChangeState={this.playerChangeState.bind(this)}
         currentPlay={this.props.currentPlay}
         SessionID={this.props.SessionID}
       />
