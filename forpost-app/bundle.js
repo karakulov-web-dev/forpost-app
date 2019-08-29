@@ -3757,14 +3757,18 @@ var PlayerBody = /** @class */ (function (_super) {
     __extends(PlayerBody, _super);
     function PlayerBody(props) {
         var _this = _super.call(this, props) || this;
+        _this.timeController = new TimeController(_this);
         _this.state = {
-            panelVisible: true
+            panelVisible: true,
+            time: _this.timeController.getTime()
         };
         _this.controlPanelStatus = new ControlPanelStatusChanger(_this);
         return _this;
     }
     PlayerBody.prototype.render = function () {
-        return (React.createElement("div", { tabIndex: 1, ref: this.setElem.bind(this), onKeyDown: this.key.bind(this), style: style_1.playerBodyStyle }, this.controlPanel()));
+        return (React.createElement("div", { tabIndex: 1, ref: this.setElem.bind(this), onKeyDown: this.key.bind(this), style: style_1.playerBodyStyle },
+            this.controlPanel(),
+            this.state.time));
     };
     PlayerBody.prototype.componentDidMount = function () {
         this.elem.focus();
@@ -3775,6 +3779,12 @@ var PlayerBody = /** @class */ (function (_super) {
     };
     PlayerBody.prototype.key = function (e) {
         console.log(e.keyCode);
+        if (e.keyCode === 37) {
+            this.timeController.changeTimeshift(-1000);
+        }
+        if (e.keyCode === 39) {
+            this.timeController.changeTimeshift(1000);
+        }
         this.controlPanelStatus.show();
         if (e.key === "Backspace" || e.key === "Escape") {
             this.props.chageView("/panel");
@@ -3811,11 +3821,12 @@ var PlayerBody = /** @class */ (function (_super) {
 }(React.Component));
 exports["default"] = PlayerBody;
 var ControlPanelStatusChanger = /** @class */ (function () {
-    function ControlPanelStatusChanger(playerBody) {
+    function ControlPanelStatusChanger(player) {
+        this.player = player;
         this.panelAlwaysShow = false;
-        this.player = playerBody;
     }
     ControlPanelStatusChanger.prototype.show = function () {
+        console.log(this.player.state.panelVisible);
         if (!this.player.state.panelVisible) {
             this.player.setState(__assign({}, this.player.state, { panelVisible: true }));
         }
@@ -3833,6 +3844,38 @@ var ControlPanelStatusChanger = /** @class */ (function () {
         this.timeoutId = setTimeout(this.hide.bind(this), ms);
     };
     return ControlPanelStatusChanger;
+}());
+var TimeController = /** @class */ (function () {
+    function TimeController(player) {
+        this.player = player;
+        this.intervalId = setInterval(this.pushTime.bind(this), 1000);
+        this.timeshift = 0;
+    }
+    TimeController.prototype.pushTime = function () {
+        this.player.setState(__assign({}, this.player.state, { time: this.getTime() }));
+    };
+    TimeController.prototype.clearAllTimers = function () {
+        clearInterval(this.intervalId);
+    };
+    TimeController.prototype.getTime = function () {
+        return Date.now() + this.timeshift;
+    };
+    TimeController.prototype.changeTimeshift = function (dif) {
+        var curTime = Date.now();
+        if (curTime + this.timeshift + dif > curTime) {
+            return;
+        }
+        this.timeshift = this.timeshift + dif;
+        this.pushTime();
+        this.onChangeTimeshift();
+    };
+    TimeController.prototype.onChangeTimeshift = function () {
+        clearTimeout(this.changeTimechiftTimeout);
+        this.changeTimechiftTimeout = setTimeout(function () {
+            console.log("onChangeTimeshift");
+        }, 10000);
+    };
+    return TimeController;
 }());
 
 
@@ -3938,7 +3981,6 @@ var PlayPauseButton = /** @class */ (function (_super) {
         return _super !== null && _super.apply(this, arguments) || this;
     }
     PlayPauseButton.prototype.render = function () {
-        console.log(this.props.playStatus);
         return (React.createElement("img", { style: {
                 position: "absolute",
                 left: "60px",

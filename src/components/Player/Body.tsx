@@ -7,6 +7,7 @@ declare var stb: any;
 
 interface IState {
   panelVisible: boolean;
+  time: number;
 }
 
 export default class PlayerBody extends React.Component<
@@ -15,10 +16,13 @@ export default class PlayerBody extends React.Component<
 > {
   private elem: HTMLElement;
   private controlPanelStatus: ControlPanelStatusChanger;
+  private timeController: TimeController;
   constructor(props: IPropBodyComponent) {
     super(props);
+    this.timeController = new TimeController(this);
     this.state = {
-      panelVisible: true
+      panelVisible: true,
+      time: this.timeController.getTime()
     };
     this.controlPanelStatus = new ControlPanelStatusChanger(this);
   }
@@ -31,6 +35,7 @@ export default class PlayerBody extends React.Component<
         style={playerBodyStyle}
       >
         {this.controlPanel()}
+        {this.state.time}
       </div>
     );
   }
@@ -43,6 +48,13 @@ export default class PlayerBody extends React.Component<
   }
   key(e: React.KeyboardEvent) {
     console.log(e.keyCode);
+
+    if (e.keyCode === 37) {
+      this.timeController.changeTimeshift(-1000);
+    }
+    if (e.keyCode === 39) {
+      this.timeController.changeTimeshift(1000);
+    }
 
     this.controlPanelStatus.show();
     if (e.key === "Backspace" || e.key === "Escape") {
@@ -84,13 +96,11 @@ export default class PlayerBody extends React.Component<
 }
 
 class ControlPanelStatusChanger {
-  private player: PlayerBody;
   private timeoutId: number;
   public panelAlwaysShow: boolean = false;
-  constructor(playerBody: PlayerBody) {
-    this.player = playerBody;
-  }
+  constructor(private player: PlayerBody) {}
   show() {
+    console.log(this.player.state.panelVisible);
     if (!this.player.state.panelVisible) {
       this.player.setState({ ...this.player.state, panelVisible: true });
     }
@@ -106,5 +116,39 @@ class ControlPanelStatusChanger {
   visibleTimeout(ms: number) {
     clearTimeout(this.timeoutId);
     this.timeoutId = setTimeout(this.hide.bind(this), ms);
+  }
+}
+
+class TimeController {
+  private intervalId: number;
+  private timeshift: number;
+  private changeTimechiftTimeout: number;
+  constructor(private player: PlayerBody) {
+    this.intervalId = setInterval(this.pushTime.bind(this), 1000);
+    this.timeshift = 0;
+  }
+  pushTime() {
+    this.player.setState({ ...this.player.state, time: this.getTime() });
+  }
+  clearAllTimers() {
+    clearInterval(this.intervalId);
+  }
+  getTime() {
+    return Date.now() + this.timeshift;
+  }
+  changeTimeshift(dif: number) {
+    let curTime = Date.now();
+    if (curTime + this.timeshift + dif > curTime) {
+      return;
+    }
+    this.timeshift = this.timeshift + dif;
+    this.pushTime();
+    this.onChangeTimeshift();
+  }
+  onChangeTimeshift() {
+    clearTimeout(this.changeTimechiftTimeout);
+    this.changeTimechiftTimeout = setTimeout(() => {
+      console.log("onChangeTimeshift");
+    }, 10000);
   }
 }

@@ -6,7 +6,6 @@ interface IProps {
 
 export default class PlayPauseButton extends React.Component<IProps> {
   render() {
-    console.log(this.props.playStatus);
     return (
       <img
         style={{
