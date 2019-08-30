@@ -10,20 +10,22 @@ import { httpGetTranslation, IHttpGetTranslationResult } from "../../HTTP";
 
 declare var stb: any;
 
-type IProp = IstateToProps & IDispatchProps;
+export type IPropBodyComponent = IProp &
+  IStateContainer &
+  IplayerChangeStateProp &
+  IPlayProp &
+  IpushTimeProp;
 
-export interface IComponentState {
-  loading?: boolean;
-  playStatus: boolean;
-}
+type IProp = IstateToProps & IDispatchProps;
 
 interface IStateContainer {
   playerState: IComponentState;
 }
-
-export type IPropBodyComponent = IProp &
-  IStateContainer &
-  IplayerChangeStateProp;
+export interface IComponentState {
+  loading?: boolean;
+  playStatus: boolean;
+  time: number;
+}
 
 interface IplayerChangeState {
   (newState: IComponentState): void;
@@ -32,12 +34,28 @@ interface IplayerChangeStateProp {
   playerChangeState: IplayerChangeState;
 }
 
+interface IPlay {
+  (ts: number): void;
+}
+interface IPlayProp {
+  play: IPlay;
+}
+
+interface IpushTime {
+  (time: number): void;
+}
+
+interface IpushTimeProp {
+  pushTime: IpushTime;
+}
+
 class Player extends React.Component<IProp, IComponentState> {
   constructor(props: IProp) {
     super(props);
     this.state = {
       loading: true,
-      playStatus: false
+      playStatus: false,
+      time: Date.now()
     };
   }
   render() {
@@ -65,9 +83,11 @@ class Player extends React.Component<IProp, IComponentState> {
         gridLoading={this.props.gridLoading}
         chageView={this.props.chageView}
         playerState={this.state}
-        playerChangeState={this.playerChangeState.bind(this)}
         currentPlay={this.props.currentPlay}
         SessionID={this.props.SessionID}
+        playerChangeState={this.playerChangeState.bind(this)}
+        play={this.play.bind(this)}
+        pushTime={this.pushTime.bind(this)}
       />
     );
   }
@@ -75,14 +95,30 @@ class Player extends React.Component<IProp, IComponentState> {
     this.setState({ ...this.state, ...newState });
   }
   componentDidMount() {
+    this.play(this.state.time);
+  }
+  pushTime(time: number) {
+    this.setState({ ...this.state, time });
+  }
+  play(ts: number) {
+    ts = ts ? Math.round(ts / 1000) : 0;
     const self = this;
-
+    let win: any = window;
+    win.p = self;
     new SelfGuidedGenerator(function*(g) {
+      self.playerChangeState({
+        ...self.state,
+        loading: true,
+        playStatus: false
+      });
+
       const data: IHttpGetTranslationResult = yield httpGetTranslation(
         self.props.SessionID,
         self.props.currentPlay.CameraID,
         "HLS",
-        g.next.bind(g)
+        g.next.bind(g),
+        ts,
+        25200
       );
 
       try {

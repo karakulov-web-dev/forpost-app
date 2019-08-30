@@ -7,7 +7,6 @@ declare var stb: any;
 
 interface IState {
   panelVisible: boolean;
-  time: number;
 }
 
 export default class PlayerBody extends React.Component<
@@ -19,10 +18,13 @@ export default class PlayerBody extends React.Component<
   private timeController: TimeController;
   constructor(props: IPropBodyComponent) {
     super(props);
-    this.timeController = new TimeController(this);
+    this.timeController = new TimeController(
+      this.props.pushTime,
+      this.props.play,
+      this.props.playerState.time
+    );
     this.state = {
-      panelVisible: true,
-      time: this.timeController.getTime()
+      panelVisible: true
     };
     this.controlPanelStatus = new ControlPanelStatusChanger(this);
   }
@@ -35,13 +37,16 @@ export default class PlayerBody extends React.Component<
         style={playerBodyStyle}
       >
         {this.controlPanel()}
-        {this.state.time}
       </div>
     );
   }
   componentDidMount() {
     this.elem.focus();
     this.controlPanelStatus.show();
+  }
+  componentWillUnmount() {
+    this.timeController.clearAllTimers();
+    this.controlPanelStatus.clearTimeout();
   }
   setElem(elem: HTMLElement) {
     this.elem = elem;
@@ -50,10 +55,10 @@ export default class PlayerBody extends React.Component<
     console.log(e.keyCode);
 
     if (e.keyCode === 37) {
-      this.timeController.changeTimeshift(-1000);
+      this.timeController.changeTimeshift(-10000);
     }
     if (e.keyCode === 39) {
-      this.timeController.changeTimeshift(1000);
+      this.timeController.changeTimeshift(10000);
     }
 
     this.controlPanelStatus.show();
@@ -67,6 +72,7 @@ export default class PlayerBody extends React.Component<
     }
 
     if (e.keyCode === 82 && this.props.playerState.playStatus) {
+      this.controlPanelStatus.panelAlwaysShow = true;
       this.props.playerChangeState({
         ...this.props.playerState,
         playStatus: false
@@ -77,6 +83,7 @@ export default class PlayerBody extends React.Component<
         console.log(e);
       }
     } else if (e.keyCode === 82 && !this.props.playerState.playStatus) {
+      this.controlPanelStatus.panelAlwaysShow = false;
       this.props.playerChangeState({
         ...this.props.playerState,
         playStatus: true
@@ -90,7 +97,10 @@ export default class PlayerBody extends React.Component<
   }
   controlPanel() {
     return this.state.panelVisible ? (
-      <ControlPanel playStatus={this.props.playerState.playStatus} />
+      <ControlPanel
+        playStatus={this.props.playerState.playStatus}
+        time={this.props.playerState.time}
+      />
     ) : null;
   }
 }
@@ -100,7 +110,6 @@ class ControlPanelStatusChanger {
   public panelAlwaysShow: boolean = false;
   constructor(private player: PlayerBody) {}
   show() {
-    console.log(this.player.state.panelVisible);
     if (!this.player.state.panelVisible) {
       this.player.setState({ ...this.player.state, panelVisible: true });
     }
@@ -114,24 +123,40 @@ class ControlPanelStatusChanger {
     }
   }
   visibleTimeout(ms: number) {
-    clearTimeout(this.timeoutId);
+    this.clearTimeout();
     this.timeoutId = setTimeout(this.hide.bind(this), ms);
   }
+  clearTimeout() {
+    clearTimeout(this.timeoutId);
+  }
+}
+
+interface IPushTimeCb {
+  (time: number): void;
+}
+
+interface IChangeTimeShiftCb {
+  (time: number): void;
 }
 
 class TimeController {
   private intervalId: number;
   private timeshift: number;
   private changeTimechiftTimeout: number;
-  constructor(private player: PlayerBody) {
+  constructor(
+    private _pushTime: IPushTimeCb,
+    private _changeTimeShift: IChangeTimeShiftCb,
+    startTime: number = Date.now()
+  ) {
     this.intervalId = setInterval(this.pushTime.bind(this), 1000);
-    this.timeshift = 0;
+    this.timeshift = startTime - Date.now();
   }
   pushTime() {
-    this.player.setState({ ...this.player.state, time: this.getTime() });
+    this._pushTime(this.getTime());
   }
   clearAllTimers() {
     clearInterval(this.intervalId);
+    clearTimeout(this.changeTimechiftTimeout);
   }
   getTime() {
     return Date.now() + this.timeshift;
@@ -148,7 +173,7 @@ class TimeController {
   onChangeTimeshift() {
     clearTimeout(this.changeTimechiftTimeout);
     this.changeTimechiftTimeout = setTimeout(() => {
-      console.log("onChangeTimeshift");
-    }, 10000);
+      this._changeTimeShift(this.getTime());
+    }, 6000);
   }
 }

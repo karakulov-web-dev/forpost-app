@@ -39,7 +39,9 @@ interface IHttpGetTranslation {
     SessionID: string,
     CameraID: number,
     Format: string,
-    cb: IHttpGetTranslationCb
+    cb: IHttpGetTranslationCb,
+    ts?: number,
+    tz?: number
   ): void;
 }
 
@@ -56,9 +58,14 @@ export const httpGetTranslation: IHttpGetTranslation = (
   SessionID,
   CameraID,
   Format,
-  cb
+  cb,
+  ts,
+  tz
 ) => {
   var data = `SessionID=${SessionID}&CameraID=${CameraID}&Format=${Format}`;
+
+  data = ts ? `${data}&TS=${ts}` : data;
+  data = tz ? `${data}&TZ=${tz}` : data;
 
   var xhr = new XMLHttpRequest();
 

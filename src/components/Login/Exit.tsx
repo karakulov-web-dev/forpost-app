@@ -116,7 +116,6 @@ class Exit extends React.Component<IProps> {
       this.props.chageView("/login");
     } else {
       this.props.chageView("/panel");
-      console.log("cancel");
     }
   }
   navigate(key: string) {

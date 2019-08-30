@@ -890,8 +890,10 @@ exports.httpAutReq = function (login, password, cb) {
         }
     });
 };
-exports.httpGetTranslation = function (SessionID, CameraID, Format, cb) {
+exports.httpGetTranslation = function (SessionID, CameraID, Format, cb, ts, tz) {
     var data = "SessionID=" + SessionID + "&CameraID=" + CameraID + "&Format=" + Format;
+    data = ts ? data + "&TS=" + ts : data;
+    data = tz ? data + "&TZ=" + tz : data;
     var xhr = new XMLHttpRequest();
     xhr.open("POST", apiHost + "/api/GetTranslationURL", true);
     xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
@@ -975,6 +977,15 @@ exports.playerButtonsStyle = {
     left: "0px",
     right: "0px",
     height: "50px"
+};
+exports.timeBarStyle = {
+    position: "absolute",
+    left: "120px",
+    top: "10px",
+    display: "block",
+    color: "white",
+    fontFamily: style_1.fontFamily1,
+    fontSize: style_1.fontSize1
 };
 
 
@@ -3647,7 +3658,8 @@ var Player = /** @class */ (function (_super) {
         var _this = _super.call(this, props) || this;
         _this.state = {
             loading: true,
-            playStatus: false
+            playStatus: false,
+            time: Date.now()
         };
         return _this;
     }
@@ -3666,18 +3678,29 @@ var Player = /** @class */ (function (_super) {
         return (React.createElement("img", { style: style_1.imgLoadingStyle, src: "./../forpost-app/img/loading_5.gif" }));
     };
     Player.prototype.getBody = function () {
-        return (React.createElement(Body_1["default"], { items: this.props.items, gridActiveItemPosition: this.props.gridActiveItemPosition, gridMaxItems: this.props.gridMaxItems, grigPage: this.props.grigPage, gridLoading: this.props.gridLoading, chageView: this.props.chageView, playerState: this.state, playerChangeState: this.playerChangeState.bind(this), currentPlay: this.props.currentPlay, SessionID: this.props.SessionID }));
+        return (React.createElement(Body_1["default"], { items: this.props.items, gridActiveItemPosition: this.props.gridActiveItemPosition, gridMaxItems: this.props.gridMaxItems, grigPage: this.props.grigPage, gridLoading: this.props.gridLoading, chageView: this.props.chageView, playerState: this.state, currentPlay: this.props.currentPlay, SessionID: this.props.SessionID, playerChangeState: this.playerChangeState.bind(this), play: this.play.bind(this), pushTime: this.pushTime.bind(this) }));
     };
     Player.prototype.playerChangeState = function (newState) {
         this.setState(__assign({}, this.state, newState));
     };
     Player.prototype.componentDidMount = function () {
+        this.play(this.state.time);
+    };
+    Player.prototype.pushTime = function (time) {
+        this.setState(__assign({}, this.state, { time: time }));
+    };
+    Player.prototype.play = function (ts) {
+        ts = ts ? Math.round(ts / 1000) : 0;
         var self = this;
+        var win = window;
+        win.p = self;
         new utilites_1.SelfGuidedGenerator(function (g) {
             var data, eventListener_1, e_1;
             return __generator(this, function (_a) {
                 switch (_a.label) {
-                    case 0: return [4 /*yield*/, HTTP_1.httpGetTranslation(self.props.SessionID, self.props.currentPlay.CameraID, "HLS", g.next.bind(g))];
+                    case 0:
+                        self.playerChangeState(__assign({}, self.state, { loading: true, playStatus: false }));
+                        return [4 /*yield*/, HTTP_1.httpGetTranslation(self.props.SessionID, self.props.currentPlay.CameraID, "HLS", g.next.bind(g), ts, 25200)];
                     case 1:
                         data = _a.sent();
                         _a.label = 2;
@@ -3757,22 +3780,23 @@ var PlayerBody = /** @class */ (function (_super) {
     __extends(PlayerBody, _super);
     function PlayerBody(props) {
         var _this = _super.call(this, props) || this;
-        _this.timeController = new TimeController(_this);
+        _this.timeController = new TimeController(_this.props.pushTime, _this.props.play, _this.props.playerState.time);
         _this.state = {
-            panelVisible: true,
-            time: _this.timeController.getTime()
+            panelVisible: true
         };
         _this.controlPanelStatus = new ControlPanelStatusChanger(_this);
         return _this;
     }
     PlayerBody.prototype.render = function () {
-        return (React.createElement("div", { tabIndex: 1, ref: this.setElem.bind(this), onKeyDown: this.key.bind(this), style: style_1.playerBodyStyle },
-            this.controlPanel(),
-            this.state.time));
+        return (React.createElement("div", { tabIndex: 1, ref: this.setElem.bind(this), onKeyDown: this.key.bind(this), style: style_1.playerBodyStyle }, this.controlPanel()));
     };
     PlayerBody.prototype.componentDidMount = function () {
         this.elem.focus();
         this.controlPanelStatus.show();
+    };
+    PlayerBody.prototype.componentWillUnmount = function () {
+        this.timeController.clearAllTimers();
+        this.controlPanelStatus.clearTimeout();
     };
     PlayerBody.prototype.setElem = function (elem) {
         this.elem = elem;
@@ -3780,10 +3804,10 @@ var PlayerBody = /** @class */ (function (_super) {
     PlayerBody.prototype.key = function (e) {
         console.log(e.keyCode);
         if (e.keyCode === 37) {
-            this.timeController.changeTimeshift(-1000);
+            this.timeController.changeTimeshift(-10000);
         }
         if (e.keyCode === 39) {
-            this.timeController.changeTimeshift(1000);
+            this.timeController.changeTimeshift(10000);
         }
         this.controlPanelStatus.show();
         if (e.key === "Backspace" || e.key === "Escape") {
@@ -3796,6 +3820,7 @@ var PlayerBody = /** @class */ (function (_super) {
             }
         }
         if (e.keyCode === 82 && this.props.playerState.playStatus) {
+            this.controlPanelStatus.panelAlwaysShow = true;
             this.props.playerChangeState(__assign({}, this.props.playerState, { playStatus: false }));
             try {
                 stb.Pause();
@@ -3805,6 +3830,7 @@ var PlayerBody = /** @class */ (function (_super) {
             }
         }
         else if (e.keyCode === 82 && !this.props.playerState.playStatus) {
+            this.controlPanelStatus.panelAlwaysShow = false;
             this.props.playerChangeState(__assign({}, this.props.playerState, { playStatus: true }));
             try {
                 stb.Continue();
@@ -3815,7 +3841,7 @@ var PlayerBody = /** @class */ (function (_super) {
         }
     };
     PlayerBody.prototype.controlPanel = function () {
-        return this.state.panelVisible ? (React.createElement(ControlPanel_1["default"], { playStatus: this.props.playerState.playStatus })) : null;
+        return this.state.panelVisible ? (React.createElement(ControlPanel_1["default"], { playStatus: this.props.playerState.playStatus, time: this.props.playerState.time })) : null;
     };
     return PlayerBody;
 }(React.Component));
@@ -3826,7 +3852,6 @@ var ControlPanelStatusChanger = /** @class */ (function () {
         this.panelAlwaysShow = false;
     }
     ControlPanelStatusChanger.prototype.show = function () {
-        console.log(this.player.state.panelVisible);
         if (!this.player.state.panelVisible) {
             this.player.setState(__assign({}, this.player.state, { panelVisible: true }));
         }
@@ -3840,22 +3865,28 @@ var ControlPanelStatusChanger = /** @class */ (function () {
         }
     };
     ControlPanelStatusChanger.prototype.visibleTimeout = function (ms) {
-        clearTimeout(this.timeoutId);
+        this.clearTimeout();
         this.timeoutId = setTimeout(this.hide.bind(this), ms);
+    };
+    ControlPanelStatusChanger.prototype.clearTimeout = function () {
+        clearTimeout(this.timeoutId);
     };
     return ControlPanelStatusChanger;
 }());
 var TimeController = /** @class */ (function () {
-    function TimeController(player) {
-        this.player = player;
+    function TimeController(_pushTime, _changeTimeShift, startTime) {
+        if (startTime === void 0) { startTime = Date.now(); }
+        this._pushTime = _pushTime;
+        this._changeTimeShift = _changeTimeShift;
         this.intervalId = setInterval(this.pushTime.bind(this), 1000);
-        this.timeshift = 0;
+        this.timeshift = startTime - Date.now();
     }
     TimeController.prototype.pushTime = function () {
-        this.player.setState(__assign({}, this.player.state, { time: this.getTime() }));
+        this._pushTime(this.getTime());
     };
     TimeController.prototype.clearAllTimers = function () {
         clearInterval(this.intervalId);
+        clearTimeout(this.changeTimechiftTimeout);
     };
     TimeController.prototype.getTime = function () {
         return Date.now() + this.timeshift;
@@ -3870,10 +3901,11 @@ var TimeController = /** @class */ (function () {
         this.onChangeTimeshift();
     };
     TimeController.prototype.onChangeTimeshift = function () {
+        var _this = this;
         clearTimeout(this.changeTimechiftTimeout);
         this.changeTimechiftTimeout = setTimeout(function () {
-            console.log("onChangeTimeshift");
-        }, 10000);
+            _this._changeTimeShift(_this.getTime());
+        }, 6000);
     };
     return TimeController;
 }());
@@ -3909,7 +3941,7 @@ var ControlPanel = /** @class */ (function (_super) {
     }
     ControlPanel.prototype.render = function () {
         return (React.createElement("div", { style: style_1.controlPanelStyle },
-            React.createElement(PlayerButtons_1["default"], { playStatus: this.props.playStatus }),
+            React.createElement(PlayerButtons_1["default"], { playStatus: this.props.playStatus, time: this.props.time }),
             React.createElement("div", null)));
     };
     return ControlPanel;
@@ -3940,6 +3972,7 @@ exports.__esModule = true;
 var React = __webpack_require__(0);
 var style_1 = __webpack_require__(8);
 var PlayPauseButton_1 = __webpack_require__(48);
+var TimeBar_1 = __webpack_require__(50);
 var PlayerButtons = /** @class */ (function (_super) {
     __extends(PlayerButtons, _super);
     function PlayerButtons() {
@@ -3947,7 +3980,8 @@ var PlayerButtons = /** @class */ (function (_super) {
     }
     PlayerButtons.prototype.render = function () {
         return (React.createElement("div", { style: style_1.playerButtonsStyle },
-            React.createElement(PlayPauseButton_1["default"], { playStatus: this.props.playStatus })));
+            React.createElement(PlayPauseButton_1["default"], { playStatus: this.props.playStatus }),
+            React.createElement(TimeBar_1["default"], { time: this.props.time })));
     };
     return PlayerButtons;
 }(React.Component));
@@ -4106,7 +4140,6 @@ var Exit = /** @class */ (function (_super) {
         }
         else {
             this.props.chageView("/panel");
-            console.log("cancel");
         }
     };
     Exit.prototype.navigate = function (key) {
@@ -4134,6 +4167,41 @@ exports["default"] = react_redux_1.connect(null, function (dispatch) {
         chageView: app_1.chageView
     }, dispatch);
 })(Exit);
+
+
+/***/ }),
+/* 50 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+var __extends = (this && this.__extends) || (function () {
+    var extendStatics = function (d, b) {
+        extendStatics = Object.setPrototypeOf ||
+            ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+            function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+        return extendStatics(d, b);
+    };
+    return function (d, b) {
+        extendStatics(d, b);
+        function __() { this.constructor = d; }
+        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+    };
+})();
+exports.__esModule = true;
+var React = __webpack_require__(0);
+var style_1 = __webpack_require__(8);
+var TimeBar = /** @class */ (function (_super) {
+    __extends(TimeBar, _super);
+    function TimeBar() {
+        return _super !== null && _super.apply(this, arguments) || this;
+    }
+    TimeBar.prototype.render = function () {
+        return React.createElement("div", { style: style_1.timeBarStyle }, this.props.time);
+    };
+    return TimeBar;
+}(React.Component));
+exports["default"] = TimeBar;
 
 
 /***/ })

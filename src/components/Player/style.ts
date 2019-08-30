@@ -1,4 +1,8 @@
-import { imgLoadingStyle as _imgLoadingStyle } from "../style";
+import {
+  imgLoadingStyle as _imgLoadingStyle,
+  fontFamily1 as fontFamily,
+  fontSize1 as fontSize
+} from "../style";
 
 const fullScreenStyle: React.CSSProperties = {
   position: "absolute",
@@ -37,4 +41,14 @@ export const playerButtonsStyle: React.CSSProperties = {
   left: "0px",
   right: "0px",
   height: "50px"
+};
+
+export const timeBarStyle: React.CSSProperties = {
+  position: "absolute",
+  left: "120px",
+  top: "10px",
+  display: "block",
+  color: "white",
+  fontFamily,
+  fontSize
 };
