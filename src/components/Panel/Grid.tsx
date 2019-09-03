@@ -21,9 +21,6 @@ import { bindActionCreators } from "redux";
 import { SelfGuidedGenerator, delay } from "../../utilites";
 import { chageView, IChangeViewCreater } from "../../action/app";
 
-declare var location: any;
-declare var stb: any;
-
 export interface ICamMayBeActive extends ICam {
   active: boolean;
 }
@@ -212,11 +209,12 @@ class Grid extends React.Component<Props> {
     }
   }
   changePage(dif: number) {
+    const self = this;
+    let grigPage = this.props.grigPage + dif;
+
     if (!dif) {
       return;
     }
-    const self = this;
-    let grigPage = this.props.grigPage + dif;
 
     if (!this.pageExist(grigPage)) {
       return;

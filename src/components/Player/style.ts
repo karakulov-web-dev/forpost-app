@@ -1,7 +1,11 @@
 import {
   imgLoadingStyle as _imgLoadingStyle,
   fontFamily1 as fontFamily,
-  fontSize1 as fontSize
+  fontSize1 as fontSize,
+  color3,
+  color4,
+  color7,
+  color8
 } from "../style";
 
 const fullScreenStyle: React.CSSProperties = {
@@ -35,12 +39,12 @@ export const controlPanelStyle: React.CSSProperties = {
 };
 
 export const playerButtonsStyle: React.CSSProperties = {
-  borderBottom: "2px solid #6A6A6A",
+  borderBottom: `2px solid ${color3}`,
   position: "absolute",
   top: "0px",
   left: "0px",
   right: "0px",
-  height: "50px"
+  height: "55px"
 };
 
 export const timeBarStyle: React.CSSProperties = {
@@ -48,7 +52,72 @@ export const timeBarStyle: React.CSSProperties = {
   left: "120px",
   top: "10px",
   display: "block",
-  color: "white",
+  color: color4,
   fontFamily,
   fontSize
+};
+
+export const progressBarStyle: React.CSSProperties = {
+  position: "absolute",
+  top: "55px",
+  left: "0px",
+  right: "0px",
+  bottom: "0px"
+};
+
+export const progressBarStyleLine: React.CSSProperties = {
+  position: "absolute",
+  top: "25px",
+  left: "70px",
+  right: "70px",
+  height: "10px",
+  background: color4
+};
+
+export const timeStepSizeStyle: React.CSSProperties = {
+  position: "absolute",
+  left: "400px",
+  width: "120px",
+  height: "50px"
+};
+export const timeStepSizeImgUp: React.CSSProperties = {
+  position: "absolute",
+  top: "0px"
+};
+export const timeStepSizeImgDown: React.CSSProperties = {
+  position: "absolute",
+  top: "12px"
+};
+export const timeStepSizeImgValue: React.CSSProperties = {
+  position: "absolute",
+  left: "40px",
+  top: "10px",
+  width: "100px",
+  color: color4,
+  fontFamily,
+  fontSize
+};
+
+export const playPauseButtonStyle: React.CSSProperties = {
+  position: "absolute",
+  left: "60px",
+  top: "0px",
+  display: "block"
+};
+
+export const progressBarCursor: React.CSSProperties = {
+  display: "block",
+  height: "30px",
+  width: "30px",
+  position: "absolute",
+  background: color7,
+  borderRadius: "30px",
+  bottom: "-11px"
+};
+export const progressBarCursorBody: React.CSSProperties = {
+  width: "12px",
+  height: " 12px",
+  background: color8,
+  margin: "9px",
+  borderRadius: "9px"
 };

@@ -7,31 +7,27 @@ interface IRowsProp {
 }
 export class Rows extends React.Component<IRowsProp> {
   render() {
-    let rows = this.props.rows.map((item, i) => {
-      i++;
-      return this.createRow(`rowsId${i}`, item, this.props.rows.length);
-    });
     return (
       <div
         style={{
           height: "100%"
         }}
       >
-        {rows}
+        {this.props.rows.map((item, i) => {
+          return this.createRow(`rowsId${i + 1}`, item, this.props.rows.length);
+        })}
       </div>
     );
   }
   createRow(key: string, row: ICamMayBeActive[], rowsCount: number) {
     let height = `${Math.round(100 / rowsCount)}%`;
     let style: React.CSSProperties = { height, position: "relative" };
-
-    let items = row.map((item, i) => {
-      i++;
-      return this.createItem(item, i - 1, row.length, key);
-    });
     return (
       <div style={style} key={key}>
-        {items}
+        {row.map((item, i) => {
+          i++;
+          return this.createItem(item, i - 1, row.length, key);
+        })}
       </div>
     );
   }

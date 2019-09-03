@@ -3,12 +3,15 @@ import {
   color1,
   abstracktStyleFullWidhtElem,
   fontSize1 as fontSize,
-  fontFamily1 as fontFamily
+  fontFamily1 as fontFamily,
+  color5,
+  color10,
+  color11
 } from "../style";
 
 declare var stb: any;
 
-export const colorError = "#b00020";
+export const colorError = color11;
 export const fontSize1 = fontSize;
 export const fontFamily1 = fontFamily;
 
@@ -27,8 +30,8 @@ export const loginFormStyle: React.CSSProperties = {
   maxWidth: "520px",
   padding: "19px 29px 50px",
   margin: "0 auto 20px",
-  backgroundColor: "#fff",
-  border: "4px solid #e5e5e5",
+  backgroundColor: color5,
+  border: `4px solid ${color10}`,
   borderRadius: "5px",
   boxShadow: "0 1px 2px rgba(0, 0, 0, .05)",
   marginTop: "60px",

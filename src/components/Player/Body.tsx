@@ -9,6 +9,10 @@ interface IState {
   panelVisible: boolean;
 }
 
+export interface IplayPause {
+  (): void;
+}
+
 export default class PlayerBody extends React.Component<
   IPropBodyComponent,
   IState
@@ -52,13 +56,11 @@ export default class PlayerBody extends React.Component<
     this.elem = elem;
   }
   key(e: React.KeyboardEvent) {
-    console.log(e.keyCode);
-
     if (e.keyCode === 37) {
-      this.timeController.changeTimeshift(-10000);
+      this.timeController.changeTimeshift(-this.props.playerState.timeStepSize);
     }
     if (e.keyCode === 39) {
-      this.timeController.changeTimeshift(10000);
+      this.timeController.changeTimeshift(this.props.playerState.timeStepSize);
     }
 
     this.controlPanelStatus.show();
@@ -71,35 +73,52 @@ export default class PlayerBody extends React.Component<
       }
     }
 
-    if (e.keyCode === 82 && this.props.playerState.playStatus) {
-      this.controlPanelStatus.panelAlwaysShow = true;
-      this.props.playerChangeState({
-        ...this.props.playerState,
-        playStatus: false
-      });
-      try {
-        stb.Pause();
-      } catch (e) {
-        console.log(e);
-      }
-    } else if (e.keyCode === 82 && !this.props.playerState.playStatus) {
-      this.controlPanelStatus.panelAlwaysShow = false;
-      this.props.playerChangeState({
-        ...this.props.playerState,
-        playStatus: true
-      });
-      try {
-        stb.Continue();
-      } catch (e) {
-        console.log(e);
-      }
+    if (e.keyCode === 82) {
+      this.playPause();
     }
   }
+
+  playPause() {
+    let { playStatus } = this.props.playerState;
+
+    if (playStatus) {
+      this.controlPanelStatus.panelAlwaysShow = true;
+      playStatus = false;
+    } else if (!playStatus) {
+      this.controlPanelStatus.panelAlwaysShow = false;
+      playStatus = true;
+    }
+
+    try {
+      if (playStatus) {
+        stb.Continue();
+      } else {
+        stb.Pause();
+      }
+    } catch (e) {
+      console.log(e);
+    }
+
+    if (playStatus) {
+      this.timeController.continue();
+    } else {
+      this.timeController.pause();
+    }
+
+    this.props.playerChangeState({
+      ...this.props.playerState,
+      playStatus
+    });
+  }
+
   controlPanel() {
     return this.state.panelVisible ? (
       <ControlPanel
         playStatus={this.props.playerState.playStatus}
         time={this.props.playerState.time}
+        playPause={this.playPause.bind(this)}
+        timeStepSize={this.props.playerState.timeStepSize}
+        changeTimeStepSize={this.props.changeTimeStepSize}
       />
     ) : null;
   }
@@ -114,7 +133,7 @@ class ControlPanelStatusChanger {
       this.player.setState({ ...this.player.state, panelVisible: true });
     }
     if (!this.panelAlwaysShow) {
-      this.visibleTimeout(10000);
+      this.visibleTimeout(10000000);
     }
   }
   hide() {
@@ -143,12 +162,13 @@ class TimeController {
   private intervalId: number;
   private timeshift: number;
   private changeTimechiftTimeout: number;
+  private pauseTimestamp: number;
   constructor(
     private _pushTime: IPushTimeCb,
     private _changeTimeShift: IChangeTimeShiftCb,
     startTime: number = Date.now()
   ) {
-    this.intervalId = setInterval(this.pushTime.bind(this), 1000);
+    this.startInterval();
     this.timeshift = startTime - Date.now();
   }
   pushTime() {
@@ -175,5 +195,16 @@ class TimeController {
     this.changeTimechiftTimeout = setTimeout(() => {
       this._changeTimeShift(this.getTime());
     }, 6000);
+  }
+  pause() {
+    this.pauseTimestamp = Date.now();
+    this.clearAllTimers();
+  }
+  continue() {
+    this.timeshift = this.timeshift + this.pauseTimestamp - Date.now();
+    this.startInterval();
+  }
+  startInterval() {
+    this.intervalId = setInterval(this.pushTime.bind(this), 1000);
   }
 }

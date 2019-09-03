@@ -1,3 +1,5 @@
+import { color1 } from "./components/style";
+
 interface GeneratorCreater {
   (self: SelfGuidedGenerator): any;
 }

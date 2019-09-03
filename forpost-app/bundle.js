@@ -71,6 +71,159 @@ module.exports = React;
 
 /***/ }),
 /* 1 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+exports.__esModule = true;
+exports.color1 = "#333";
+exports.color2 = "#aaa";
+exports.color3 = "#6A6A6A";
+exports.color4 = "white";
+exports.color5 = "#fff";
+exports.color6 = "#212121";
+exports.color7 = "#e2e2e2";
+exports.color8 = "#ccc";
+exports.color9 = "#383838";
+exports.color10 = "#e5e5e5";
+exports.color11 = "#b00020";
+exports.fontSize1 = "25px";
+exports.fontFamily1 = '"Open Sans", "Lato", sans-serif';
+exports.abstracktStyleFullWidhtElem = {
+    position: "fixed",
+    width: "100%",
+    left: "0px",
+    right: "0px"
+};
+exports.imgLoadingStyle = {
+    margin: "0 auto",
+    position: "absolute",
+    top: "35%",
+    left: "47%"
+};
+
+
+/***/ }),
+/* 2 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+var __assign = (this && this.__assign) || function () {
+    __assign = Object.assign || function(t) {
+        for (var s, i = 1, n = arguments.length; i < n; i++) {
+            s = arguments[i];
+            for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p))
+                t[p] = s[p];
+        }
+        return t;
+    };
+    return __assign.apply(this, arguments);
+};
+exports.__esModule = true;
+var style_1 = __webpack_require__(1);
+var fullScreenStyle = {
+    position: "absolute",
+    top: "0px",
+    left: "0px",
+    right: "0px",
+    bottom: "0px",
+    height: "100%",
+    width: "100%"
+};
+exports.style = __assign({}, fullScreenStyle);
+exports.imgLoadingStyle = style_1.imgLoadingStyle;
+exports.playerBodyStyle = __assign({}, fullScreenStyle);
+exports.controlPanelStyle = {
+    position: "absolute",
+    bottom: "0px",
+    left: "0px",
+    right: "0px",
+    height: "120px",
+    background: "url(./../forpost-app/img/layerControlBg.png)",
+    backgroundRepeat: "repeat-x"
+};
+exports.playerButtonsStyle = {
+    borderBottom: "2px solid " + style_1.color3,
+    position: "absolute",
+    top: "0px",
+    left: "0px",
+    right: "0px",
+    height: "55px"
+};
+exports.timeBarStyle = {
+    position: "absolute",
+    left: "120px",
+    top: "10px",
+    display: "block",
+    color: style_1.color4,
+    fontFamily: style_1.fontFamily1,
+    fontSize: style_1.fontSize1
+};
+exports.progressBarStyle = {
+    position: "absolute",
+    top: "55px",
+    left: "0px",
+    right: "0px",
+    bottom: "0px"
+};
+exports.progressBarStyleLine = {
+    position: "absolute",
+    top: "25px",
+    left: "70px",
+    right: "70px",
+    height: "10px",
+    background: style_1.color4
+};
+exports.timeStepSizeStyle = {
+    position: "absolute",
+    left: "400px",
+    width: "120px",
+    height: "50px"
+};
+exports.timeStepSizeImgUp = {
+    position: "absolute",
+    top: "0px"
+};
+exports.timeStepSizeImgDown = {
+    position: "absolute",
+    top: "12px"
+};
+exports.timeStepSizeImgValue = {
+    position: "absolute",
+    left: "40px",
+    top: "10px",
+    width: "100px",
+    color: style_1.color4,
+    fontFamily: style_1.fontFamily1,
+    fontSize: style_1.fontSize1
+};
+exports.playPauseButtonStyle = {
+    position: "absolute",
+    left: "60px",
+    top: "0px",
+    display: "block"
+};
+exports.progressBarCursor = {
+    display: "block",
+    height: "30px",
+    width: "30px",
+    position: "absolute",
+    background: style_1.color7,
+    borderRadius: "30px",
+    bottom: "-11px"
+};
+exports.progressBarCursorBody = {
+    width: "12px",
+    height: " 12px",
+    background: style_1.color8,
+    margin: "9px",
+    borderRadius: "9px"
+};
+
+
+/***/ }),
+/* 3 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -747,32 +900,7 @@ if (process.env.NODE_ENV !== 'production' && typeof isCrushed.name === 'string' 
 /* WEBPACK VAR INJECTION */}.call(__webpack_exports__, __webpack_require__(9)))
 
 /***/ }),
-/* 2 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-exports.__esModule = true;
-exports.color1 = "#333";
-exports.color2 = "#aaa";
-exports.fontSize1 = "25px";
-exports.fontFamily1 = '"Open Sans", "Lato", sans-serif';
-exports.abstracktStyleFullWidhtElem = {
-    position: "fixed",
-    width: "100%",
-    left: "0px",
-    right: "0px"
-};
-exports.imgLoadingStyle = {
-    margin: "0 auto",
-    position: "absolute",
-    top: "35%",
-    left: "47%"
-};
-
-
-/***/ }),
-/* 3 */
+/* 4 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -798,7 +926,7 @@ exports.Provider = Provider;
 exports.connect = connect;
 
 /***/ }),
-/* 4 */
+/* 5 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -812,13 +940,13 @@ exports.CHANGE_CAMS_STATE = "CHANGE_CAMS_STATE";
 
 
 /***/ }),
-/* 5 */
+/* 6 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 exports.__esModule = true;
-var ACTION_TYPE_CONST_1 = __webpack_require__(4);
+var ACTION_TYPE_CONST_1 = __webpack_require__(5);
 exports.chageView = function (payload) { return ({
     type: ACTION_TYPE_CONST_1.CHANGE_VIEW,
     payload: payload
@@ -826,7 +954,7 @@ exports.chageView = function (payload) { return ({
 
 
 /***/ }),
-/* 6 */
+/* 7 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -871,7 +999,7 @@ exports.parseGetParams = parseGetParams;
 
 
 /***/ }),
-/* 7 */
+/* 8 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -927,65 +1055,6 @@ exports.getCameras = function (SessionID, cb) {
             cb(JSON.parse(xhr.responseText));
         }
     });
-};
-
-
-/***/ }),
-/* 8 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-var __assign = (this && this.__assign) || function () {
-    __assign = Object.assign || function(t) {
-        for (var s, i = 1, n = arguments.length; i < n; i++) {
-            s = arguments[i];
-            for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p))
-                t[p] = s[p];
-        }
-        return t;
-    };
-    return __assign.apply(this, arguments);
-};
-exports.__esModule = true;
-var style_1 = __webpack_require__(2);
-var fullScreenStyle = {
-    position: "absolute",
-    top: "0px",
-    left: "0px",
-    right: "0px",
-    bottom: "0px",
-    height: "100%",
-    width: "100%"
-};
-exports.style = __assign({}, fullScreenStyle);
-exports.imgLoadingStyle = style_1.imgLoadingStyle;
-exports.playerBodyStyle = __assign({}, fullScreenStyle);
-exports.controlPanelStyle = {
-    position: "absolute",
-    bottom: "0px",
-    left: "0px",
-    right: "0px",
-    height: "120px",
-    background: "url(./../forpost-app/img/layerControlBg.png)",
-    backgroundRepeat: "repeat-x"
-};
-exports.playerButtonsStyle = {
-    borderBottom: "2px solid #6A6A6A",
-    position: "absolute",
-    top: "0px",
-    left: "0px",
-    right: "0px",
-    height: "50px"
-};
-exports.timeBarStyle = {
-    position: "absolute",
-    left: "120px",
-    top: "10px",
-    display: "block",
-    color: "white",
-    fontFamily: style_1.fontFamily1,
-    fontSize: style_1.fontSize1
 };
 
 
@@ -1197,8 +1266,8 @@ var __assign = (this && this.__assign) || function () {
     return __assign.apply(this, arguments);
 };
 exports.__esModule = true;
-var style_1 = __webpack_require__(2);
-exports.colorError = "#b00020";
+var style_1 = __webpack_require__(1);
+exports.colorError = style_1.color11;
 exports.fontSize1 = style_1.fontSize1;
 exports.fontFamily1 = style_1.fontFamily1;
 var bodyStyle = __assign({}, style_1.abstracktStyleFullWidhtElem, { height: "75%", top: "100px", bottom: "0px", background: "url(./../forpost-app/img/background1.png) no-repeat", borderBottom: "100px solid " + style_1.color1 });
@@ -1207,8 +1276,8 @@ exports.loginFormStyle = {
     maxWidth: "520px",
     padding: "19px 29px 50px",
     margin: "0 auto 20px",
-    backgroundColor: "#fff",
-    border: "4px solid #e5e5e5",
+    backgroundColor: style_1.color5,
+    border: "4px solid " + style_1.color10,
     borderRadius: "5px",
     boxShadow: "0 1px 2px rgba(0, 0, 0, .05)",
     marginTop: "60px",
@@ -1308,9 +1377,9 @@ var __assign = (this && this.__assign) || function () {
     return __assign.apply(this, arguments);
 };
 exports.__esModule = true;
-var style_1 = __webpack_require__(2);
+var style_1 = __webpack_require__(1);
 exports.color2 = style_1.color2;
-exports.color3 = "#383838";
+exports.color3 = style_1.color9;
 exports.camItemStyle = {
     background: exports.color3,
     border: "2px solid black",
@@ -1377,14 +1446,14 @@ var __extends = (this && this.__extends) || (function () {
 exports.__esModule = true;
 var React = __webpack_require__(0);
 var ReactDOM = __webpack_require__(15);
-var react_redux_1 = __webpack_require__(3);
-var redux_1 = __webpack_require__(1);
+var react_redux_1 = __webpack_require__(4);
+var redux_1 = __webpack_require__(3);
 var redux_thunk_1 = __webpack_require__(28);
 var root_1 = __webpack_require__(29);
 var Login_1 = __webpack_require__(33);
 var Panel_1 = __webpack_require__(37);
 var Player_1 = __webpack_require__(44);
-var Exit_1 = __webpack_require__(49);
+var Exit_1 = __webpack_require__(53);
 var global = window;
 var store = redux_1.createStore(root_1["default"], redux_1.applyMiddleware(redux_thunk_1["default"]));
 global["store"] = store;
@@ -1927,7 +1996,7 @@ module.exports = exports['default'];
 exports.__esModule = true;
 exports['default'] = wrapActionCreators;
 
-var _redux = __webpack_require__(1);
+var _redux = __webpack_require__(3);
 
 function wrapActionCreators(actionCreators) {
   return function (dispatch) {
@@ -2195,7 +2264,7 @@ thunk.withExtraArgument = createThunkMiddleware;
 "use strict";
 
 exports.__esModule = true;
-var redux_1 = __webpack_require__(1);
+var redux_1 = __webpack_require__(3);
 var auth_1 = __webpack_require__(30);
 var cams_1 = __webpack_require__(31);
 var app_1 = __webpack_require__(32);
@@ -2224,7 +2293,7 @@ var __assign = (this && this.__assign) || function () {
     return __assign.apply(this, arguments);
 };
 exports.__esModule = true;
-var ACTION_TYPE_CONST_1 = __webpack_require__(4);
+var ACTION_TYPE_CONST_1 = __webpack_require__(5);
 var defaultState = {
     login: "",
     password: "",
@@ -2275,7 +2344,7 @@ var __assign = (this && this.__assign) || function () {
     return __assign.apply(this, arguments);
 };
 exports.__esModule = true;
-var ACTION_TYPE_CONST_1 = __webpack_require__(4);
+var ACTION_TYPE_CONST_1 = __webpack_require__(5);
 var gridMaxItems = stb.__type__ === "mag" ? 3 : 3;
 var defaultState = {
     items: [],
@@ -2315,7 +2384,7 @@ var __assign = (this && this.__assign) || function () {
     return __assign.apply(this, arguments);
 };
 exports.__esModule = true;
-var ACTION_TYPE_CONST_1 = __webpack_require__(4);
+var ACTION_TYPE_CONST_1 = __webpack_require__(5);
 var defaultState = {
     view: "/login"
 };
@@ -2404,11 +2473,11 @@ var __assign = (this && this.__assign) || function () {
 exports.__esModule = true;
 var React = __webpack_require__(0);
 var style_1 = __webpack_require__(10);
-var style_2 = __webpack_require__(2);
-var react_redux_1 = __webpack_require__(3);
-var redux_1 = __webpack_require__(1);
+var style_2 = __webpack_require__(1);
+var react_redux_1 = __webpack_require__(4);
+var redux_1 = __webpack_require__(3);
 var auth_1 = __webpack_require__(35);
-var app_1 = __webpack_require__(5);
+var app_1 = __webpack_require__(6);
 var LoginForm = /** @class */ (function (_super) {
     __extends(LoginForm, _super);
     function LoginForm() {
@@ -2630,10 +2699,10 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
     }
 };
 exports.__esModule = true;
-var utilites_1 = __webpack_require__(6);
-var HTTP_1 = __webpack_require__(7);
-var ACTION_TYPE_CONST_1 = __webpack_require__(4);
-var app_1 = __webpack_require__(5);
+var utilites_1 = __webpack_require__(7);
+var HTTP_1 = __webpack_require__(8);
+var ACTION_TYPE_CONST_1 = __webpack_require__(5);
+var app_1 = __webpack_require__(6);
 var authError = function (payload) { return ({
     type: ACTION_TYPE_CONST_1.AUTH_ERROR,
     payload: payload
@@ -2735,7 +2804,7 @@ var __assign = (this && this.__assign) || function () {
     return __assign.apply(this, arguments);
 };
 exports.__esModule = true;
-var style_1 = __webpack_require__(2);
+var style_1 = __webpack_require__(1);
 exports.headerStyle = __assign({}, style_1.abstracktStyleFullWidhtElem, { height: "100px", top: "0px", background: style_1.color1 });
 exports.logoStyle = {
     height: "60px",
@@ -2746,7 +2815,7 @@ exports.logoStyle = {
 exports.nameAppStyle = {
     fontFamily: '"Open Sans", "Lato", sans-serif',
     fontSize: "32px",
-    color: "#fff",
+    color: style_1.color5,
     top: "30px",
     left: "180px",
     position: "absolute"
@@ -2870,13 +2939,13 @@ var __spread = (this && this.__spread) || function () {
 };
 exports.__esModule = true;
 var React = __webpack_require__(0);
-var react_redux_1 = __webpack_require__(3);
+var react_redux_1 = __webpack_require__(4);
 var style_1 = __webpack_require__(39);
 var Rows_1 = __webpack_require__(40);
 var cam_1 = __webpack_require__(43);
-var redux_1 = __webpack_require__(1);
-var utilites_1 = __webpack_require__(6);
-var app_1 = __webpack_require__(5);
+var redux_1 = __webpack_require__(3);
+var utilites_1 = __webpack_require__(7);
+var app_1 = __webpack_require__(6);
 var Grid = /** @class */ (function (_super) {
     __extends(Grid, _super);
     function Grid() {
@@ -3047,11 +3116,11 @@ var Grid = /** @class */ (function (_super) {
         }
     };
     Grid.prototype.changePage = function (dif) {
+        var self = this;
+        var grigPage = this.props.grigPage + dif;
         if (!dif) {
             return;
         }
-        var self = this;
-        var grigPage = this.props.grigPage + dif;
         if (!this.pageExist(grigPage)) {
             return;
         }
@@ -3126,7 +3195,7 @@ exports["default"] = react_redux_1.connect(function (state) { return state.cams;
 "use strict";
 
 exports.__esModule = true;
-var style_1 = __webpack_require__(2);
+var style_1 = __webpack_require__(1);
 var paddingLeft = stb.__type__ === "mag" ? "80px" : "50px";
 var paddingRight = stb.__type__ === "mag" ? "80px" : "50px";
 exports.gridStyle = {
@@ -3135,7 +3204,7 @@ exports.gridStyle = {
     right: "0px",
     bottom: "0px",
     position: "absolute",
-    background: "#212121",
+    background: style_1.color6,
     paddingLeft: paddingLeft,
     paddingRight: paddingRight
 };
@@ -3198,23 +3267,20 @@ var Rows = /** @class */ (function (_super) {
     }
     Rows.prototype.render = function () {
         var _this = this;
-        var rows = this.props.rows.map(function (item, i) {
-            i++;
-            return _this.createRow("rowsId" + i, item, _this.props.rows.length);
-        });
         return (React.createElement("div", { style: {
                 height: "100%"
-            } }, rows));
+            } }, this.props.rows.map(function (item, i) {
+            return _this.createRow("rowsId" + (i + 1), item, _this.props.rows.length);
+        })));
     };
     Rows.prototype.createRow = function (key, row, rowsCount) {
         var _this = this;
         var height = Math.round(100 / rowsCount) + "%";
         var style = { height: height, position: "relative" };
-        var items = row.map(function (item, i) {
+        return (React.createElement("div", { style: style, key: key }, row.map(function (item, i) {
             i++;
             return _this.createItem(item, i - 1, row.length, key);
-        });
-        return (React.createElement("div", { style: style, key: key }, items));
+        })));
     };
     Rows.prototype.createItem = function (cam, position, lengthRow, keyPrefix) {
         var width = Math.round(100 / lengthRow) + "%";
@@ -3352,9 +3418,9 @@ var __read = (this && this.__read) || function (o, n) {
 exports.__esModule = true;
 var React = __webpack_require__(0);
 var style_1 = __webpack_require__(13);
-var utilites_1 = __webpack_require__(6);
-var HTTP_1 = __webpack_require__(7);
-var react_redux_1 = __webpack_require__(3);
+var utilites_1 = __webpack_require__(7);
+var HTTP_1 = __webpack_require__(8);
+var react_redux_1 = __webpack_require__(4);
 var CamBody = /** @class */ (function (_super) {
     __extends(CamBody, _super);
     function CamBody(props) {
@@ -3551,10 +3617,10 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
     }
 };
 exports.__esModule = true;
-var ACTION_TYPE_CONST_1 = __webpack_require__(4);
-var utilites_1 = __webpack_require__(6);
-var HTTP_1 = __webpack_require__(7);
-var app_1 = __webpack_require__(5);
+var ACTION_TYPE_CONST_1 = __webpack_require__(5);
+var utilites_1 = __webpack_require__(7);
+var HTTP_1 = __webpack_require__(8);
+var app_1 = __webpack_require__(6);
 exports.changeStateCams = function (payload) { return ({
     type: ACTION_TYPE_CONST_1.CHANGE_CAMS_STATE,
     payload: payload
@@ -3645,13 +3711,13 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
 };
 exports.__esModule = true;
 var React = __webpack_require__(0);
-var react_redux_1 = __webpack_require__(3);
-var app_1 = __webpack_require__(5);
-var redux_1 = __webpack_require__(1);
+var react_redux_1 = __webpack_require__(4);
+var app_1 = __webpack_require__(6);
+var redux_1 = __webpack_require__(3);
 var Body_1 = __webpack_require__(45);
-var style_1 = __webpack_require__(8);
-var utilites_1 = __webpack_require__(6);
-var HTTP_1 = __webpack_require__(7);
+var style_1 = __webpack_require__(2);
+var utilites_1 = __webpack_require__(7);
+var HTTP_1 = __webpack_require__(8);
 var Player = /** @class */ (function (_super) {
     __extends(Player, _super);
     function Player(props) {
@@ -3659,7 +3725,8 @@ var Player = /** @class */ (function (_super) {
         _this.state = {
             loading: true,
             playStatus: false,
-            time: Date.now()
+            time: Date.now(),
+            timeStepSize: 300000
         };
         return _this;
     }
@@ -3678,7 +3745,7 @@ var Player = /** @class */ (function (_super) {
         return (React.createElement("img", { style: style_1.imgLoadingStyle, src: "./../forpost-app/img/loading_5.gif" }));
     };
     Player.prototype.getBody = function () {
-        return (React.createElement(Body_1["default"], { items: this.props.items, gridActiveItemPosition: this.props.gridActiveItemPosition, gridMaxItems: this.props.gridMaxItems, grigPage: this.props.grigPage, gridLoading: this.props.gridLoading, chageView: this.props.chageView, playerState: this.state, currentPlay: this.props.currentPlay, SessionID: this.props.SessionID, playerChangeState: this.playerChangeState.bind(this), play: this.play.bind(this), pushTime: this.pushTime.bind(this) }));
+        return (React.createElement(Body_1["default"], { items: this.props.items, gridActiveItemPosition: this.props.gridActiveItemPosition, gridMaxItems: this.props.gridMaxItems, grigPage: this.props.grigPage, gridLoading: this.props.gridLoading, chageView: this.props.chageView, playerState: this.state, currentPlay: this.props.currentPlay, SessionID: this.props.SessionID, playerChangeState: this.playerChangeState.bind(this), play: this.play.bind(this), pushTime: this.pushTime.bind(this), changeTimeStepSize: this.changeTimeStepSize.bind(this) }));
     };
     Player.prototype.playerChangeState = function (newState) {
         this.setState(__assign({}, this.state, newState));
@@ -3688,6 +3755,9 @@ var Player = /** @class */ (function (_super) {
     };
     Player.prototype.pushTime = function (time) {
         this.setState(__assign({}, this.state, { time: time }));
+    };
+    Player.prototype.changeTimeStepSize = function (timeStepSize) {
+        this.setState(__assign({}, this.state, { timeStepSize: timeStepSize }));
     };
     Player.prototype.play = function (ts) {
         ts = ts ? Math.round(ts / 1000) : 0;
@@ -3774,7 +3844,7 @@ var __assign = (this && this.__assign) || function () {
 };
 exports.__esModule = true;
 var React = __webpack_require__(0);
-var style_1 = __webpack_require__(8);
+var style_1 = __webpack_require__(2);
 var ControlPanel_1 = __webpack_require__(46);
 var PlayerBody = /** @class */ (function (_super) {
     __extends(PlayerBody, _super);
@@ -3802,12 +3872,11 @@ var PlayerBody = /** @class */ (function (_super) {
         this.elem = elem;
     };
     PlayerBody.prototype.key = function (e) {
-        console.log(e.keyCode);
         if (e.keyCode === 37) {
-            this.timeController.changeTimeshift(-10000);
+            this.timeController.changeTimeshift(-this.props.playerState.timeStepSize);
         }
         if (e.keyCode === 39) {
-            this.timeController.changeTimeshift(10000);
+            this.timeController.changeTimeshift(this.props.playerState.timeStepSize);
         }
         this.controlPanelStatus.show();
         if (e.key === "Backspace" || e.key === "Escape") {
@@ -3819,29 +3888,41 @@ var PlayerBody = /** @class */ (function (_super) {
                 console.log(e);
             }
         }
-        if (e.keyCode === 82 && this.props.playerState.playStatus) {
-            this.controlPanelStatus.panelAlwaysShow = true;
-            this.props.playerChangeState(__assign({}, this.props.playerState, { playStatus: false }));
-            try {
-                stb.Pause();
-            }
-            catch (e) {
-                console.log(e);
-            }
-        }
-        else if (e.keyCode === 82 && !this.props.playerState.playStatus) {
-            this.controlPanelStatus.panelAlwaysShow = false;
-            this.props.playerChangeState(__assign({}, this.props.playerState, { playStatus: true }));
-            try {
-                stb.Continue();
-            }
-            catch (e) {
-                console.log(e);
-            }
+        if (e.keyCode === 82) {
+            this.playPause();
         }
     };
+    PlayerBody.prototype.playPause = function () {
+        var playStatus = this.props.playerState.playStatus;
+        if (playStatus) {
+            this.controlPanelStatus.panelAlwaysShow = true;
+            playStatus = false;
+        }
+        else if (!playStatus) {
+            this.controlPanelStatus.panelAlwaysShow = false;
+            playStatus = true;
+        }
+        try {
+            if (playStatus) {
+                stb.Continue();
+            }
+            else {
+                stb.Pause();
+            }
+        }
+        catch (e) {
+            console.log(e);
+        }
+        if (playStatus) {
+            this.timeController["continue"]();
+        }
+        else {
+            this.timeController.pause();
+        }
+        this.props.playerChangeState(__assign({}, this.props.playerState, { playStatus: playStatus }));
+    };
     PlayerBody.prototype.controlPanel = function () {
-        return this.state.panelVisible ? (React.createElement(ControlPanel_1["default"], { playStatus: this.props.playerState.playStatus, time: this.props.playerState.time })) : null;
+        return this.state.panelVisible ? (React.createElement(ControlPanel_1["default"], { playStatus: this.props.playerState.playStatus, time: this.props.playerState.time, playPause: this.playPause.bind(this), timeStepSize: this.props.playerState.timeStepSize, changeTimeStepSize: this.props.changeTimeStepSize })) : null;
     };
     return PlayerBody;
 }(React.Component));
@@ -3856,7 +3937,7 @@ var ControlPanelStatusChanger = /** @class */ (function () {
             this.player.setState(__assign({}, this.player.state, { panelVisible: true }));
         }
         if (!this.panelAlwaysShow) {
-            this.visibleTimeout(10000);
+            this.visibleTimeout(10000000);
         }
     };
     ControlPanelStatusChanger.prototype.hide = function () {
@@ -3878,7 +3959,7 @@ var TimeController = /** @class */ (function () {
         if (startTime === void 0) { startTime = Date.now(); }
         this._pushTime = _pushTime;
         this._changeTimeShift = _changeTimeShift;
-        this.intervalId = setInterval(this.pushTime.bind(this), 1000);
+        this.startInterval();
         this.timeshift = startTime - Date.now();
     }
     TimeController.prototype.pushTime = function () {
@@ -3907,6 +3988,17 @@ var TimeController = /** @class */ (function () {
             _this._changeTimeShift(_this.getTime());
         }, 6000);
     };
+    TimeController.prototype.pause = function () {
+        this.pauseTimestamp = Date.now();
+        this.clearAllTimers();
+    };
+    TimeController.prototype["continue"] = function () {
+        this.timeshift = this.timeshift + this.pauseTimestamp - Date.now();
+        this.startInterval();
+    };
+    TimeController.prototype.startInterval = function () {
+        this.intervalId = setInterval(this.pushTime.bind(this), 1000);
+    };
     return TimeController;
 }());
 
@@ -3930,19 +4022,54 @@ var __extends = (this && this.__extends) || (function () {
         d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
     };
 })();
+var __assign = (this && this.__assign) || function () {
+    __assign = Object.assign || function(t) {
+        for (var s, i = 1, n = arguments.length; i < n; i++) {
+            s = arguments[i];
+            for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p))
+                t[p] = s[p];
+        }
+        return t;
+    };
+    return __assign.apply(this, arguments);
+};
 exports.__esModule = true;
 var React = __webpack_require__(0);
-var style_1 = __webpack_require__(8);
+var style_1 = __webpack_require__(2);
 var PlayerButtons_1 = __webpack_require__(47);
+var ProgressBar_1 = __webpack_require__(52);
 var ControlPanel = /** @class */ (function (_super) {
     __extends(ControlPanel, _super);
-    function ControlPanel() {
-        return _super !== null && _super.apply(this, arguments) || this;
+    function ControlPanel(props) {
+        var _this = _super.call(this, props) || this;
+        _this.state = {
+            focusIndex: 0
+        };
+        return _this;
     }
     ControlPanel.prototype.render = function () {
-        return (React.createElement("div", { style: style_1.controlPanelStyle },
-            React.createElement(PlayerButtons_1["default"], { playStatus: this.props.playStatus, time: this.props.time }),
-            React.createElement("div", null)));
+        return (React.createElement("div", { style: style_1.controlPanelStyle, tabIndex: 1, ref: this.setElem.bind(this), onKeyDown: this.key.bind(this) },
+            React.createElement(PlayerButtons_1["default"], { playStatus: this.props.playStatus, time: this.props.time, focus: this.focus(0), playPause: this.props.playPause, timeStepSize: this.props.timeStepSize, changeTimeStepSize: this.props.changeTimeStepSize }),
+            React.createElement(ProgressBar_1["default"], { focus: this.focus(1), time: this.props.time })));
+    };
+    ControlPanel.prototype.setElem = function (elem) {
+        this.elem = elem;
+    };
+    ControlPanel.prototype.key = function (e) {
+        var focusIndex = this.state.focusIndex;
+        if (e.key === "ArrowDown" && focusIndex === 0) {
+            focusIndex = 1;
+        }
+        else if (e.key === "ArrowUp" && focusIndex === 1) {
+            focusIndex = 0;
+        }
+        this.setState(__assign({}, this.state, { focusIndex: focusIndex }));
+    };
+    ControlPanel.prototype.componentDidMount = function () {
+        this.elem.focus();
+    };
+    ControlPanel.prototype.focus = function (index) {
+        return this.state.focusIndex === index;
     };
     return ControlPanel;
 }(React.Component));
@@ -3968,20 +4095,67 @@ var __extends = (this && this.__extends) || (function () {
         d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
     };
 })();
+var __assign = (this && this.__assign) || function () {
+    __assign = Object.assign || function(t) {
+        for (var s, i = 1, n = arguments.length; i < n; i++) {
+            s = arguments[i];
+            for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p))
+                t[p] = s[p];
+        }
+        return t;
+    };
+    return __assign.apply(this, arguments);
+};
 exports.__esModule = true;
 var React = __webpack_require__(0);
-var style_1 = __webpack_require__(8);
+var style_1 = __webpack_require__(2);
 var PlayPauseButton_1 = __webpack_require__(48);
-var TimeBar_1 = __webpack_require__(50);
+var TimeBar_1 = __webpack_require__(49);
+var TimeStepSize_1 = __webpack_require__(51);
 var PlayerButtons = /** @class */ (function (_super) {
     __extends(PlayerButtons, _super);
-    function PlayerButtons() {
-        return _super !== null && _super.apply(this, arguments) || this;
+    function PlayerButtons(props) {
+        var _this = _super.call(this, props) || this;
+        _this.focused = false;
+        _this.state = {
+            focusIndex: 0
+        };
+        return _this;
     }
+    PlayerButtons.prototype.setElem = function (elem) {
+        this.elem = elem;
+    };
+    PlayerButtons.prototype.componentDidUpdate = function () {
+        if (this.props.focus && !this.focused) {
+            this.focused = true;
+            this.setState(__assign({}, this.state, { focusIndex: 0 }));
+        }
+        else if (!this.props.focus && this.focused) {
+            this.focused = false;
+            this.setState(__assign({}, this.state, { focusIndex: -1 }));
+        }
+    };
     PlayerButtons.prototype.render = function () {
-        return (React.createElement("div", { style: style_1.playerButtonsStyle },
-            React.createElement(PlayPauseButton_1["default"], { playStatus: this.props.playStatus }),
-            React.createElement(TimeBar_1["default"], { time: this.props.time })));
+        return (React.createElement("div", { style: style_1.playerButtonsStyle, tabIndex: 1, ref: this.setElem.bind(this), onKeyDown: this.key.bind(this) },
+            React.createElement(PlayPauseButton_1["default"], { playStatus: this.props.playStatus, focus: this.isFocus(0), playPause: this.props.playPause }),
+            React.createElement(TimeBar_1["default"], { time: this.props.time, focus: this.isFocus(1) }),
+            React.createElement(TimeStepSize_1["default"], { focus: this.isFocus(2), timeStepSize: this.props.timeStepSize, changeTimeStepSize: this.props.changeTimeStepSize })));
+    };
+    PlayerButtons.prototype.key = function (e) {
+        var focusIndex = this.state.focusIndex;
+        if (e.key === "ArrowLeft" || e.key === "ArrowRight") {
+            e.stopPropagation();
+        }
+        if (e.key === "ArrowLeft" && focusIndex > 0) {
+            focusIndex--;
+        }
+        if (e.key === "ArrowRight" && focusIndex < 2) {
+            focusIndex++;
+        }
+        this.setState(__assign({}, this.state, { focusIndex: focusIndex }));
+    };
+    PlayerButtons.prototype.isFocus = function (index) {
+        return index === this.state.focusIndex;
     };
     return PlayerButtons;
 }(React.Component));
@@ -4007,20 +4181,54 @@ var __extends = (this && this.__extends) || (function () {
         d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
     };
 })();
+var __assign = (this && this.__assign) || function () {
+    __assign = Object.assign || function(t) {
+        for (var s, i = 1, n = arguments.length; i < n; i++) {
+            s = arguments[i];
+            for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p))
+                t[p] = s[p];
+        }
+        return t;
+    };
+    return __assign.apply(this, arguments);
+};
 exports.__esModule = true;
 var React = __webpack_require__(0);
+var style_1 = __webpack_require__(2);
+var style_2 = __webpack_require__(1);
 var PlayPauseButton = /** @class */ (function (_super) {
     __extends(PlayPauseButton, _super);
     function PlayPauseButton() {
-        return _super !== null && _super.apply(this, arguments) || this;
+        var _this = _super !== null && _super.apply(this, arguments) || this;
+        _this.focused = false;
+        return _this;
     }
+    PlayPauseButton.prototype.setElem = function (elem) {
+        this.elem = elem;
+    };
+    PlayPauseButton.prototype.componentDidMount = function () {
+        if (this.props.focus) {
+            this.elem.focus();
+        }
+    };
+    PlayPauseButton.prototype.componentDidUpdate = function () {
+        if (this.props.focus && !this.focused) {
+            this.elem.focus();
+            this.focused = true;
+        }
+        else if (!this.props.focus) {
+            this.focused = false;
+        }
+    };
+    PlayPauseButton.prototype.key = function (e) {
+        if (e.key === "Enter") {
+            this.props.playPause();
+        }
+    };
     PlayPauseButton.prototype.render = function () {
-        return (React.createElement("img", { style: {
-                position: "absolute",
-                left: "60px",
-                top: "0px",
-                display: "block"
-            }, src: this.img() }));
+        return (React.createElement("img", { style: __assign({}, style_1.playPauseButtonStyle, { border: this.props.focus
+                    ? "3px solid " + style_2.color3
+                    : "3px solid transparent" }), src: this.img(), ref: this.setElem.bind(this), tabIndex: 1, onKeyDown: this.key.bind(this) }));
     };
     PlayPauseButton.prototype.img = function () {
         return this.props.playStatus
@@ -4064,12 +4272,689 @@ var __assign = (this && this.__assign) || function () {
 };
 exports.__esModule = true;
 var React = __webpack_require__(0);
+var style_1 = __webpack_require__(2);
+var date = __webpack_require__(50);
+var style_2 = __webpack_require__(1);
+var TimeBar = /** @class */ (function (_super) {
+    __extends(TimeBar, _super);
+    function TimeBar() {
+        var _this = _super !== null && _super.apply(this, arguments) || this;
+        _this.focused = false;
+        return _this;
+    }
+    TimeBar.prototype.setElem = function (elem) {
+        this.elem = elem;
+    };
+    TimeBar.prototype.componentDidUpdate = function () {
+        if (this.props.focus && !this.focused) {
+            this.elem.focus();
+            this.focused = true;
+        }
+        else if (!this.props.focus) {
+            this.focused = false;
+        }
+    };
+    TimeBar.prototype.key = function (e) {
+        if (e.key === "Enter") {
+            console.log("openModalTimeSelect");
+        }
+    };
+    TimeBar.prototype.render = function () {
+        return (React.createElement("div", { style: __assign({}, style_1.timeBarStyle, { border: this.props.focus
+                    ? "3px solid " + style_2.color3
+                    : "3px solid transparent" }), ref: this.setElem.bind(this), tabIndex: 1, onKeyDown: this.key.bind(this) }, date.format(new Date(this.props.time), "HH:mm:ss  DD.MM.YYYY")));
+    };
+    return TimeBar;
+}(React.Component));
+exports["default"] = TimeBar;
+
+
+/***/ }),
+/* 50 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/**
+ * @preserve date-and-time.js (c) KNOWLEDGECODE | MIT
+ */
+(function (global) {
+    'use strict';
+
+    var date = {},
+        locales = {},
+        plugins = {},
+        lang = 'en',
+        _res = {
+            MMMM: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
+            MMM: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
+            dddd: ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'],
+            ddd: ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'],
+            dd: ['Su', 'Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa'],
+            A: ['a.m.', 'p.m.']
+        },
+        _formatter = {
+            YYYY: function (d/*, formatString*/) { return ('000' + d.getFullYear()).slice(-4); },
+            YY: function (d/*, formatString*/) { return ('0' + d.getFullYear()).slice(-2); },
+            Y: function (d/*, formatString*/) { return '' + d.getFullYear(); },
+            MMMM: function (d/*, formatString*/) { return this.res.MMMM[d.getMonth()]; },
+            MMM: function (d/*, formatString*/) { return this.res.MMM[d.getMonth()]; },
+            MM: function (d/*, formatString*/) { return ('0' + (d.getMonth() + 1)).slice(-2); },
+            M: function (d/*, formatString*/) { return '' + (d.getMonth() + 1); },
+            DD: function (d/*, formatString*/) { return ('0' + d.getDate()).slice(-2); },
+            D: function (d/*, formatString*/) { return '' + d.getDate(); },
+            HH: function (d/*, formatString*/) { return ('0' + d.getHours()).slice(-2); },
+            H: function (d/*, formatString*/) { return '' + d.getHours(); },
+            A: function (d/*, formatString*/) { return this.res.A[d.getHours() > 11 | 0]; },
+            hh: function (d/*, formatString*/) { return ('0' + (d.getHours() % 12 || 12)).slice(-2); },
+            h: function (d/*, formatString*/) { return '' + (d.getHours() % 12 || 12); },
+            mm: function (d/*, formatString*/) { return ('0' + d.getMinutes()).slice(-2); },
+            m: function (d/*, formatString*/) { return '' + d.getMinutes(); },
+            ss: function (d/*, formatString*/) { return ('0' + d.getSeconds()).slice(-2); },
+            s: function (d/*, formatString*/) { return '' + d.getSeconds(); },
+            SSS: function (d/*, formatString*/) { return ('00' + d.getMilliseconds()).slice(-3); },
+            SS: function (d/*, formatString*/) { return ('0' + (d.getMilliseconds() / 10 | 0)).slice(-2); },
+            S: function (d/*, formatString*/) { return '' + (d.getMilliseconds() / 100 | 0); },
+            dddd: function (d/*, formatString*/) { return this.res.dddd[d.getDay()]; },
+            ddd: function (d/*, formatString*/) { return this.res.ddd[d.getDay()]; },
+            dd: function (d/*, formatString*/) { return this.res.dd[d.getDay()]; },
+            Z: function (d/*, formatString*/) {
+                var offset = d.utc ? 0 : d.getTimezoneOffset() / 0.6;
+                return (offset > 0 ? '-' : '+') + ('000' + Math.abs(offset - offset % 100 * 0.4)).slice(-4);
+            },
+            post: function (str) { return str; }
+        },
+        _parser = {
+            YYYY: function (str/*, formatString */) { return this.exec(/^\d{1,4}/, str); },
+            YY: function (str/*, formatString */) {
+                var result = this.exec(/^\d\d?/, str);
+                result.value += result.value < 70 ? 2000 : result.value < 100 ? 1900 : 0;
+                return result;
+            },
+            MMMM: function (str/*, formatString */) {
+                var result = this.find(this.res.MMMM, str);
+                result.value++;
+                return result;
+            },
+            MMM: function (str/*, formatString */) {
+                var result = this.find(this.res.MMM, str);
+                result.value++;
+                return result;
+            },
+            MM: function (str/*, formatString */) { return this.exec(/^\d\d/, str); },
+            M: function (str/*, formatString */) { return this.exec(/^\d\d?/, str); },
+            DD: function (str/*, formatString */) { return this.exec(/^\d\d/, str); },
+            D: function (str/*, formatString */) { return this.exec(/^\d\d?/, str); },
+            HH: function (str/*, formatString */) { return this.exec(/^\d\d/, str); },
+            H: function (str/*, formatString */) { return this.exec(/^\d\d?/, str); },
+            A: function (str/*, formatString */) { return this.find(this.res.A, str); },
+            hh: function (str/*, formatString */) { return this.exec(/^\d\d/, str); },
+            h: function (str/*, formatString */) { return this.exec(/^\d\d?/, str); },
+            mm: function (str/*, formatString */) { return this.exec(/^\d\d/, str); },
+            m: function (str/*, formatString */) { return this.exec(/^\d\d?/, str); },
+            ss: function (str/*, formatString */) { return this.exec(/^\d\d/, str); },
+            s: function (str/*, formatString */) { return this.exec(/^\d\d?/, str); },
+            SSS: function (str/*, formatString */) { return this.exec(/^\d{1,3}/, str); },
+            SS: function (str/*, formatString */) {
+                var result = this.exec(/^\d\d?/, str);
+                result.value *= 10;
+                return result;
+            },
+            S: function (str/*, formatString */) {
+                var result = this.exec(/^\d/, str);
+                result.value *= 100;
+                return result;
+            },
+            h12: function (h, a) { return (h === 12 ? 0 : h) + a * 12; },
+            exec: function (re, str) {
+                var result = (re.exec(str) || [''])[0];
+                return { value: result | 0, length: result.length };
+            },
+            find: function (array, str) {
+                var index = -1, length = 0;
+
+                for (var i = 0, len = array.length, item; i < len; i++) {
+                    item = array[i];
+                    if (!str.indexOf(item) && item.length > length) {
+                        index = i;
+                        length = item.length;
+                    }
+                }
+                return { value: index, length: length };
+            },
+            pre: function (str) { return str; }
+        },
+        customize = function (code, base, locale) {
+            var extend = function (proto, props, res) {
+                    var Locale = function (r) {
+                        if (r) { this.res = r; }
+                    };
+
+                    Locale.prototype = proto;
+                    Locale.prototype.constructor = Locale;
+
+                    var newLocale = new Locale(res),
+                        value;
+
+                    for (var key in props || {}) {
+                        if (props.hasOwnProperty(key)) {
+                            value = props[key];
+                            newLocale[key] = value.slice ? value.slice() : value;
+                        }
+                    }
+                    return newLocale;
+                },
+                loc = { res: extend(base.res, locale.res) };
+
+            loc.formatter = extend(base.formatter, locale.formatter, loc.res);
+            loc.parser = extend(base.parser, locale.parser, loc.res);
+            locales[code] = loc;
+        };
+
+    /**
+     * formatting a date
+     * @param {Date} dateObj - a Date object
+     * @param {string} formatString - a format string
+     * @param {boolean} [utc] - output as UTC
+     * @returns {string} a formatted string
+     */
+    date.format = function (dateObj, formatString, utc) {
+        var d = date.addMinutes(dateObj, utc ? dateObj.getTimezoneOffset() : 0),
+            formatter = locales[lang].formatter;
+
+        d.utc = utc;
+        return formatString.replace(/\[[^\[\]]*]|\[.*\][^\[]*\]|([A-Za-z])\1*|./g, function (token) {
+            return formatter[token] ? formatter.post(formatter[token](d, formatString)) : token.replace(/\[(.*)]/, '$1');
+        });
+    };
+
+    /**
+     * pre-parsing a date string
+     * @param {string} dateString - a date string
+     * @param {string} formatString - a format string
+     * @returns {Object} a date structure
+     */
+    date.preparse = function (dateString, formatString) {
+        var parser = locales[lang].parser,
+            re = /([A-Za-z])\1*|./g,
+            keys, token, result, offset = 0,
+            dt = { Y: 1970, M: 1, D: 1, H: 0, A: 0, h: 0, m: 0, s: 0, S: 0, _index: 0, _length: 0, _match: 0 };
+
+        dateString = parser.pre(dateString);
+        formatString = formatString.replace(/\[[^\[\]]*]|\[.*\][^\[]*\]/g, function (str) {
+            return str.replace(/./g, ' ').slice(2);
+        });
+        while ((keys = re.exec(formatString))) {
+            token = keys[0];
+            if (parser[token]) {
+                result = parser[token](dateString.slice(offset), formatString);
+                if (!result.length) {
+                    break;
+                }
+                offset += result.length;
+                dt[token.charAt(0)] = result.value;
+                dt._match++;
+            } else if (token === dateString.charAt(offset) || token === ' ') {
+                offset++;
+            } else {
+                break;
+            }
+        }
+        dt.H = dt.H || parser.h12(dt.h, dt.A);
+        dt._index = offset;
+        dt._length = dateString.length;
+        return dt;
+    };
+
+    /**
+     * validation
+     * @param {Object|string} arg - a date structure or a date string
+     * @param {string} [formatString] - a format string
+     * @returns {boolean} whether the date string is a valid date
+     */
+    date.isValid = function (arg, formatString) {
+        var dt = typeof arg === 'string' ? date.preparse(arg, formatString) : arg,
+            last = [31, 28 + date.isLeapYear(dt.Y) | 0, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31][dt.M - 1];
+
+        return !(
+            dt._index < 1 || dt._length < 1 || dt._index - dt._length || dt._match < 1 ||
+            dt.Y < 1 || dt.Y > 9999 || dt.M < 1 || dt.M > 12 || dt.D < 1 || dt.D > last ||
+            dt.H > 23 || dt.H < 0 || dt.m > 59 || dt.m < 0 || dt.s > 59 || dt.s < 0 || dt.S > 999 || dt.S < 0
+        );
+    };
+
+    /**
+     * parsing a date string
+     * @param {string} dateString - a date string
+     * @param {string} formatString - a format string
+     * @param {boolean} [utc] - input as UTC
+     * @returns {Date} a constructed date
+     */
+    date.parse = function (dateString, formatString, utc) {
+        var dt = date.preparse(dateString, formatString), dateObj;
+
+        if (date.isValid(dt)) {
+            dt.M -= dt.Y < 100 ? 22801 : 1; // 22801 = 1900 * 12 + 1
+            if (utc) {
+                dateObj = new Date(Date.UTC(dt.Y, dt.M, dt.D, dt.H, dt.m, dt.s, dt.S));
+            } else {
+                dateObj = new Date(dt.Y, dt.M, dt.D, dt.H, dt.m, dt.s, dt.S);
+            }
+            return dateObj;
+        }
+        return new Date(NaN);
+    };
+
+    /**
+     * adding years
+     * @param {Date} dateObj - a date object
+     * @param {number} years - number of years to add
+     * @returns {Date} a date after adding the value
+     */
+    date.addYears = function (dateObj, years) {
+        return date.addMonths(dateObj, years * 12);
+    };
+
+    /**
+     * adding months
+     * @param {Date} dateObj - a date object
+     * @param {number} months - number of months to add
+     * @returns {Date} a date after adding the value
+     */
+    date.addMonths = function (dateObj, months) {
+        var d = new Date(dateObj.getTime());
+
+        d.setMonth(d.getMonth() + months);
+        return d;
+    };
+
+    /**
+     * adding days
+     * @param {Date} dateObj - a date object
+     * @param {number} days - number of days to add
+     * @returns {Date} a date after adding the value
+     */
+    date.addDays = function (dateObj, days) {
+        var d = new Date(dateObj.getTime());
+
+        d.setDate(d.getDate() + days);
+        return d;
+    };
+
+    /**
+     * adding hours
+     * @param {Date} dateObj - a date object
+     * @param {number} hours - number of hours to add
+     * @returns {Date} a date after adding the value
+     */
+    date.addHours = function (dateObj, hours) {
+        return date.addMilliseconds(dateObj, hours * 3600000);
+    };
+
+    /**
+     * adding minutes
+     * @param {Date} dateObj - a date object
+     * @param {number} minutes - number of minutes to add
+     * @returns {Date} a date after adding the value
+     */
+    date.addMinutes = function (dateObj, minutes) {
+        return date.addMilliseconds(dateObj, minutes * 60000);
+    };
+
+    /**
+     * adding seconds
+     * @param {Date} dateObj - a date object
+     * @param {number} seconds - number of seconds to add
+     * @returns {Date} a date after adding the value
+     */
+    date.addSeconds = function (dateObj, seconds) {
+        return date.addMilliseconds(dateObj, seconds * 1000);
+    };
+
+    /**
+     * adding milliseconds
+     * @param {Date} dateObj - a date object
+     * @param {number} milliseconds - number of milliseconds to add
+     * @returns {Date} a date after adding the value
+     */
+    date.addMilliseconds = function (dateObj, milliseconds) {
+        return new Date(dateObj.getTime() + milliseconds);
+    };
+
+    /**
+     * subtracting
+     * @param {Date} date1 - a Date object
+     * @param {Date} date2 - a Date object
+     * @returns {Object} a result object subtracting date2 from date1
+     */
+    date.subtract = function (date1, date2) {
+        var delta = date1.getTime() - date2.getTime();
+
+        return {
+            toMilliseconds: function () {
+                return delta;
+            },
+            toSeconds: function () {
+                return delta / 1000 | 0;
+            },
+            toMinutes: function () {
+                return delta / 60000 | 0;
+            },
+            toHours: function () {
+                return delta / 3600000 | 0;
+            },
+            toDays: function () {
+                return delta / 86400000 | 0;
+            }
+        };
+    };
+
+    /**
+     * leap year
+     * @param {number} y - year
+     * @returns {boolean} whether the year is a leap year
+     */
+    date.isLeapYear = function (y) {
+        return (!(y % 4) && !!(y % 100)) || !(y % 400);
+    };
+
+    /**
+     * comparison of two dates
+     * @param {Date} date1 - a Date object
+     * @param {Date} date2 - a Date object
+     * @returns {boolean} whether the dates are the same day (times are ignored)
+     */
+    date.isSameDay = function (date1, date2) {
+        return date.format(date1, 'YYYYMMDD') === date.format(date2, 'YYYYMMDD');
+    };
+
+    /**
+     * change locale or setting a new locale definition
+     * @param {string} [code] - language code
+     * @param {Object} [locale] - locale definition
+     * @returns {string} current language code
+     */
+    date.locale = function (code, locale) {
+        if (locale) {
+            customize(code, { res: _res, formatter: _formatter, parser: _parser }, locale);
+        } else if (code) {
+            lang = code;
+        }
+        return lang;
+    };
+
+    /**
+     * locale extension
+     * @param {Object} extension - locale extension
+     * @returns {void}
+     */
+    date.extend = function (extension) {
+        customize(lang, locales[lang], extension);
+    };
+
+    /**
+     * plugin import or definition
+     * @param {string} name - plugin name
+     * @param {Object} [extension] - locale extension
+     * @returns {void}
+     */
+    date.plugin = function (name, extension) {
+        plugins[name] = plugins[name] || extension;
+        if (!extension && plugins[name]) {
+            date.extend(plugins[name]);
+        }
+    };
+
+    // Create default locale (English)
+    date.locale(lang, {});
+
+    if (typeof module === 'object' && typeof module.exports === 'object') {
+        module.exports = date;
+    } else if (true) {
+        !(__WEBPACK_AMD_DEFINE_ARRAY__ = [], __WEBPACK_AMD_DEFINE_RESULT__ = (function () {
+            return date;
+        }).apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__),
+				__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
+    } else {
+        global.date = date;
+    }
+
+}(this));
+
+
+/***/ }),
+/* 51 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+var __extends = (this && this.__extends) || (function () {
+    var extendStatics = function (d, b) {
+        extendStatics = Object.setPrototypeOf ||
+            ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+            function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+        return extendStatics(d, b);
+    };
+    return function (d, b) {
+        extendStatics(d, b);
+        function __() { this.constructor = d; }
+        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+    };
+})();
+var __assign = (this && this.__assign) || function () {
+    __assign = Object.assign || function(t) {
+        for (var s, i = 1, n = arguments.length; i < n; i++) {
+            s = arguments[i];
+            for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p))
+                t[p] = s[p];
+        }
+        return t;
+    };
+    return __assign.apply(this, arguments);
+};
+exports.__esModule = true;
+var React = __webpack_require__(0);
+var style_1 = __webpack_require__(2);
+var style_2 = __webpack_require__(1);
+var TimeStepSize = /** @class */ (function (_super) {
+    __extends(TimeStepSize, _super);
+    function TimeStepSize(props) {
+        var _this = _super.call(this, props) || this;
+        _this.focused = false;
+        _this.timeStepVarians = new LinkedList();
+        _this.timeStepVarians.add(1000, { timeStep: 1000, name: "1 сек" });
+        _this.timeStepVarians.add(30000, { timeStep: 30000, name: "30 сек" });
+        _this.timeStepVarians.add(60000, { timeStep: 60000, name: "1 мин" });
+        _this.timeStepVarians.add(300000, { timeStep: 300000, name: "5 мин" });
+        _this.timeStepVarians.add(3600000, { timeStep: 3600000, name: "1 час" });
+        return _this;
+    }
+    TimeStepSize.prototype.setElem = function (elem) {
+        this.elem = elem;
+    };
+    TimeStepSize.prototype.componentDidUpdate = function () {
+        if (this.props.focus && !this.focused) {
+            this.elem.focus();
+            this.focused = true;
+        }
+        else if (!this.props.focus) {
+            this.focused = false;
+        }
+    };
+    TimeStepSize.prototype.key = function (e) {
+        var key = e.key;
+        if (key === "ArrowDown" || key === "ArrowUp")
+            e.stopPropagation();
+        if (key === "ArrowDown") {
+            this.props.changeTimeStepSize(this.timeStepVarians.next().timeStep);
+        }
+        if (key === "ArrowUp") {
+            this.props.changeTimeStepSize(this.timeStepVarians.prev().timeStep);
+        }
+    };
+    TimeStepSize.prototype.render = function () {
+        return (React.createElement("div", { style: __assign({}, style_1.timeStepSizeStyle, { border: this.props.focus
+                    ? "3px solid " + style_2.color3
+                    : "3px solid transparent" }), ref: this.setElem.bind(this), tabIndex: 1, onKeyDown: this.key.bind(this) },
+            React.createElement("img", { src: "./../forpost-app/img/baseline_arrow_drop_up_white_18dp.png", style: style_1.timeStepSizeImgUp }),
+            React.createElement("img", { src: "./../forpost-app/img/baseline_arrow_drop_down_white_18dp.png", style: style_1.timeStepSizeImgDown }),
+            React.createElement("div", { style: style_1.timeStepSizeImgValue }, this.switchValue())));
+    };
+    TimeStepSize.prototype.switchValue = function () {
+        return this.timeStepVarians.get(this.props.timeStepSize).name;
+    };
+    return TimeStepSize;
+}(React.Component));
+exports["default"] = TimeStepSize;
+var LinkedList = /** @class */ (function () {
+    function LinkedList() {
+        this.store = {};
+        this.arr = [];
+        this.cursorPos = 0;
+    }
+    LinkedList.prototype.add = function (index, data) {
+        this.store[index] = data;
+        this.arr.push(data);
+    };
+    LinkedList.prototype.get = function (index) {
+        return this.store[index];
+    };
+    LinkedList.prototype.changePos = function (dif, posIsNotFound) {
+        var cursorPos = this.cursorPos + dif;
+        if (this.arr[cursorPos]) {
+            this.cursorPos = cursorPos;
+        }
+        else {
+            this.cursorPos = posIsNotFound ? posIsNotFound : 0;
+        }
+        return this.arr[this.cursorPos];
+    };
+    LinkedList.prototype.next = function () {
+        return this.changePos(1);
+    };
+    LinkedList.prototype.prev = function () {
+        return this.changePos(-1, this.arr.length - 1);
+    };
+    return LinkedList;
+}());
+
+
+/***/ }),
+/* 52 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+var __extends = (this && this.__extends) || (function () {
+    var extendStatics = function (d, b) {
+        extendStatics = Object.setPrototypeOf ||
+            ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+            function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+        return extendStatics(d, b);
+    };
+    return function (d, b) {
+        extendStatics(d, b);
+        function __() { this.constructor = d; }
+        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+    };
+})();
+var __assign = (this && this.__assign) || function () {
+    __assign = Object.assign || function(t) {
+        for (var s, i = 1, n = arguments.length; i < n; i++) {
+            s = arguments[i];
+            for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p))
+                t[p] = s[p];
+        }
+        return t;
+    };
+    return __assign.apply(this, arguments);
+};
+exports.__esModule = true;
+var React = __webpack_require__(0);
+var style_1 = __webpack_require__(2);
+var style_2 = __webpack_require__(1);
+var ProgressBarCursor_1 = __webpack_require__(54);
+var ProgressBar = /** @class */ (function (_super) {
+    __extends(ProgressBar, _super);
+    function ProgressBar() {
+        var _this = _super !== null && _super.apply(this, arguments) || this;
+        _this.focus = false;
+        return _this;
+    }
+    ProgressBar.prototype.render = function () {
+        return (React.createElement("div", { tabIndex: 1, ref: this.setElem.bind(this), style: style_1.progressBarStyle }, this.progressLine()));
+    };
+    ProgressBar.prototype.setElem = function (elem) {
+        this.elem = elem;
+    };
+    ProgressBar.prototype.componentDidUpdate = function () {
+        if (this.props.focus && !this.focus) {
+            this.elem.focus();
+            this.focus = true;
+        }
+        else if (!this.props.focus) {
+            this.focus = false;
+        }
+    };
+    ProgressBar.prototype.progressLine = function () {
+        return (React.createElement("div", { style: __assign({}, style_1.progressBarStyleLine, { border: this.props.focus
+                    ? "3px solid " + style_2.color3
+                    : "3px solid transparent" }) },
+            React.createElement(ProgressBarCursor_1["default"], { percents: this.calcPositionCursor() })));
+    };
+    ProgressBar.prototype.calcPositionCursor = function () {
+        var milisecondsPerDay = 86400000; // всего милесекунд в сутках
+        var oneProcentDay = milisecondsPerDay / 100; // числу милисекунд составляющих 1% суток
+        var playerPosTime = new Date(this.props.time); // обьект Date позиция плеера
+        var year = playerPosTime.getFullYear(); // год полученный из обьекта позиция плеера
+        var month = playerPosTime.getMonth(); // месяц полученный из  обьекта позиция плеера
+        var day = playerPosTime.getDate(); // день полученный обьект Date позиция плеера
+        var dayStart = new Date(year, month, day); // обьект Date начало суток (суток текущих относительно позиии плеера)
+        var msPassed = Number(playerPosTime) - Number(dayStart); // число милисекунд прошедших с начала суток
+        var positionInPercent = msPassed / oneProcentDay; // текущая позиция в процентах - отношение числа милисекунд прошедших с начала суток к числу милисекунд составляющих 1 процент суток
+        return positionInPercent;
+    };
+    return ProgressBar;
+}(React.Component));
+exports["default"] = ProgressBar;
+
+
+/***/ }),
+/* 53 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+var __extends = (this && this.__extends) || (function () {
+    var extendStatics = function (d, b) {
+        extendStatics = Object.setPrototypeOf ||
+            ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+            function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+        return extendStatics(d, b);
+    };
+    return function (d, b) {
+        extendStatics(d, b);
+        function __() { this.constructor = d; }
+        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+    };
+})();
+var __assign = (this && this.__assign) || function () {
+    __assign = Object.assign || function(t) {
+        for (var s, i = 1, n = arguments.length; i < n; i++) {
+            s = arguments[i];
+            for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p))
+                t[p] = s[p];
+        }
+        return t;
+    };
+    return __assign.apply(this, arguments);
+};
+exports.__esModule = true;
+var React = __webpack_require__(0);
 var style_1 = __webpack_require__(10);
-var style_2 = __webpack_require__(2);
+var style_2 = __webpack_require__(1);
 var Header_1 = __webpack_require__(11);
-var react_redux_1 = __webpack_require__(3);
-var app_1 = __webpack_require__(5);
-var redux_1 = __webpack_require__(1);
+var react_redux_1 = __webpack_require__(4);
+var app_1 = __webpack_require__(6);
+var redux_1 = __webpack_require__(3);
 exports.inputStyle = {
     color: style_2.color1,
     fontSize: style_1.fontSize1,
@@ -4170,7 +5055,7 @@ exports["default"] = react_redux_1.connect(null, function (dispatch) {
 
 
 /***/ }),
-/* 50 */
+/* 54 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -4188,20 +5073,37 @@ var __extends = (this && this.__extends) || (function () {
         d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
     };
 })();
+var __assign = (this && this.__assign) || function () {
+    __assign = Object.assign || function(t) {
+        for (var s, i = 1, n = arguments.length; i < n; i++) {
+            s = arguments[i];
+            for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p))
+                t[p] = s[p];
+        }
+        return t;
+    };
+    return __assign.apply(this, arguments);
+};
 exports.__esModule = true;
 var React = __webpack_require__(0);
-var style_1 = __webpack_require__(8);
-var TimeBar = /** @class */ (function (_super) {
-    __extends(TimeBar, _super);
-    function TimeBar() {
+var style_1 = __webpack_require__(2);
+var ProgressBarCursor = /** @class */ (function (_super) {
+    __extends(ProgressBarCursor, _super);
+    function ProgressBarCursor() {
         return _super !== null && _super.apply(this, arguments) || this;
     }
-    TimeBar.prototype.render = function () {
-        return React.createElement("div", { style: style_1.timeBarStyle }, this.props.time);
+    ProgressBarCursor.prototype.render = function () {
+        return (React.createElement("div", { style: __assign({}, style_1.progressBarCursor, { left: this.calcPosition() }) },
+            React.createElement("div", { style: style_1.progressBarCursorBody })));
     };
-    return TimeBar;
+    ProgressBarCursor.prototype.calcPosition = function () {
+        var maxLeft = 96;
+        var leftPos = this.props.percents * (maxLeft / 100);
+        return leftPos + "%";
+    };
+    return ProgressBarCursor;
 }(React.Component));
-exports["default"] = TimeBar;
+exports["default"] = ProgressBarCursor;
 
 
 /***/ })

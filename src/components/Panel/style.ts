@@ -1,4 +1,4 @@
-import { color2, fontFamily1, fontSize1 } from "../style";
+import { color2, fontFamily1, fontSize1, color6 } from "../style";
 
 declare var stb: any;
 
@@ -10,7 +10,7 @@ export const gridStyle: React.CSSProperties = {
   right: "0px",
   bottom: "0px",
   position: "absolute",
-  background: "#212121",
+  background: color6,
   paddingLeft,
   paddingRight
 };

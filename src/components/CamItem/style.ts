@@ -3,11 +3,12 @@ import {
   fontFamily1,
   color1,
   color2 as _color2,
-  imgLoadingStyle as _imgLoadingStyle
+  imgLoadingStyle as _imgLoadingStyle,
+  color9
 } from "../style";
 
 export const color2 = _color2;
-export const color3 = "#383838";
+export const color3 = color9;
 
 export const camItemStyle: React.CSSProperties = {
   background: color3,

@@ -14,7 +14,8 @@ export type IPropBodyComponent = IProp &
   IStateContainer &
   IplayerChangeStateProp &
   IPlayProp &
-  IpushTimeProp;
+  IpushTimeProp &
+  IchangeTimeStepSizeProp;
 
 type IProp = IstateToProps & IDispatchProps;
 
@@ -25,6 +26,7 @@ export interface IComponentState {
   loading?: boolean;
   playStatus: boolean;
   time: number;
+  timeStepSize: number;
 }
 
 interface IplayerChangeState {
@@ -49,13 +51,22 @@ interface IpushTimeProp {
   pushTime: IpushTime;
 }
 
+export interface IchangeTimeStepSize {
+  (timeStepSize: number): void;
+}
+
+interface IchangeTimeStepSizeProp {
+  changeTimeStepSize: IchangeTimeStepSize;
+}
+
 class Player extends React.Component<IProp, IComponentState> {
   constructor(props: IProp) {
     super(props);
     this.state = {
       loading: true,
       playStatus: false,
-      time: Date.now()
+      time: Date.now(),
+      timeStepSize: 300000
     };
   }
   render() {
@@ -88,6 +99,7 @@ class Player extends React.Component<IProp, IComponentState> {
         playerChangeState={this.playerChangeState.bind(this)}
         play={this.play.bind(this)}
         pushTime={this.pushTime.bind(this)}
+        changeTimeStepSize={this.changeTimeStepSize.bind(this)}
       />
     );
   }
@@ -99,6 +111,9 @@ class Player extends React.Component<IProp, IComponentState> {
   }
   pushTime(time: number) {
     this.setState({ ...this.state, time });
+  }
+  changeTimeStepSize(timeStepSize: number) {
+    this.setState({ ...this.state, timeStepSize });
   }
   play(ts: number) {
     ts = ts ? Math.round(ts / 1000) : 0;
