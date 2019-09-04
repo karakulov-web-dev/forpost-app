@@ -3803,7 +3803,7 @@ var Player = /** @class */ (function (_super) {
                         return [4 /*yield*/, HTTP_1.httpGetTranslation(self.props.SessionID, self.props.currentPlay.CameraID, "HLS", g.next.bind(g), ts, 25200)];
                     case 1:
                         data = _a.sent();
-                        playError = false;
+                        playError = true;
                         _a.label = 2;
                     case 2:
                         _a.trys.push([2, 4, , 5]);
@@ -3812,11 +3812,11 @@ var Player = /** @class */ (function (_super) {
                         stb.PlaySolution("auto", data.URL);
                         eventListener_1 = function (event) {
                             if (event == 4) {
-                                g.next(true);
+                                g.next(false);
                                 stb.rmEvenListener(eventListener_1);
                             }
                             if (event == 5) {
-                                g.next(false);
+                                g.next(true);
                                 stb.rmEvenListener(eventListener_1);
                             }
                         };
@@ -3827,10 +3827,11 @@ var Player = /** @class */ (function (_super) {
                         return [3 /*break*/, 5];
                     case 4:
                         e_1 = _a.sent();
+                        playError = false;
                         console.log(e_1);
                         return [3 /*break*/, 5];
                     case 5:
-                        if (!playError) {
+                        if (playError) {
                             self.props.chageView("/panel");
                             try {
                                 stb.Stop();
@@ -5286,6 +5287,7 @@ var ProgressBar = /** @class */ (function (_super) {
         return (React.createElement("div", { style: __assign({}, style_1.progressBarStyleLine, { border: this.props.focus
                     ? "3px solid " + style_2.color3
                     : "3px solid transparent" }) },
+            React.createElement("div", { style: __assign({}, style_1.progressBarStyleLine, { background: style_2.color8, border: "`3px solid transparent`", top: "0px" }) }),
             React.createElement(ProgressBarCursor_1["default"], { percents: this.calcPositionCursor() })));
     };
     ProgressBar.prototype.calcPositionCursor = function () {

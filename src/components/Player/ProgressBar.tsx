@@ -1,6 +1,6 @@
 import * as React from "react";
 import { progressBarStyle, progressBarStyleLine } from "./style";
-import { color3 } from "../style";
+import { color3, color8 } from "../style";
 import ProgressBarCursor from "./ProgressBarCursor";
 
 interface IProp {
@@ -39,6 +39,14 @@ export default class ProgressBar extends React.Component<IProp> {
             : `3px solid transparent`
         }}
       >
+        <div
+          style={{
+            ...progressBarStyleLine,
+            background: color8,
+            border: "`3px solid transparent`",
+            top: "0px"
+          }}
+        ></div>
         <ProgressBarCursor percents={this.calcPositionCursor()} />
       </div>
     );
