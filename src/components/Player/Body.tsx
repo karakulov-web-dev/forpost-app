@@ -9,6 +9,10 @@ interface IState {
   panelVisible: boolean;
 }
 
+export interface IchangeTimeshift {
+  (diff: number): void;
+}
+
 export interface IplayPause {
   (): void;
 }
@@ -119,6 +123,9 @@ export default class PlayerBody extends React.Component<
         playPause={this.playPause.bind(this)}
         timeStepSize={this.props.playerState.timeStepSize}
         changeTimeStepSize={this.props.changeTimeStepSize}
+        changeTimeshift={this.timeController.changeTimeshift.bind(
+          this.timeController
+        )}
       />
     ) : null;
   }
@@ -194,7 +201,7 @@ class TimeController {
     clearTimeout(this.changeTimechiftTimeout);
     this.changeTimechiftTimeout = setTimeout(() => {
       this._changeTimeShift(this.getTime());
-    }, 6000);
+    }, 4000);
   }
   pause() {
     this.pauseTimestamp = Date.now();

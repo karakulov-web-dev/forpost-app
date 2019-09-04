@@ -12,7 +12,8 @@
       "dom",
       "es2015.generator",
       "scripthost",
-      "es2015.iterable"
+      "es2015.iterable",
+      "es2019"
     ]
   },
   "include": ["./src/**/*"]

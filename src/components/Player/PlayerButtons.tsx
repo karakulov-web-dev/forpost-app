@@ -3,7 +3,7 @@ import { playerButtonsStyle } from "./style";
 import PlayPauseButton from "./PlayPauseButton";
 import TimeBar from "./TimeBar";
 import TimeStepSize from "./TimeStepSize";
-import { IplayPause } from "./Body";
+import { IplayPause, IchangeTimeshift } from "./Body";
 import { IchangeTimeStepSize } from "./Player";
 
 interface IProps {
@@ -13,6 +13,7 @@ interface IProps {
   playPause: IplayPause;
   timeStepSize: number;
   changeTimeStepSize: IchangeTimeStepSize;
+  changeTimeshift: IchangeTimeshift;
 }
 interface IState {
   focusIndex: number;
@@ -52,7 +53,11 @@ export default class PlayerButtons extends React.Component<IProps, IState> {
           focus={this.isFocus(0)}
           playPause={this.props.playPause}
         />
-        <TimeBar time={this.props.time} focus={this.isFocus(1)} />
+        <TimeBar
+          time={this.props.time}
+          focus={this.isFocus(1)}
+          changeTimeshift={this.props.changeTimeshift}
+        />
         <TimeStepSize
           focus={this.isFocus(2)}
           timeStepSize={this.props.timeStepSize}

@@ -201,7 +201,7 @@ exports.timeStepSizeImgValue = {
 exports.playPauseButtonStyle = {
     position: "absolute",
     left: "60px",
-    top: "0px",
+    top: "6px",
     display: "block"
 };
 exports.progressBarCursor = {
@@ -219,6 +219,36 @@ exports.progressBarCursorBody = {
     background: style_1.color8,
     margin: "9px",
     borderRadius: "9px"
+};
+exports.timeBarModalItemStyle = {
+    width: "98%",
+    padding: "15px",
+    fontSize: "20px",
+    color: style_1.color1,
+    fontFamily: style_1.fontFamily1,
+    marginLeft: "1%",
+    marginRight: "1%",
+    marginTop: "5px",
+    marginBottom: "5px"
+};
+exports.timeBarModalStyle = {
+    position: "fixed",
+    left: "300px",
+    right: "300px",
+    top: "150px",
+    height: "280px",
+    background: "white",
+    border: "1px solid " + style_1.color2,
+    borderRadius: "4px",
+    color: style_1.color1,
+    fontFamily: style_1.fontFamily1
+};
+exports.timeBarModalHeader = {
+    display: "block",
+    fontSize: "30px",
+    margin: "0 auto",
+    padding: "10px",
+    borderBottom: "1px solid " + style_1.color2
 };
 
 
@@ -1453,7 +1483,7 @@ var root_1 = __webpack_require__(29);
 var Login_1 = __webpack_require__(33);
 var Panel_1 = __webpack_require__(37);
 var Player_1 = __webpack_require__(44);
-var Exit_1 = __webpack_require__(53);
+var Exit_1 = __webpack_require__(57);
 var global = window;
 var store = redux_1.createStore(root_1["default"], redux_1.applyMiddleware(redux_thunk_1["default"]));
 global["store"] = store;
@@ -3922,7 +3952,7 @@ var PlayerBody = /** @class */ (function (_super) {
         this.props.playerChangeState(__assign({}, this.props.playerState, { playStatus: playStatus }));
     };
     PlayerBody.prototype.controlPanel = function () {
-        return this.state.panelVisible ? (React.createElement(ControlPanel_1["default"], { playStatus: this.props.playerState.playStatus, time: this.props.playerState.time, playPause: this.playPause.bind(this), timeStepSize: this.props.playerState.timeStepSize, changeTimeStepSize: this.props.changeTimeStepSize })) : null;
+        return this.state.panelVisible ? (React.createElement(ControlPanel_1["default"], { playStatus: this.props.playerState.playStatus, time: this.props.playerState.time, playPause: this.playPause.bind(this), timeStepSize: this.props.playerState.timeStepSize, changeTimeStepSize: this.props.changeTimeStepSize, changeTimeshift: this.timeController.changeTimeshift.bind(this.timeController) })) : null;
     };
     return PlayerBody;
 }(React.Component));
@@ -3986,7 +4016,7 @@ var TimeController = /** @class */ (function () {
         clearTimeout(this.changeTimechiftTimeout);
         this.changeTimechiftTimeout = setTimeout(function () {
             _this._changeTimeShift(_this.getTime());
-        }, 6000);
+        }, 4000);
     };
     TimeController.prototype.pause = function () {
         this.pauseTimestamp = Date.now();
@@ -4037,7 +4067,7 @@ exports.__esModule = true;
 var React = __webpack_require__(0);
 var style_1 = __webpack_require__(2);
 var PlayerButtons_1 = __webpack_require__(47);
-var ProgressBar_1 = __webpack_require__(52);
+var ProgressBar_1 = __webpack_require__(55);
 var ControlPanel = /** @class */ (function (_super) {
     __extends(ControlPanel, _super);
     function ControlPanel(props) {
@@ -4049,7 +4079,7 @@ var ControlPanel = /** @class */ (function (_super) {
     }
     ControlPanel.prototype.render = function () {
         return (React.createElement("div", { style: style_1.controlPanelStyle, tabIndex: 1, ref: this.setElem.bind(this), onKeyDown: this.key.bind(this) },
-            React.createElement(PlayerButtons_1["default"], { playStatus: this.props.playStatus, time: this.props.time, focus: this.focus(0), playPause: this.props.playPause, timeStepSize: this.props.timeStepSize, changeTimeStepSize: this.props.changeTimeStepSize }),
+            React.createElement(PlayerButtons_1["default"], { playStatus: this.props.playStatus, time: this.props.time, focus: this.focus(0), playPause: this.props.playPause, timeStepSize: this.props.timeStepSize, changeTimeStepSize: this.props.changeTimeStepSize, changeTimeshift: this.props.changeTimeshift }),
             React.createElement(ProgressBar_1["default"], { focus: this.focus(1), time: this.props.time })));
     };
     ControlPanel.prototype.setElem = function (elem) {
@@ -4111,7 +4141,7 @@ var React = __webpack_require__(0);
 var style_1 = __webpack_require__(2);
 var PlayPauseButton_1 = __webpack_require__(48);
 var TimeBar_1 = __webpack_require__(49);
-var TimeStepSize_1 = __webpack_require__(51);
+var TimeStepSize_1 = __webpack_require__(54);
 var PlayerButtons = /** @class */ (function (_super) {
     __extends(PlayerButtons, _super);
     function PlayerButtons(props) {
@@ -4138,7 +4168,7 @@ var PlayerButtons = /** @class */ (function (_super) {
     PlayerButtons.prototype.render = function () {
         return (React.createElement("div", { style: style_1.playerButtonsStyle, tabIndex: 1, ref: this.setElem.bind(this), onKeyDown: this.key.bind(this) },
             React.createElement(PlayPauseButton_1["default"], { playStatus: this.props.playStatus, focus: this.isFocus(0), playPause: this.props.playPause }),
-            React.createElement(TimeBar_1["default"], { time: this.props.time, focus: this.isFocus(1) }),
+            React.createElement(TimeBar_1["default"], { time: this.props.time, focus: this.isFocus(1), changeTimeshift: this.props.changeTimeshift }),
             React.createElement(TimeStepSize_1["default"], { focus: this.isFocus(2), timeStepSize: this.props.timeStepSize, changeTimeStepSize: this.props.changeTimeStepSize })));
     };
     PlayerButtons.prototype.key = function (e) {
@@ -4232,8 +4262,8 @@ var PlayPauseButton = /** @class */ (function (_super) {
     };
     PlayPauseButton.prototype.img = function () {
         return this.props.playStatus
-            ? "./../forpost-app/img/baseline_pause_white_24dp.png"
-            : "./../forpost-app/img/baseline_play_arrow_white_24dp.png";
+            ? "./../forpost-app/img/baseline_pause_circle_outline_white_18dp.png"
+            : "./../forpost-app/img/baseline_play_circle_outline_white_18dp.png";
     };
     return PlayPauseButton;
 }(React.Component));
@@ -4275,11 +4305,15 @@ var React = __webpack_require__(0);
 var style_1 = __webpack_require__(2);
 var date = __webpack_require__(50);
 var style_2 = __webpack_require__(1);
+var TimeBarModal_1 = __webpack_require__(51);
 var TimeBar = /** @class */ (function (_super) {
     __extends(TimeBar, _super);
-    function TimeBar() {
-        var _this = _super !== null && _super.apply(this, arguments) || this;
+    function TimeBar(props) {
+        var _this = _super.call(this, props) || this;
         _this.focused = false;
+        _this.state = {
+            modalVisible: false
+        };
         return _this;
     }
     TimeBar.prototype.setElem = function (elem) {
@@ -4296,13 +4330,23 @@ var TimeBar = /** @class */ (function (_super) {
     };
     TimeBar.prototype.key = function (e) {
         if (e.key === "Enter") {
-            console.log("openModalTimeSelect");
+            this["switch"]();
         }
+    };
+    TimeBar.prototype["switch"] = function () {
+        var _this = this;
+        this.setState(__assign({}, this.state, { modalVisible: !this.state.modalVisible }), function () {
+            if (!_this.state.modalVisible) {
+                _this.elem.focus();
+            }
+        });
     };
     TimeBar.prototype.render = function () {
         return (React.createElement("div", { style: __assign({}, style_1.timeBarStyle, { border: this.props.focus
                     ? "3px solid " + style_2.color3
-                    : "3px solid transparent" }), ref: this.setElem.bind(this), tabIndex: 1, onKeyDown: this.key.bind(this) }, date.format(new Date(this.props.time), "HH:mm:ss  DD.MM.YYYY")));
+                    : "3px solid transparent" }), ref: this.setElem.bind(this), tabIndex: 1, onKeyDown: this.key.bind(this) },
+            date.format(new Date(this.props.time), "HH:mm:ss  DD.MM.YYYY"),
+            this.state.modalVisible ? (React.createElement(TimeBarModal_1["default"], { changeTimeshift: this.props.changeTimeshift, "switch": this["switch"].bind(this), time: this.props.time })) : null));
     };
     return TimeBar;
 }(React.Component));
@@ -4753,6 +4797,335 @@ var __assign = (this && this.__assign) || function () {
 exports.__esModule = true;
 var React = __webpack_require__(0);
 var style_1 = __webpack_require__(2);
+var TimeBarSubmit_1 = __webpack_require__(52);
+var TimeBarSelect_1 = __webpack_require__(53);
+var TimeBarModal = /** @class */ (function (_super) {
+    __extends(TimeBarModal, _super);
+    function TimeBarModal(props) {
+        var _this = _super.call(this, props) || this;
+        _this.selectDateItems = [];
+        _this.state = {
+            focusIndex: 0
+        };
+        // create days for selectDateItems
+        var mapCb = function (c, i) {
+            var date = new Date(c - 24 * 60 * 60 * 1000 * i);
+            var day = date.getDate();
+            var month = date.getMonth();
+            var weekDay = date.getDay();
+            var time = date.getTime();
+            var name = day + " " + _this.monthNumberToText(month) + ", " + _this.weekDayNumberToText(weekDay);
+            return { name: name, time: time, key: Math.random() };
+        };
+        var findStartDay = function () {
+            var currDate = new Date();
+            return new Date(currDate.getFullYear(), currDate.getMonth(), currDate.getDate());
+        };
+        var days = new Array(3).fill(findStartDay()).map(mapCb);
+        days.unshift({ name: "Число, день недели", time: 0, key: Math.random() });
+        // create hours for selectDateItems
+        var hours = new Array(23).fill(1).map(function (c, i) {
+            return {
+                name: String(c * i),
+                time: i * 1000 * 60 * 60,
+                key: Math.random()
+            };
+        });
+        hours.unshift({ name: "Часы", time: 0, key: Math.random() });
+        // create minutes for selectDateItems
+        var minutes = new Array(60).fill(1).map(function (c, i) {
+            return {
+                name: String(c * i),
+                time: i * 1000 * 60,
+                key: Math.random()
+            };
+        });
+        minutes.unshift({ name: "Минуты", time: 0, key: Math.random() });
+        var seconds = new Array(60).fill(1).map(function (c, i) {
+            return {
+                name: String(c * i),
+                time: i * 1000,
+                key: Math.random()
+            };
+        });
+        seconds.unshift({ name: "Секунды", time: 0, key: Math.random() });
+        _this.selectDateItems = [days, hours, minutes, seconds];
+        return _this;
+    }
+    TimeBarModal.prototype.monthNumberToText = function (month) {
+        return [
+            "Января",
+            "Февраля",
+            "Марта",
+            "Апреля",
+            "Мая",
+            "Июня",
+            "Июля",
+            "Августа",
+            "Сентября",
+            "Октября",
+            "Ноября",
+            "Декабря"
+        ][month];
+    };
+    TimeBarModal.prototype.weekDayNumberToText = function (day) {
+        return ["ПН", "ВТ", "СР", "ЧТ", "ПТ", "СБ", "ВС"][day];
+    };
+    TimeBarModal.prototype.render = function () {
+        return (React.createElement("div", { tabIndex: 1, ref: this.setElem.bind(this), onKeyDown: this.key.bind(this), style: style_1.timeBarModalStyle },
+            React.createElement("h1", { style: style_1.timeBarModalHeader }, "\u0414\u0430\u0442\u0430 \u0438 \u0432\u0440\u0435\u043C\u044F"),
+            React.createElement(TimeBarSelect_1["default"], { focus: this.isFocus(0), items: this.selectDateItems[0] }),
+            React.createElement(TimeBarSelect_1["default"], { focus: this.isFocus(1), items: this.selectDateItems[1] }),
+            React.createElement(TimeBarSelect_1["default"], { focus: this.isFocus(2), items: this.selectDateItems[2] }),
+            React.createElement(TimeBarSelect_1["default"], { focus: this.isFocus(3), items: this.selectDateItems[3] }),
+            React.createElement(TimeBarSubmit_1["default"], { focus: this.isFocus(4), submit: this.submit.bind(this) })));
+    };
+    TimeBarModal.prototype.setElem = function (elem) {
+        this.elem = elem;
+    };
+    TimeBarModal.prototype.key = function (e) {
+        if (e.key === "Escape" || e.key === "Backspace") {
+            this.props["switch"]();
+        }
+        var focusIndex = this.state.focusIndex;
+        if (e.key === "ArrowDown" && this.state.focusIndex < 4) {
+            focusIndex++;
+        }
+        if (e.key === "ArrowUp" && this.state.focusIndex > 0) {
+            focusIndex--;
+        }
+        this.setState(__assign({}, this.state, { focusIndex: focusIndex }));
+        e.stopPropagation();
+    };
+    TimeBarModal.prototype.submit = function () {
+        var filter = function (c) { return c.active; };
+        var reducer = function (p, c) {
+            return p + c.time;
+        };
+        var targetTime = this.selectDateItems
+            .flat()
+            .filter(filter)
+            .reduce(reducer, 0);
+        var currentTime = Date.now();
+        if (targetTime < currentTime) {
+            var timeshift = this.props.time - currentTime;
+            var diff = targetTime - currentTime;
+            this.props.changeTimeshift(diff - timeshift);
+        }
+        this.props["switch"]();
+    };
+    TimeBarModal.prototype.isFocus = function (index) {
+        return this.state.focusIndex === index;
+    };
+    TimeBarModal.prototype.componentDidMount = function () {
+        this.elem.focus();
+    };
+    TimeBarModal.prototype.shouldComponentUpdate = function (nextProps, nexState) {
+        var needUpdate = false;
+        if (nexState.focusIndex !== this.state.focusIndex) {
+            needUpdate = true;
+        }
+        if (nextProps["switch"] !== this.props["switch"]) {
+            needUpdate = true;
+        }
+        return needUpdate;
+    };
+    return TimeBarModal;
+}(React.Component));
+exports["default"] = TimeBarModal;
+
+
+/***/ }),
+/* 52 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+var __extends = (this && this.__extends) || (function () {
+    var extendStatics = function (d, b) {
+        extendStatics = Object.setPrototypeOf ||
+            ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+            function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+        return extendStatics(d, b);
+    };
+    return function (d, b) {
+        extendStatics(d, b);
+        function __() { this.constructor = d; }
+        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+    };
+})();
+var __assign = (this && this.__assign) || function () {
+    __assign = Object.assign || function(t) {
+        for (var s, i = 1, n = arguments.length; i < n; i++) {
+            s = arguments[i];
+            for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p))
+                t[p] = s[p];
+        }
+        return t;
+    };
+    return __assign.apply(this, arguments);
+};
+exports.__esModule = true;
+var React = __webpack_require__(0);
+var style_1 = __webpack_require__(2);
+var style_2 = __webpack_require__(1);
+var TimeBarSubmit = /** @class */ (function (_super) {
+    __extends(TimeBarSubmit, _super);
+    function TimeBarSubmit() {
+        var _this = _super !== null && _super.apply(this, arguments) || this;
+        _this.focused = false;
+        return _this;
+    }
+    TimeBarSubmit.prototype.setElem = function (elem) {
+        this.elem = elem;
+    };
+    TimeBarSubmit.prototype.render = function () {
+        return (React.createElement("button", { style: __assign({}, style_1.timeBarModalItemStyle, { border: this.props.focus
+                    ? "3px solid " + style_2.color1
+                    : "1px solid " + style_2.color2 }), ref: this.setElem.bind(this), onKeyDown: this.key.bind(this) }, "\u0421\u043C\u043E\u0442\u0440\u0435\u0442\u044C"));
+    };
+    TimeBarSubmit.prototype.componentDidUpdate = function () {
+        if (this.props.focus && !this.focused) {
+            this.elem.focus();
+            this.focused = true;
+        }
+        else if (!this.props.focus && this.focused) {
+            this.focused = false;
+        }
+    };
+    TimeBarSubmit.prototype.key = function (e) {
+        if (e.key === "ArrowDown" || e.key === "ArrowUp") {
+            e.preventDefault();
+        }
+        if (e.key === "Enter") {
+            this.props.submit();
+        }
+    };
+    return TimeBarSubmit;
+}(React.Component));
+exports["default"] = TimeBarSubmit;
+
+
+/***/ }),
+/* 53 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+var __extends = (this && this.__extends) || (function () {
+    var extendStatics = function (d, b) {
+        extendStatics = Object.setPrototypeOf ||
+            ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+            function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+        return extendStatics(d, b);
+    };
+    return function (d, b) {
+        extendStatics(d, b);
+        function __() { this.constructor = d; }
+        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+    };
+})();
+var __assign = (this && this.__assign) || function () {
+    __assign = Object.assign || function(t) {
+        for (var s, i = 1, n = arguments.length; i < n; i++) {
+            s = arguments[i];
+            for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p))
+                t[p] = s[p];
+        }
+        return t;
+    };
+    return __assign.apply(this, arguments);
+};
+exports.__esModule = true;
+var React = __webpack_require__(0);
+var style_1 = __webpack_require__(2);
+var style_2 = __webpack_require__(1);
+var TimeBarSelect = /** @class */ (function (_super) {
+    __extends(TimeBarSelect, _super);
+    function TimeBarSelect() {
+        var _this = _super !== null && _super.apply(this, arguments) || this;
+        _this.selectedIndex = 0;
+        _this.focused = false;
+        return _this;
+    }
+    TimeBarSelect.prototype.setElem = function (elem) {
+        this.elem = elem;
+    };
+    TimeBarSelect.prototype.render = function () {
+        return (React.createElement("select", { style: __assign({}, style_1.timeBarModalItemStyle, { border: this.props.focus
+                    ? "3px solid " + style_2.color1
+                    : "1px solid " + style_2.color2 }), ref: this.setElem.bind(this), onKeyDown: this.key.bind(this) }, this.props.items.map(function (_a) {
+            var key = _a.key, name = _a.name, time = _a.time;
+            return (React.createElement("option", { key: key, value: time }, name));
+        })));
+    };
+    TimeBarSelect.prototype.key = function (e) {
+        if (e.key === "ArrowDown" || e.key === "ArrowUp") {
+            e.preventDefault();
+        }
+    };
+    TimeBarSelect.prototype.changeActiveItem = function () {
+        var _this = this;
+        this.props.items.forEach(function (c, i) {
+            if (i === _this.selectedIndex) {
+                c.active = true;
+            }
+            else if (c.active) {
+                delete c.active;
+            }
+        });
+    };
+    TimeBarSelect.prototype.componentDidUpdate = function () {
+        if (this.selectedIndex !== this.elem.selectedIndex) {
+            this.selectedIndex = this.elem.selectedIndex;
+            this.changeActiveItem();
+        }
+        if (this.props.focus && !this.focused) {
+            this.elem.focus();
+            this.focused = true;
+        }
+        else if (!this.props.focus && this.focused) {
+            this.focused = false;
+        }
+    };
+    return TimeBarSelect;
+}(React.Component));
+exports["default"] = TimeBarSelect;
+
+
+/***/ }),
+/* 54 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+var __extends = (this && this.__extends) || (function () {
+    var extendStatics = function (d, b) {
+        extendStatics = Object.setPrototypeOf ||
+            ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+            function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+        return extendStatics(d, b);
+    };
+    return function (d, b) {
+        extendStatics(d, b);
+        function __() { this.constructor = d; }
+        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+    };
+})();
+var __assign = (this && this.__assign) || function () {
+    __assign = Object.assign || function(t) {
+        for (var s, i = 1, n = arguments.length; i < n; i++) {
+            s = arguments[i];
+            for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p))
+                t[p] = s[p];
+        }
+        return t;
+    };
+    return __assign.apply(this, arguments);
+};
+exports.__esModule = true;
+var React = __webpack_require__(0);
+var style_1 = __webpack_require__(2);
 var style_2 = __webpack_require__(1);
 var TimeStepSize = /** @class */ (function (_super) {
     __extends(TimeStepSize, _super);
@@ -4838,7 +5211,7 @@ var LinkedList = /** @class */ (function () {
 
 
 /***/ }),
-/* 52 */
+/* 55 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -4871,7 +5244,7 @@ exports.__esModule = true;
 var React = __webpack_require__(0);
 var style_1 = __webpack_require__(2);
 var style_2 = __webpack_require__(1);
-var ProgressBarCursor_1 = __webpack_require__(54);
+var ProgressBarCursor_1 = __webpack_require__(56);
 var ProgressBar = /** @class */ (function (_super) {
     __extends(ProgressBar, _super);
     function ProgressBar() {
@@ -4918,7 +5291,59 @@ exports["default"] = ProgressBar;
 
 
 /***/ }),
-/* 53 */
+/* 56 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+var __extends = (this && this.__extends) || (function () {
+    var extendStatics = function (d, b) {
+        extendStatics = Object.setPrototypeOf ||
+            ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+            function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+        return extendStatics(d, b);
+    };
+    return function (d, b) {
+        extendStatics(d, b);
+        function __() { this.constructor = d; }
+        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+    };
+})();
+var __assign = (this && this.__assign) || function () {
+    __assign = Object.assign || function(t) {
+        for (var s, i = 1, n = arguments.length; i < n; i++) {
+            s = arguments[i];
+            for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p))
+                t[p] = s[p];
+        }
+        return t;
+    };
+    return __assign.apply(this, arguments);
+};
+exports.__esModule = true;
+var React = __webpack_require__(0);
+var style_1 = __webpack_require__(2);
+var ProgressBarCursor = /** @class */ (function (_super) {
+    __extends(ProgressBarCursor, _super);
+    function ProgressBarCursor() {
+        return _super !== null && _super.apply(this, arguments) || this;
+    }
+    ProgressBarCursor.prototype.render = function () {
+        return (React.createElement("div", { style: __assign({}, style_1.progressBarCursor, { left: this.calcPosition() }) },
+            React.createElement("div", { style: style_1.progressBarCursorBody })));
+    };
+    ProgressBarCursor.prototype.calcPosition = function () {
+        var maxLeft = 96;
+        var leftPos = this.props.percents * (maxLeft / 100);
+        return leftPos + "%";
+    };
+    return ProgressBarCursor;
+}(React.Component));
+exports["default"] = ProgressBarCursor;
+
+
+/***/ }),
+/* 57 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -5052,58 +5477,6 @@ exports["default"] = react_redux_1.connect(null, function (dispatch) {
         chageView: app_1.chageView
     }, dispatch);
 })(Exit);
-
-
-/***/ }),
-/* 54 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-var __extends = (this && this.__extends) || (function () {
-    var extendStatics = function (d, b) {
-        extendStatics = Object.setPrototypeOf ||
-            ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
-            function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
-        return extendStatics(d, b);
-    };
-    return function (d, b) {
-        extendStatics(d, b);
-        function __() { this.constructor = d; }
-        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
-    };
-})();
-var __assign = (this && this.__assign) || function () {
-    __assign = Object.assign || function(t) {
-        for (var s, i = 1, n = arguments.length; i < n; i++) {
-            s = arguments[i];
-            for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p))
-                t[p] = s[p];
-        }
-        return t;
-    };
-    return __assign.apply(this, arguments);
-};
-exports.__esModule = true;
-var React = __webpack_require__(0);
-var style_1 = __webpack_require__(2);
-var ProgressBarCursor = /** @class */ (function (_super) {
-    __extends(ProgressBarCursor, _super);
-    function ProgressBarCursor() {
-        return _super !== null && _super.apply(this, arguments) || this;
-    }
-    ProgressBarCursor.prototype.render = function () {
-        return (React.createElement("div", { style: __assign({}, style_1.progressBarCursor, { left: this.calcPosition() }) },
-            React.createElement("div", { style: style_1.progressBarCursorBody })));
-    };
-    ProgressBarCursor.prototype.calcPosition = function () {
-        var maxLeft = 96;
-        var leftPos = this.props.percents * (maxLeft / 100);
-        return leftPos + "%";
-    };
-    return ProgressBarCursor;
-}(React.Component));
-exports["default"] = ProgressBarCursor;
 
 
 /***/ })

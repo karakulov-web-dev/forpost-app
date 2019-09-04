@@ -2,15 +2,28 @@ import * as React from "react";
 import { timeBarStyle } from "./style";
 import * as date from "date-and-time";
 import { color3 } from "../style";
+import Modal from "./TimeBarModal";
+import { IchangeTimeshift } from "./Body";
 
 interface IProp {
   time: number;
   focus: boolean;
+  changeTimeshift: IchangeTimeshift;
 }
 
-export default class TimeBar extends React.Component<IProp> {
+interface IState {
+  modalVisible: boolean;
+}
+
+export default class TimeBar extends React.Component<IProp, IState> {
   private elem: HTMLElement;
   private focused = false;
+  constructor(props: IProp) {
+    super(props);
+    this.state = {
+      modalVisible: false
+    };
+  }
   setElem(elem: HTMLElement) {
     this.elem = elem;
   }
@@ -24,8 +37,18 @@ export default class TimeBar extends React.Component<IProp> {
   }
   key(e: React.KeyboardEvent) {
     if (e.key === "Enter") {
-      console.log("openModalTimeSelect");
+      this.switch();
     }
+  }
+  switch() {
+    this.setState(
+      { ...this.state, modalVisible: !this.state.modalVisible },
+      () => {
+        if (!this.state.modalVisible) {
+          this.elem.focus();
+        }
+      }
+    );
   }
   render() {
     return (
@@ -41,6 +64,13 @@ export default class TimeBar extends React.Component<IProp> {
         onKeyDown={this.key.bind(this)}
       >
         {date.format(new Date(this.props.time), "HH:mm:ss  DD.MM.YYYY")}
+        {this.state.modalVisible ? (
+          <Modal
+            changeTimeshift={this.props.changeTimeshift}
+            switch={this.switch.bind(this)}
+            time={this.props.time}
+          />
+        ) : null}
       </div>
     );
   }

@@ -5,7 +5,10 @@ import {
   color3,
   color4,
   color7,
-  color8
+  color8,
+  color1,
+  color2,
+  fontFamily1
 } from "../style";
 
 const fullScreenStyle: React.CSSProperties = {
@@ -101,7 +104,7 @@ export const timeStepSizeImgValue: React.CSSProperties = {
 export const playPauseButtonStyle: React.CSSProperties = {
   position: "absolute",
   left: "60px",
-  top: "0px",
+  top: "6px",
   display: "block"
 };
 
@@ -120,4 +123,37 @@ export const progressBarCursorBody: React.CSSProperties = {
   background: color8,
   margin: "9px",
   borderRadius: "9px"
+};
+
+export const timeBarModalItemStyle: React.CSSProperties = {
+  width: "98%",
+  padding: "15px",
+  fontSize: "20px",
+  color: color1,
+  fontFamily: fontFamily1,
+  marginLeft: "1%",
+  marginRight: "1%",
+  marginTop: "5px",
+  marginBottom: "5px"
+};
+
+export const timeBarModalStyle: React.CSSProperties = {
+  position: "fixed",
+  left: "300px",
+  right: "300px",
+  top: "150px",
+  height: "280px",
+  background: "white",
+  border: `1px solid ${color2}`,
+  borderRadius: "4px",
+  color: color1,
+  fontFamily: fontFamily1
+};
+
+export const timeBarModalHeader: React.CSSProperties = {
+  display: "block",
+  fontSize: "30px",
+  margin: "0 auto",
+  padding: "10px",
+  borderBottom: `1px solid ${color2}`
 };
