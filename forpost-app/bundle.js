@@ -3795,7 +3795,7 @@ var Player = /** @class */ (function (_super) {
         var win = window;
         win.p = self;
         new utilites_1.SelfGuidedGenerator(function (g) {
-            var data, eventListener_1, e_1;
+            var data, playError, eventListener_1, e_1;
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0:
@@ -3803,6 +3803,7 @@ var Player = /** @class */ (function (_super) {
                         return [4 /*yield*/, HTTP_1.httpGetTranslation(self.props.SessionID, self.props.currentPlay.CameraID, "HLS", g.next.bind(g), ts, 25200)];
                     case 1:
                         data = _a.sent();
+                        playError = false;
                         _a.label = 2;
                     case 2:
                         _a.trys.push([2, 4, , 5]);
@@ -3814,17 +3815,31 @@ var Player = /** @class */ (function (_super) {
                                 g.next(true);
                                 stb.rmEvenListener(eventListener_1);
                             }
+                            if (event == 5) {
+                                g.next(false);
+                                stb.rmEvenListener(eventListener_1);
+                            }
                         };
                         stb.addEventListener(eventListener_1);
                         return [4 /*yield*/];
                     case 3:
-                        _a.sent();
+                        playError = _a.sent();
                         return [3 /*break*/, 5];
                     case 4:
                         e_1 = _a.sent();
                         console.log(e_1);
                         return [3 /*break*/, 5];
                     case 5:
+                        if (!playError) {
+                            self.props.chageView("/panel");
+                            try {
+                                stb.Stop();
+                            }
+                            catch (e) {
+                                console.log(e);
+                            }
+                            return [2 /*return*/];
+                        }
                         self.playerChangeState(__assign({}, self.state, { loading: false, playStatus: true }));
                         return [2 /*return*/];
                 }

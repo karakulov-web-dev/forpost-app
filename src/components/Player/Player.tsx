@@ -136,6 +136,8 @@ class Player extends React.Component<IProp, IComponentState> {
         25200
       );
 
+      let playError: boolean = false;
+
       try {
         stb.SetTopWin(0);
         stb.SetPIG(1, 0, 0, 0);
@@ -146,12 +148,26 @@ class Player extends React.Component<IProp, IComponentState> {
             g.next(true);
             stb.rmEvenListener(eventListener);
           }
+          if (event == 5) {
+            g.next(false);
+            stb.rmEvenListener(eventListener);
+          }
         };
 
         stb.addEventListener(eventListener);
-        yield;
+        playError = yield;
       } catch (e) {
         console.log(e);
+      }
+
+      if (!playError) {
+        self.props.chageView("/panel");
+        try {
+          stb.Stop();
+        } catch (e) {
+          console.log(e);
+        }
+        return;
       }
       self.playerChangeState({
         ...self.state,
