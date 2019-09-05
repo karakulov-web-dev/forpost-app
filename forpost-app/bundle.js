@@ -175,6 +175,14 @@ exports.progressBarStyleLine = {
     height: "10px",
     background: style_1.color4
 };
+exports.progressBarStyleInternalLine = {
+    position: "absolute",
+    top: "0px",
+    left: "0px",
+    height: "10px",
+    background: style_1.color8,
+    border: "`3px solid transparent`"
+};
 exports.timeStepSizeStyle = {
     position: "absolute",
     left: "400px",
@@ -5287,18 +5295,28 @@ var ProgressBar = /** @class */ (function (_super) {
         return (React.createElement("div", { style: __assign({}, style_1.progressBarStyleLine, { border: this.props.focus
                     ? "3px solid " + style_2.color3
                     : "3px solid transparent" }) },
-            React.createElement("div", { style: __assign({}, style_1.progressBarStyleLine, { background: style_2.color8, border: "`3px solid transparent`", top: "0px" }) }),
+            React.createElement("div", { style: __assign({}, style_1.progressBarStyleInternalLine, { width: this.calcInternalLinePosition() + "%" }) }),
             React.createElement(ProgressBarCursor_1["default"], { percents: this.calcPositionCursor() })));
     };
     ProgressBar.prototype.calcPositionCursor = function () {
+        return this.partDayPercen(new Date(this.props.time));
+    };
+    ProgressBar.prototype.calcInternalLinePosition = function () {
+        var curDate = new Date();
+        var playerPosDate = new Date(this.props.time);
+        if (curDate.getDate() === playerPosDate.getDate()) {
+            return this.partDayPercen(new Date());
+        }
+        return 100;
+    };
+    ProgressBar.prototype.partDayPercen = function (date) {
         var milisecondsPerDay = 86400000; // всего милесекунд в сутках
         var oneProcentDay = milisecondsPerDay / 100; // числу милисекунд составляющих 1% суток
-        var playerPosTime = new Date(this.props.time); // обьект Date позиция плеера
-        var year = playerPosTime.getFullYear(); // год полученный из обьекта позиция плеера
-        var month = playerPosTime.getMonth(); // месяц полученный из  обьекта позиция плеера
-        var day = playerPosTime.getDate(); // день полученный обьект Date позиция плеера
-        var dayStart = new Date(year, month, day); // обьект Date начало суток (суток текущих относительно позиии плеера)
-        var msPassed = Number(playerPosTime) - Number(dayStart); // число милисекунд прошедших с начала суток
+        var year = date.getFullYear(); // год полученный из параметра date
+        var month = date.getMonth(); // месяц полученный из параметра date
+        var day = date.getDate(); // день полученный из параметра date
+        var dayStart = new Date(year, month, day); // обьект Date начало суток (суток текущих относительно параметра date)
+        var msPassed = Number(date) - Number(dayStart); // число милисекунд прошедших с начала суток
         var positionInPercent = msPassed / oneProcentDay; // текущая позиция в процентах - отношение числа милисекунд прошедших с начала суток к числу милисекунд составляющих 1 процент суток
         return positionInPercent;
     };

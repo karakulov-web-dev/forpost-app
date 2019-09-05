@@ -77,6 +77,15 @@ export const progressBarStyleLine: React.CSSProperties = {
   background: color4
 };
 
+export const progressBarStyleInternalLine: React.CSSProperties = {
+  position: "absolute",
+  top: "0px",
+  left: "0px",
+  height: "10px",
+  background: color8,
+  border: "`3px solid transparent`"
+};
+
 export const timeStepSizeStyle: React.CSSProperties = {
   position: "absolute",
   left: "400px",
