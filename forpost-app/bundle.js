@@ -75,6 +75,17 @@ module.exports = React;
 
 "use strict";
 
+var __assign = (this && this.__assign) || function () {
+    __assign = Object.assign || function(t) {
+        for (var s, i = 1, n = arguments.length; i < n; i++) {
+            s = arguments[i];
+            for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p))
+                t[p] = s[p];
+        }
+        return t;
+    };
+    return __assign.apply(this, arguments);
+};
 exports.__esModule = true;
 exports.color1 = "#333";
 exports.color2 = "#aaa";
@@ -101,6 +112,35 @@ exports.imgLoadingStyle = {
     top: "35%",
     left: "47%"
 };
+exports.bodyStyle = __assign({}, exports.abstracktStyleFullWidhtElem, { height: "75%", top: "100px", bottom: "0px", background: "url(./../forpost-app/img/background1.png) no-repeat", borderBottom: "100px solid " + exports.color1 });
+exports.loginFormStyle = {
+    maxWidth: "520px",
+    padding: "19px 29px 50px",
+    margin: "0 auto 20px",
+    backgroundColor: exports.color5,
+    border: "4px solid " + exports.color10,
+    borderRadius: "5px",
+    boxShadow: "0 1px 2px rgba(0, 0, 0, .05)",
+    marginTop: "60px",
+    marginBottom: "100px"
+};
+exports.labelStyle = {
+    color: exports.color1,
+    display: "block",
+    marginBottom: "25px",
+    fontSize: "25px",
+    position: "relative"
+};
+var inputStyle = {
+    color: exports.color1,
+    fontSize: exports.fontSize1,
+    position: "absolute",
+    right: "0px"
+};
+exports.inputStyle = inputStyle;
+if (stb.__type__ === "tvip") {
+    inputStyle.border = "2px solid buttonface";
+}
 
 
 /***/ }),
@@ -1292,52 +1332,16 @@ process.umask = function() { return 0; };
 
 "use strict";
 
-var __assign = (this && this.__assign) || function () {
-    __assign = Object.assign || function(t) {
-        for (var s, i = 1, n = arguments.length; i < n; i++) {
-            s = arguments[i];
-            for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p))
-                t[p] = s[p];
-        }
-        return t;
-    };
-    return __assign.apply(this, arguments);
-};
 exports.__esModule = true;
 var style_1 = __webpack_require__(1);
+var style_2 = __webpack_require__(1);
+exports.loginFormStyle = style_2.loginFormStyle;
+exports.labelStyle = style_2.labelStyle;
+exports.inputStyle = style_2.inputStyle;
 exports.colorError = style_1.color11;
 exports.fontSize1 = style_1.fontSize1;
 exports.fontFamily1 = style_1.fontFamily1;
-var bodyStyle = __assign({}, style_1.abstracktStyleFullWidhtElem, { height: "75%", top: "100px", bottom: "0px", background: "url(./../forpost-app/img/background1.png) no-repeat", borderBottom: "100px solid " + style_1.color1 });
-exports.bodyStyle = bodyStyle;
-exports.loginFormStyle = {
-    maxWidth: "520px",
-    padding: "19px 29px 50px",
-    margin: "0 auto 20px",
-    backgroundColor: style_1.color5,
-    border: "4px solid " + style_1.color10,
-    borderRadius: "5px",
-    boxShadow: "0 1px 2px rgba(0, 0, 0, .05)",
-    marginTop: "60px",
-    marginBottom: "100px"
-};
-exports.labelStyle = {
-    color: style_1.color1,
-    display: "block",
-    marginBottom: "25px",
-    fontSize: "25px",
-    position: "relative"
-};
-var inputStyle = {
-    color: style_1.color1,
-    fontSize: exports.fontSize1,
-    position: "absolute",
-    right: "0px"
-};
-exports.inputStyle = inputStyle;
-if (stb.__type__ === "tvip") {
-    inputStyle.border = "2px solid buttonface";
-}
+exports.bodyStyle = style_1.bodyStyle;
 
 
 /***/ }),
@@ -1492,6 +1496,7 @@ var Login_1 = __webpack_require__(33);
 var Panel_1 = __webpack_require__(37);
 var Player_1 = __webpack_require__(44);
 var Exit_1 = __webpack_require__(57);
+var Home_1 = __webpack_require__(58);
 var global = window;
 var store = redux_1.createStore(root_1["default"], redux_1.applyMiddleware(redux_thunk_1["default"]));
 global["store"] = store;
@@ -1512,6 +1517,9 @@ var ViewWrap = /** @class */ (function (_super) {
         }
         else if (this.props.view === "/exit") {
             return React.createElement(Exit_1["default"], null);
+        }
+        else if (this.props.view === "/home") {
+            return React.createElement(Home_1["default"], null);
         }
     };
     return ViewWrap;
@@ -5431,6 +5439,7 @@ var Header_1 = __webpack_require__(11);
 var react_redux_1 = __webpack_require__(4);
 var app_1 = __webpack_require__(6);
 var redux_1 = __webpack_require__(3);
+var AbstractHomeForm_1 = __webpack_require__(59);
 exports.inputStyle = {
     color: style_2.color1,
     fontSize: style_1.fontSize1,
@@ -5441,30 +5450,28 @@ var Exit = /** @class */ (function (_super) {
     function Exit(props) {
         var _this = _super.call(this, props) || this;
         _this.refArrStore = [];
-        _this.refStore = {};
         return _this;
     }
     Exit.prototype.render = function () {
         return (React.createElement("div", { onKeyDown: this.key.bind(this) },
             React.createElement(Header_1["default"], null),
-            React.createElement("div", { style: style_1.bodyStyle },
-                React.createElement("div", { style: style_1.loginFormStyle },
-                    React.createElement("fieldset", null,
-                        React.createElement("legend", null,
-                            React.createElement("h1", { style: { color: style_2.color1, fontSize: "30px" } }, "\u0412\u044B \u0434\u0435\u0439\u0441\u0442\u0432\u0438\u0442\u0435\u043B\u044C\u043D\u043E \u0445\u043E\u0442\u0438\u0442\u0435 \u0432\u044B\u0439\u0442\u0438?")),
-                        React.createElement("label", { style: __assign({}, style_1.labelStyle, { top: "-10px", marginTop: "20px" }) },
-                            React.createElement("input", { type: "submit", value: "\u0412\u044B\u0439\u0442\u0438 \u0438\u0437 \u043F\u0440\u0438\u043B\u043E\u0436\u0435\u043D\u0438\u044F", style: this.mayBeFocusStyle(exports.inputStyle, "exitApp"), ref: this.setRef.bind(this, "exitApp"), onKeyDown: this.keyDownItem.bind(this) })),
-                        React.createElement("label", { style: __assign({}, style_1.labelStyle, { top: "-10px" }) },
-                            React.createElement("input", { type: "submit", value: "\u0412\u044B\u0439\u0442\u0438 \u0438\u0437 \u0430\u043A\u043A\u0430\u0443\u043D\u0442\u0430", style: this.mayBeFocusStyle(exports.inputStyle, "exitAcc"), ref: this.setRef.bind(this, "exitAcc"), onKeyDown: this.keyDownItem.bind(this) })),
-                        React.createElement("label", { style: __assign({}, style_1.labelStyle, { top: "-10px" }) },
-                            React.createElement("input", { type: "submit", value: "\u041E\u0442\u043C\u0435\u043D\u0430", style: this.mayBeFocusStyle(exports.inputStyle, "cancel"), ref: this.setRef.bind(this, "cancel"), onKeyDown: this.keyDownItem.bind(this) })))))));
+            AbstractHomeForm_1.AbstractHomeForm("Вы действительно хотите выйти?", this.renderContent.bind(this))));
     };
-    Exit.prototype.setRef = function (name, elem) {
+    Exit.prototype.renderContent = function () {
+        return (React.createElement("div", null,
+            " ",
+            React.createElement("label", { style: __assign({}, style_1.labelStyle, { top: "-10px", marginTop: "20px" }) },
+                React.createElement("input", { type: "submit", value: "\u0412\u044B\u0439\u0442\u0438 \u0438\u0437 \u043F\u0440\u0438\u043B\u043E\u0436\u0435\u043D\u0438\u044F", style: this.mayBeFocusStyle(exports.inputStyle, 0), ref: this.setRef.bind(this), onKeyDown: this.keyDownItem.bind(this) })),
+            React.createElement("label", { style: __assign({}, style_1.labelStyle, { top: "-10px" }) },
+                React.createElement("input", { type: "submit", value: "\u0412\u044B\u0439\u0442\u0438 \u0438\u0437 \u0430\u043A\u043A\u0430\u0443\u043D\u0442\u0430", style: this.mayBeFocusStyle(exports.inputStyle, 1), ref: this.setRef.bind(this), onKeyDown: this.keyDownItem.bind(this) })),
+            React.createElement("label", { style: __assign({}, style_1.labelStyle, { top: "-10px" }) },
+                React.createElement("input", { type: "submit", value: "\u041E\u0442\u043C\u0435\u043D\u0430", style: this.mayBeFocusStyle(exports.inputStyle, 2), ref: this.setRef.bind(this), onKeyDown: this.keyDownItem.bind(this) }))));
+    };
+    Exit.prototype.setRef = function (elem) {
         this.refArrStore.push(elem);
-        this.refStore[name] = elem;
     };
-    Exit.prototype.mayBeFocusStyle = function (style, elemName) {
-        if (this.refStore[elemName] === document.activeElement) {
+    Exit.prototype.mayBeFocusStyle = function (style, elemNumber) {
+        if (this.refArrStore[elemNumber] === document.activeElement) {
             return __assign({}, style, { border: "3px solid " + style_2.color1 });
         }
         return style;
@@ -5480,7 +5487,7 @@ var Exit = /** @class */ (function (_super) {
             return false;
         }
         e.stopPropagation();
-        if (this.refStore["exitApp"] === document.activeElement) {
+        if (this.refArrStore[0] === document.activeElement) {
             try {
                 stb.SetVideoState(1);
             }
@@ -5489,7 +5496,7 @@ var Exit = /** @class */ (function (_super) {
             }
             location = "http://212.77.128.177/"; // parseGetParams("referrer");
         }
-        else if (this.refStore["exitAcc"] === document.activeElement) {
+        else if (this.refArrStore[1] === document.activeElement) {
             try {
                 stb.RDir("setenv forpost_app_profile  ");
             }
@@ -5528,6 +5535,77 @@ exports["default"] = react_redux_1.connect(null, function (dispatch) {
         chageView: app_1.chageView
     }, dispatch);
 })(Exit);
+
+
+/***/ }),
+/* 58 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+var __extends = (this && this.__extends) || (function () {
+    var extendStatics = function (d, b) {
+        extendStatics = Object.setPrototypeOf ||
+            ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+            function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+        return extendStatics(d, b);
+    };
+    return function (d, b) {
+        extendStatics(d, b);
+        function __() { this.constructor = d; }
+        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+    };
+})();
+exports.__esModule = true;
+var React = __webpack_require__(0);
+var Header_1 = __webpack_require__(11);
+var AbstractHomeForm_1 = __webpack_require__(59);
+var Home = /** @class */ (function (_super) {
+    __extends(Home, _super);
+    function Home() {
+        return _super !== null && _super.apply(this, arguments) || this;
+    }
+    Home.prototype.render = function () {
+        return (React.createElement("div", null,
+            React.createElement(Header_1["default"], null),
+            AbstractHomeForm_1.AbstractHomeForm("Выберете действие!", this.renderContent.bind(this))));
+    };
+    Home.prototype.renderContent = function () {
+        return React.createElement("div", null, "hello");
+    };
+    return Home;
+}(React.Component));
+exports["default"] = Home;
+
+
+/***/ }),
+/* 59 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+exports.__esModule = true;
+var React = __webpack_require__(0);
+var style_1 = __webpack_require__(60);
+exports.AbstractHomeForm = function (name, renderFunction) { return (React.createElement("div", { style: style_1.bodyStyle },
+    React.createElement("div", { style: style_1.loginFormStyle },
+        React.createElement("fieldset", null,
+            React.createElement("legend", null,
+                React.createElement("h1", { style: { color: style_1.color1, fontSize: "30px" } }, name)),
+            renderFunction())))); };
+
+
+/***/ }),
+/* 60 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+exports.__esModule = true;
+var style_1 = __webpack_require__(1);
+exports.bodyStyle = style_1.bodyStyle;
+exports.loginFormStyle = style_1.loginFormStyle;
+exports.color1 = style_1.color1;
 
 
 /***/ })

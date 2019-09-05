@@ -40,4 +40,4 @@ export interface ICam {
   Lon: number;
 }
 
-export type IViewName = "/login" | "/exit" | "/panel" | "/player";
+export type IViewName = "/login" | "/exit" | "/home" | "/panel" | "/player";
