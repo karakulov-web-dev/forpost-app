@@ -1,13 +1,15 @@
 <!DOCTYPE html>
 <html lang="ru">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
-    <link rel="stylesheet" href="./app_aspect.css" />
-    <title>Document</title>
-  <body>
-    <script type="text/javascript">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+  <link rel="stylesheet" href="./app_aspect.css" />
+  <title>Document</title>
+
+<body>
+  <script type="text/javascript">
     var stb;
     var stbEvent;
     try {
@@ -31,7 +33,7 @@
       stb.__eventListeners = []
       stb.addEventListener = function (cb) {
         stb.__eventListeners.push(cb)
-      } 
+      }
       stb.rmEvenListener = function (cb) {
         stb.__eventListeners.splice(stb.__eventListeners.indexOf(cb), 1)
       }
@@ -47,70 +49,73 @@
       stb.__type__ = "browser"
       console.log(e)
     }
-      </script>
+  </script>
+  <div id="screenSaver">
+    <div id="head">
 
-      <script type="text/javascript">
-        if (![].flat) {
-          Array.prototype.flat = function (depth) {
-            depth = depth ? depth : 1
-            depth = isNaN(depth) ? 0 : Math.floor(depth);
-            if (depth < 1) return this.slice();
-            return [].concat.apply([],
-              (depth < 2)
-                ? this
-                : this.map(function (v) {
-                  return Array.isArray(v) ? v.flat(depth - 1) : v
-                })
-            )
-          };
-        }
+      <!-- группа 1 -->
+      <div  class="screenSaverItems" id="group1Name" class="info" style="width: 350px;">
+        <h2 style="margin-bottom: 0px;">Видеонаблюдение через Интернет</h2>
+      </div>
+      <img class="screenSaverItems" src="./img/macbook.png" />
+      <img class="screenSaverItems" src="./img/1_1.png" />
 
-  if (![].fill) {
-    Array.prototype.fill = function (value) {
+      <!-- группа 2 -->
 
-      var O = Object(this);
-      var len = parseInt(O.length, 10);
-      var start = arguments[1];
-      var relativeStart = parseInt(start, 10) || 0;
-      var k = relativeStart < 0
-        ? Math.max(len + relativeStart, 0)
-        : Math.min(relativeStart, len);
-      var end = arguments[2];
-      var relativeEnd = end === undefined
-        ? len
-        : (parseInt(end) || 0);
-      var final = relativeEnd < 0
-        ? Math.max(len + relativeEnd, 0)
-        : Math.min(relativeEnd, len);
+      <!-- группа 3 -->
 
-      for (; k < final; k++) {
-        O[k] = value;
-      }
+    </div>
+  </div>
+  <!--  <div id="reactRoot"></div> -->
+  <div id="aspect"></div>
+  <style type="text/css">
+    #screenSaver {
+      position: absolute;
+      top: 0px;
+      left: 0px;
+      right: 0px;
+      bottom: 0px;
+      background: #DDDCE2 url("./img/body_bg.jpg") repeat left top
+    }
 
-      return O;
-    };
-  }
-      </script>
-    <div id="reactRoot"></div>
-    <div id="aspect"></div>
-    <style type="style">
-    </style>
-    <script type="text/javascript" src="./aspectRatioManager.js"></script>
-    <!-- React Dependencies -->
-    <script type="text/javascript" src="./libs/es5-shim.min.js"></script>
-    <script type="text/javascript" src="./libs/es5-sham.min.js"></script>
-    <script type="text/javascript" src="./libs/polyfill.js"></script>
-    <script type="text/javascript" src="./libs/react.js"></script>
-    <script type="text/javascript" src="./libs/react-dom.js"></script>
-    <!--React Main -->
+    #head {
+      position: absolute;
+      top: 0px;
+      left: 0px;
+      right: 0px;
+      bottom: 50%;
+      background: url("./img/aqua.jpg") no-repeat
+    }
 
-    <script type="text/javascript">
-      (function () {
-       var script = document.createElement("script")
-       script.src = "./bundle.js?="+ Math.random()
-       document.getElementsByTagName("body")[0].appendChild(script)
-      })()
-    </script>
-   <!--- <script type="text/javascript" src="http://localhost:35729/livereload.js"></script> -->
-  </body>
+    .info {
+      color: #fff;
+      font-family: "Open Sans", 'Lato', sans-serif;
+    }
+
+    .screenSaverItems {
+      position: absolute;
+      left: -200%;
+      top: 0%;
+    }
+  </style>
+  <script type="text/javascript" src="./screenSaver.js"></script>
+  <script type="text/javascript" src="./aspectRatioManager.js"></script>
+  <!-- React Dependencies -->
+  <script type="text/javascript" src="./libs/es5-shim.min.js"></script>
+  <script type="text/javascript" src="./libs/es5-sham.min.js"></script>
+  <script type="text/javascript" src="./libs/polyfill.js"></script>
+  <script type="text/javascript" src="./libs/react.js"></script>
+  <script type="text/javascript" src="./libs/react-dom.js"></script>
+  <!--React Main -->
+
+  <script type="text/javascript">
+    (function () {
+      var script = document.createElement("script")
+      script.src = "./bundle.js?=" + Math.random()
+      document.getElementsByTagName("body")[0].appendChild(script)
+    })()
+  </script>
+  <!--- <script type="text/javascript" src="http://localhost:35729/livereload.js"></script> -->
+</body>
+
 </html>
