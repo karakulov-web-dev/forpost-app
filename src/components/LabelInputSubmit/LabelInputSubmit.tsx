@@ -1,5 +1,5 @@
 import * as React from "react";
-import { labelStyle, color1, inputStyle } from "./style";
+import { labelStyle, color1, inputStyleForm } from "./style";
 
 interface IProps {
   focus: boolean;
@@ -21,8 +21,8 @@ export default class LabelInputSubmit extends React.Component<IProps> {
       <label style={{ ...labelStyle, top: "-10px" }}>
         <input
           type="submit"
-          value="Выйти из приложения"
-          style={this.mayBeFocusStyle(inputStyle)}
+          value={this.props.value}
+          style={this.mayBeFocusStyle(inputStyleForm)}
           ref={this.setRef.bind(this)}
           onKeyDown={this.key.bind(this)}
           tabIndex={1}

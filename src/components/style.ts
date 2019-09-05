@@ -69,3 +69,9 @@ if (stb.__type__ === "tvip") {
 }
 
 export { inputStyle };
+
+export const inputStyleForm: React.CSSProperties = {
+  color: color1,
+  fontSize: fontSize1,
+  width: "100%"
+};

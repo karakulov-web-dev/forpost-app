@@ -6,7 +6,12 @@ import {
   color11,
   bodyStyle as _bodyStyle
 } from "../style";
-export { loginFormStyle, labelStyle, inputStyle } from "../style";
+export {
+  loginFormStyle,
+  labelStyle,
+  inputStyle,
+  inputStyleForm
+} from "../style";
 
 declare var stb: any;
 

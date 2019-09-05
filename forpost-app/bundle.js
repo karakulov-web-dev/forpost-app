@@ -141,6 +141,11 @@ exports.inputStyle = inputStyle;
 if (stb.__type__ === "tvip") {
     inputStyle.border = "2px solid buttonface";
 }
+exports.inputStyleForm = {
+    color: exports.color1,
+    fontSize: exports.fontSize1,
+    width: "100%"
+};
 
 
 /***/ }),
@@ -1338,6 +1343,7 @@ var style_2 = __webpack_require__(1);
 exports.loginFormStyle = style_2.loginFormStyle;
 exports.labelStyle = style_2.labelStyle;
 exports.inputStyle = style_2.inputStyle;
+exports.inputStyleForm = style_2.inputStyleForm;
 exports.colorError = style_1.color11;
 exports.fontSize1 = style_1.fontSize1;
 exports.fontFamily1 = style_1.fontFamily1;
@@ -2432,7 +2438,7 @@ var __assign = (this && this.__assign) || function () {
 exports.__esModule = true;
 var ACTION_TYPE_CONST_1 = __webpack_require__(5);
 var defaultState = {
-    view: "/login"
+    view: "/home"
 };
 exports.app = function (state, action) {
     if (state === void 0) { state = defaultState; }
@@ -5433,22 +5439,18 @@ var __assign = (this && this.__assign) || function () {
 };
 exports.__esModule = true;
 var React = __webpack_require__(0);
-var style_1 = __webpack_require__(10);
-var style_2 = __webpack_require__(1);
+var style_1 = __webpack_require__(1);
 var Header_1 = __webpack_require__(11);
 var react_redux_1 = __webpack_require__(4);
 var app_1 = __webpack_require__(6);
 var redux_1 = __webpack_require__(3);
 var AbstractHomeForm_1 = __webpack_require__(59);
-exports.inputStyle = {
-    color: style_2.color1,
-    fontSize: style_1.fontSize1,
-    width: "100%"
-};
+var LabelInputSubmit_1 = __webpack_require__(61);
 var Exit = /** @class */ (function (_super) {
     __extends(Exit, _super);
     function Exit(props) {
         var _this = _super.call(this, props) || this;
+        _this.focusIndex = 0;
         _this.refArrStore = [];
         return _this;
     }
@@ -5458,21 +5460,43 @@ var Exit = /** @class */ (function (_super) {
             AbstractHomeForm_1.AbstractHomeForm("Вы действительно хотите выйти?", this.renderContent.bind(this))));
     };
     Exit.prototype.renderContent = function () {
+        var _this = this;
         return (React.createElement("div", null,
             " ",
-            React.createElement("label", { style: __assign({}, style_1.labelStyle, { top: "-10px", marginTop: "20px" }) },
-                React.createElement("input", { type: "submit", value: "\u0412\u044B\u0439\u0442\u0438 \u0438\u0437 \u043F\u0440\u0438\u043B\u043E\u0436\u0435\u043D\u0438\u044F", style: this.mayBeFocusStyle(exports.inputStyle, 0), ref: this.setRef.bind(this), onKeyDown: this.keyDownItem.bind(this) })),
-            React.createElement("label", { style: __assign({}, style_1.labelStyle, { top: "-10px" }) },
-                React.createElement("input", { type: "submit", value: "\u0412\u044B\u0439\u0442\u0438 \u0438\u0437 \u0430\u043A\u043A\u0430\u0443\u043D\u0442\u0430", style: this.mayBeFocusStyle(exports.inputStyle, 1), ref: this.setRef.bind(this), onKeyDown: this.keyDownItem.bind(this) })),
-            React.createElement("label", { style: __assign({}, style_1.labelStyle, { top: "-10px" }) },
-                React.createElement("input", { type: "submit", value: "\u041E\u0442\u043C\u0435\u043D\u0430", style: this.mayBeFocusStyle(exports.inputStyle, 2), ref: this.setRef.bind(this), onKeyDown: this.keyDownItem.bind(this) }))));
+            React.createElement(LabelInputSubmit_1["default"], { focus: this.isFocus(0), setRef: this.setRef.bind(this, 0), onenter: this.exit, value: "\u0412\u044B\u0439\u0442\u0438 \u0438\u0437 \u043F\u0440\u0438\u043B\u043E\u0436\u0435\u043D\u0438\u044F" }),
+            React.createElement(LabelInputSubmit_1["default"], { focus: this.isFocus(1), setRef: this.setRef.bind(this, 1), onenter: this.exitAcc.bind(this), value: "\u0412\u044B\u0439\u0442\u0438 \u0438\u0437 \u0430\u043A\u043A\u0430\u0443\u043D\u0442\u0430" }),
+            React.createElement(LabelInputSubmit_1["default"], { focus: this.isFocus(2), setRef: this.setRef.bind(this, 2), onenter: function () {
+                    _this.props.chageView("/panel");
+                }, value: "\u041E\u0442\u043C\u0435\u043D\u0430" })));
     };
-    Exit.prototype.setRef = function (elem) {
-        this.refArrStore.push(elem);
+    Exit.prototype.exit = function () {
+        try {
+            stb.SetVideoState(1);
+        }
+        catch (e) {
+            console.log(e);
+        }
+        location = "http://212.77.128.177/"; // parseGetParams("referrer");
+    };
+    Exit.prototype.exitAcc = function () {
+        try {
+            stb.RDir("setenv forpost_app_profile  ");
+        }
+        catch (e) {
+            localStorage.removeItem("forpost_app_profile");
+            console.log(e);
+        }
+        this.props.chageView("/login");
+    };
+    Exit.prototype.setRef = function (index, elem) {
+        this.refArrStore[index] = elem;
+    };
+    Exit.prototype.isFocus = function (index) {
+        return this.focusIndex === index ? true : false;
     };
     Exit.prototype.mayBeFocusStyle = function (style, elemNumber) {
         if (this.refArrStore[elemNumber] === document.activeElement) {
-            return __assign({}, style, { border: "3px solid " + style_2.color1 });
+            return __assign({}, style, { border: "3px solid " + style_1.color1 });
         }
         return style;
     };
@@ -5480,34 +5504,6 @@ var Exit = /** @class */ (function (_super) {
         if (e.key === "ArrowDown" || e.key === "ArrowUp") {
             this.navigate(e.key);
             this.setState({});
-        }
-    };
-    Exit.prototype.keyDownItem = function (e) {
-        if (e.key !== "Enter") {
-            return false;
-        }
-        e.stopPropagation();
-        if (this.refArrStore[0] === document.activeElement) {
-            try {
-                stb.SetVideoState(1);
-            }
-            catch (e) {
-                console.log(e);
-            }
-            location = "http://212.77.128.177/"; // parseGetParams("referrer");
-        }
-        else if (this.refArrStore[1] === document.activeElement) {
-            try {
-                stb.RDir("setenv forpost_app_profile  ");
-            }
-            catch (e) {
-                localStorage.removeItem("forpost_app_profile");
-                console.log(e);
-            }
-            this.props.chageView("/login");
-        }
-        else {
-            this.props.chageView("/panel");
         }
     };
     Exit.prototype.navigate = function (key) {
@@ -5523,6 +5519,7 @@ var Exit = /** @class */ (function (_super) {
             return;
         }
         this.refArrStore[index + dif].focus();
+        this.focusIndex = index + dif;
     };
     Exit.prototype.componentDidMount = function () {
         this.refArrStore[0].focus();
@@ -5560,10 +5557,14 @@ exports.__esModule = true;
 var React = __webpack_require__(0);
 var Header_1 = __webpack_require__(11);
 var AbstractHomeForm_1 = __webpack_require__(59);
+var LabelInputSubmit_1 = __webpack_require__(61);
 var Home = /** @class */ (function (_super) {
     __extends(Home, _super);
     function Home() {
-        return _super !== null && _super.apply(this, arguments) || this;
+        var _this = _super !== null && _super.apply(this, arguments) || this;
+        _this.focusIndex = 0;
+        _this.refArrStore = [];
+        return _this;
     }
     Home.prototype.render = function () {
         return (React.createElement("div", null,
@@ -5571,7 +5572,41 @@ var Home = /** @class */ (function (_super) {
             AbstractHomeForm_1.AbstractHomeForm("Выберете действие!", this.renderContent.bind(this))));
     };
     Home.prototype.renderContent = function () {
-        return React.createElement("div", null, "hello");
+        return (React.createElement("div", { onKeyDown: this.key.bind(this) },
+            React.createElement(LabelInputSubmit_1["default"], { focus: this.isFocus(0), setRef: this.setRef.bind(this, 0), onenter: function () { }, value: "\u0412\u0445\u043E\u0434" }),
+            React.createElement(LabelInputSubmit_1["default"], { focus: this.isFocus(1), setRef: this.setRef.bind(this, 1), onenter: function () { }, value: "\u0414\u0435\u043C\u043E" }),
+            React.createElement(LabelInputSubmit_1["default"], { focus: this.isFocus(2), setRef: this.setRef.bind(this, 2), onenter: function () { }, value: "\u0412\u044B\u0445\u043E\u0434" })));
+    };
+    Home.prototype.isFocus = function (index) {
+        return this.focusIndex === index ? true : false;
+    };
+    Home.prototype.setRef = function (index, elem) {
+        this.refArrStore[index] = elem;
+    };
+    Home.prototype.componentDidMount = function () {
+        this.refArrStore[0].focus();
+        this.forceUpdate();
+    };
+    Home.prototype.key = function (e) {
+        if (e.key === "ArrowDown" || e.key === "ArrowUp") {
+            this.navigate(e.key);
+            this.forceUpdate();
+        }
+    };
+    Home.prototype.navigate = function (key) {
+        var dif = 0;
+        if (key === "ArrowDown") {
+            dif = 1;
+        }
+        else if (key === "ArrowUp") {
+            dif = -1;
+        }
+        console.log(this.focusIndex);
+        if (!this.refArrStore[this.focusIndex + dif]) {
+            return;
+        }
+        this.refArrStore[this.focusIndex + dif].focus();
+        this.focusIndex = this.focusIndex + dif;
     };
     return Home;
 }(React.Component));
@@ -5606,6 +5641,94 @@ var style_1 = __webpack_require__(1);
 exports.bodyStyle = style_1.bodyStyle;
 exports.loginFormStyle = style_1.loginFormStyle;
 exports.color1 = style_1.color1;
+
+
+/***/ }),
+/* 61 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+var __extends = (this && this.__extends) || (function () {
+    var extendStatics = function (d, b) {
+        extendStatics = Object.setPrototypeOf ||
+            ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+            function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+        return extendStatics(d, b);
+    };
+    return function (d, b) {
+        extendStatics(d, b);
+        function __() { this.constructor = d; }
+        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+    };
+})();
+var __assign = (this && this.__assign) || function () {
+    __assign = Object.assign || function(t) {
+        for (var s, i = 1, n = arguments.length; i < n; i++) {
+            s = arguments[i];
+            for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p))
+                t[p] = s[p];
+        }
+        return t;
+    };
+    return __assign.apply(this, arguments);
+};
+exports.__esModule = true;
+var React = __webpack_require__(0);
+var style_1 = __webpack_require__(62);
+var LabelInputSubmit = /** @class */ (function (_super) {
+    __extends(LabelInputSubmit, _super);
+    function LabelInputSubmit() {
+        return _super !== null && _super.apply(this, arguments) || this;
+    }
+    LabelInputSubmit.prototype.render = function () {
+        return (React.createElement("label", { style: __assign({}, style_1.labelStyle, { top: "-10px" }) },
+            React.createElement("input", { type: "submit", value: this.props.value, style: this.mayBeFocusStyle(style_1.inputStyleForm), ref: this.setRef.bind(this), onKeyDown: this.key.bind(this), tabIndex: 1 })));
+    };
+    LabelInputSubmit.prototype.mayBeFocusStyle = function (style) {
+        if (this.props.focus) {
+            return __assign({}, style, { border: "3px solid " + style_1.color1 });
+        }
+        return style;
+    };
+    LabelInputSubmit.prototype.setRef = function (elem) {
+        this.props.setRef(elem);
+        this.elem = elem;
+    };
+    LabelInputSubmit.prototype.key = function (e) {
+        if (e.key === "Enter") {
+            this.props.onenter();
+        }
+    };
+    LabelInputSubmit.prototype.shouldComponentUpdate = function (nextProps) {
+        if (this.props.focus !== nextProps.focus) {
+            return true;
+        }
+        else {
+            return false;
+        }
+    };
+    LabelInputSubmit.prototype.componentDidUpdate = function () {
+        if (this.props.focus) {
+            this.elem.focus();
+        }
+    };
+    return LabelInputSubmit;
+}(React.Component));
+exports["default"] = LabelInputSubmit;
+
+
+/***/ }),
+/* 62 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+exports.__esModule = true;
+var style_1 = __webpack_require__(1);
+exports.labelStyle = style_1.labelStyle;
+exports.color1 = style_1.color1;
+exports.inputStyleForm = style_1.inputStyleForm;
 
 
 /***/ })

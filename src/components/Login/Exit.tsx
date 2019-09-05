@@ -1,5 +1,4 @@
 import * as React from "react";
-import { labelStyle, fontSize1 } from "./style";
 import { color1 } from "../style";
 import Header from "../Header/Header";
 import { parseGetParams } from "../../utilites";
@@ -7,19 +6,15 @@ import { connect } from "react-redux";
 import { chageView, IChangeViewCreater } from "../../action/app";
 import { bindActionCreators } from "redux";
 import { AbstractHomeForm } from "../AbastrackHomeForm/AbstractHomeForm";
+import LabelInputSubmit from "../LabelInputSubmit/LabelInputSubmit";
 
 declare var stb: any;
 declare var location: any;
 
-export const inputStyle: React.CSSProperties = {
-  color: color1,
-  fontSize: fontSize1,
-  width: "100%"
-};
-
 type IProps = IDispatchProps;
 
 class Exit extends React.Component<IProps> {
+  private focusIndex: number = 0;
   constructor(props: IProps) {
     super(props);
   }
@@ -39,38 +34,53 @@ class Exit extends React.Component<IProps> {
     return (
       <div>
         {" "}
-        <label style={{ ...labelStyle, top: "-10px", marginTop: "20px" }}>
-          <input
-            type="submit"
-            value="Выйти из приложения"
-            style={this.mayBeFocusStyle(inputStyle, 0)}
-            ref={this.setRef.bind(this)}
-            onKeyDown={this.keyDownItem.bind(this)}
-          />
-        </label>
-        <label style={{ ...labelStyle, top: "-10px" }}>
-          <input
-            type="submit"
-            value="Выйти из аккаунта"
-            style={this.mayBeFocusStyle(inputStyle, 1)}
-            ref={this.setRef.bind(this)}
-            onKeyDown={this.keyDownItem.bind(this)}
-          />
-        </label>
-        <label style={{ ...labelStyle, top: "-10px" }}>
-          <input
-            type="submit"
-            value="Отмена"
-            style={this.mayBeFocusStyle(inputStyle, 2)}
-            ref={this.setRef.bind(this)}
-            onKeyDown={this.keyDownItem.bind(this)}
-          />
-        </label>
+        <LabelInputSubmit
+          focus={this.isFocus(0)}
+          setRef={this.setRef.bind(this, 0)}
+          onenter={this.exit}
+          value="Выйти из приложения"
+        />
+        <LabelInputSubmit
+          focus={this.isFocus(1)}
+          setRef={this.setRef.bind(this, 1)}
+          onenter={this.exitAcc.bind(this)}
+          value="Выйти из аккаунта"
+        />
+        <LabelInputSubmit
+          focus={this.isFocus(2)}
+          setRef={this.setRef.bind(this, 2)}
+          onenter={() => {
+            this.props.chageView("/panel");
+          }}
+          value="Отмена"
+        />
       </div>
     );
   }
-  setRef(elem: HTMLElement) {
-    this.refArrStore.push(elem);
+  exit() {
+    try {
+      stb.SetVideoState(1);
+    } catch (e) {
+      console.log(e);
+    }
+    location = "http://212.77.128.177/"; // parseGetParams("referrer");
+  }
+
+  exitAcc() {
+    try {
+      stb.RDir("setenv forpost_app_profile  ");
+    } catch (e) {
+      localStorage.removeItem("forpost_app_profile");
+      console.log(e);
+    }
+    this.props.chageView("/login");
+  }
+
+  setRef(index: number, elem: HTMLElement) {
+    this.refArrStore[index] = elem;
+  }
+  isFocus(index: number) {
+    return this.focusIndex === index ? true : false;
   }
   mayBeFocusStyle(style: React.CSSProperties, elemNumber: number) {
     if (this.refArrStore[elemNumber] === document.activeElement) {
@@ -87,30 +97,7 @@ class Exit extends React.Component<IProps> {
       this.setState({});
     }
   }
-  keyDownItem(e: React.KeyboardEvent) {
-    if (e.key !== "Enter") {
-      return false;
-    }
-    e.stopPropagation();
-    if (this.refArrStore[0] === document.activeElement) {
-      try {
-        stb.SetVideoState(1);
-      } catch (e) {
-        console.log(e);
-      }
-      location = "http://212.77.128.177/"; // parseGetParams("referrer");
-    } else if (this.refArrStore[1] === document.activeElement) {
-      try {
-        stb.RDir("setenv forpost_app_profile  ");
-      } catch (e) {
-        localStorage.removeItem("forpost_app_profile");
-        console.log(e);
-      }
-      this.props.chageView("/login");
-    } else {
-      this.props.chageView("/panel");
-    }
-  }
+
   navigate(key: string) {
     let dif = 0;
     if (key === "ArrowDown") {
@@ -123,6 +110,7 @@ class Exit extends React.Component<IProps> {
       return;
     }
     this.refArrStore[index + dif].focus();
+    this.focusIndex = index + dif;
   }
   componentDidMount() {
     this.refArrStore[0].focus();

@@ -1,1 +1,1 @@
-export { labelStyle, color1, inputStyle } from "../style";
+export { labelStyle, color1, inputStyleForm } from "../style";
