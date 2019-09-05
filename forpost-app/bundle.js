@@ -3904,6 +3904,7 @@ var PlayerBody = /** @class */ (function (_super) {
     __extends(PlayerBody, _super);
     function PlayerBody(props) {
         var _this = _super.call(this, props) || this;
+        _this.panelVisible = false;
         _this.timeController = new TimeController(_this.props.pushTime, _this.props.play, _this.props.playerState.time);
         _this.state = {
             panelVisible: true
@@ -3921,6 +3922,15 @@ var PlayerBody = /** @class */ (function (_super) {
     PlayerBody.prototype.componentWillUnmount = function () {
         this.timeController.clearAllTimers();
         this.controlPanelStatus.clearTimeout();
+    };
+    PlayerBody.prototype.componentDidUpdate = function () {
+        if (this.state.panelVisible && !this.panelVisible) {
+            this.panelVisible = true;
+        }
+        else if (!this.state.panelVisible && this.panelVisible) {
+            this.elem.focus();
+            this.panelVisible = false;
+        }
     };
     PlayerBody.prototype.setElem = function (elem) {
         this.elem = elem;
@@ -3976,7 +3986,7 @@ var PlayerBody = /** @class */ (function (_super) {
         this.props.playerChangeState(__assign({}, this.props.playerState, { playStatus: playStatus }));
     };
     PlayerBody.prototype.controlPanel = function () {
-        return this.state.panelVisible ? (React.createElement(ControlPanel_1["default"], { playStatus: this.props.playerState.playStatus, time: this.props.playerState.time, playPause: this.playPause.bind(this), timeStepSize: this.props.playerState.timeStepSize, changeTimeStepSize: this.props.changeTimeStepSize, changeTimeshift: this.timeController.changeTimeshift.bind(this.timeController) })) : null;
+        return this.state.panelVisible ? (React.createElement(ControlPanel_1["default"], { playStatus: this.props.playerState.playStatus, time: this.props.playerState.time, playPause: this.playPause.bind(this), timeStepSize: this.props.playerState.timeStepSize, changeTimeStepSize: this.props.changeTimeStepSize, changeTimeshift: this.timeController.changeTimeshift.bind(this.timeController), controlPanelStatus: this.controlPanelStatus })) : null;
     };
     return PlayerBody;
 }(React.Component));
@@ -3991,7 +4001,7 @@ var ControlPanelStatusChanger = /** @class */ (function () {
             this.player.setState(__assign({}, this.player.state, { panelVisible: true }));
         }
         if (!this.panelAlwaysShow) {
-            this.visibleTimeout(10000000);
+            this.visibleTimeout(10000);
         }
     };
     ControlPanelStatusChanger.prototype.hide = function () {
@@ -4008,6 +4018,7 @@ var ControlPanelStatusChanger = /** @class */ (function () {
     };
     return ControlPanelStatusChanger;
 }());
+exports.ControlPanelStatusChanger = ControlPanelStatusChanger;
 var TimeController = /** @class */ (function () {
     function TimeController(_pushTime, _changeTimeShift, startTime) {
         if (startTime === void 0) { startTime = Date.now(); }
@@ -4103,7 +4114,7 @@ var ControlPanel = /** @class */ (function (_super) {
     }
     ControlPanel.prototype.render = function () {
         return (React.createElement("div", { style: style_1.controlPanelStyle, tabIndex: 1, ref: this.setElem.bind(this), onKeyDown: this.key.bind(this) },
-            React.createElement(PlayerButtons_1["default"], { playStatus: this.props.playStatus, time: this.props.time, focus: this.focus(0), playPause: this.props.playPause, timeStepSize: this.props.timeStepSize, changeTimeStepSize: this.props.changeTimeStepSize, changeTimeshift: this.props.changeTimeshift }),
+            React.createElement(PlayerButtons_1["default"], { playStatus: this.props.playStatus, time: this.props.time, focus: this.focus(0), playPause: this.props.playPause, timeStepSize: this.props.timeStepSize, changeTimeStepSize: this.props.changeTimeStepSize, changeTimeshift: this.props.changeTimeshift, controlPanelStatus: this.props.controlPanelStatus }),
             React.createElement(ProgressBar_1["default"], { focus: this.focus(1), time: this.props.time })));
     };
     ControlPanel.prototype.setElem = function (elem) {
@@ -4192,7 +4203,7 @@ var PlayerButtons = /** @class */ (function (_super) {
     PlayerButtons.prototype.render = function () {
         return (React.createElement("div", { style: style_1.playerButtonsStyle, tabIndex: 1, ref: this.setElem.bind(this), onKeyDown: this.key.bind(this) },
             React.createElement(PlayPauseButton_1["default"], { playStatus: this.props.playStatus, focus: this.isFocus(0), playPause: this.props.playPause }),
-            React.createElement(TimeBar_1["default"], { time: this.props.time, focus: this.isFocus(1), changeTimeshift: this.props.changeTimeshift }),
+            React.createElement(TimeBar_1["default"], { time: this.props.time, focus: this.isFocus(1), changeTimeshift: this.props.changeTimeshift, controlPanelStatus: this.props.controlPanelStatus }),
             React.createElement(TimeStepSize_1["default"], { focus: this.isFocus(2), timeStepSize: this.props.timeStepSize, changeTimeStepSize: this.props.changeTimeStepSize })));
     };
     PlayerButtons.prototype.key = function (e) {
@@ -4370,7 +4381,7 @@ var TimeBar = /** @class */ (function (_super) {
                     ? "3px solid " + style_2.color3
                     : "3px solid transparent" }), ref: this.setElem.bind(this), tabIndex: 1, onKeyDown: this.key.bind(this) },
             date.format(new Date(this.props.time), "HH:mm:ss  DD.MM.YYYY"),
-            this.state.modalVisible ? (React.createElement(TimeBarModal_1["default"], { changeTimeshift: this.props.changeTimeshift, "switch": this["switch"].bind(this), time: this.props.time })) : null));
+            this.state.modalVisible ? (React.createElement(TimeBarModal_1["default"], { changeTimeshift: this.props.changeTimeshift, "switch": this["switch"].bind(this), time: this.props.time, controlPanelStatus: this.props.controlPanelStatus })) : null));
     };
     return TimeBar;
 }(React.Component));
@@ -4931,7 +4942,7 @@ var TimeBarModal = /** @class */ (function (_super) {
             .filter(filter)
             .reduce(reducer, 0);
         var currentTime = Date.now();
-        if (targetTime < currentTime) {
+        if (targetTime < currentTime && Number(new Date(2000, 0, 1)) < targetTime) {
             var timeshift = this.props.time - currentTime;
             var diff = targetTime - currentTime;
             this.props.changeTimeshift(diff - timeshift);
@@ -4943,6 +4954,11 @@ var TimeBarModal = /** @class */ (function (_super) {
     };
     TimeBarModal.prototype.componentDidMount = function () {
         this.elem.focus();
+        this.props.controlPanelStatus.panelAlwaysShow = true;
+    };
+    TimeBarModal.prototype.componentWillUnmount = function () {
+        this.props.controlPanelStatus.panelAlwaysShow = false;
+        this.props.controlPanelStatus.show();
     };
     TimeBarModal.prototype.shouldComponentUpdate = function (nextProps, nexState) {
         var needUpdate = false;

@@ -24,6 +24,7 @@ export default class PlayerBody extends React.Component<
   private elem: HTMLElement;
   private controlPanelStatus: ControlPanelStatusChanger;
   private timeController: TimeController;
+  private panelVisible: boolean = false;
   constructor(props: IPropBodyComponent) {
     super(props);
     this.timeController = new TimeController(
@@ -55,6 +56,14 @@ export default class PlayerBody extends React.Component<
   componentWillUnmount() {
     this.timeController.clearAllTimers();
     this.controlPanelStatus.clearTimeout();
+  }
+  componentDidUpdate() {
+    if (this.state.panelVisible && !this.panelVisible) {
+      this.panelVisible = true;
+    } else if (!this.state.panelVisible && this.panelVisible) {
+      this.elem.focus();
+      this.panelVisible = false;
+    }
   }
   setElem(elem: HTMLElement) {
     this.elem = elem;
@@ -126,12 +135,13 @@ export default class PlayerBody extends React.Component<
         changeTimeshift={this.timeController.changeTimeshift.bind(
           this.timeController
         )}
+        controlPanelStatus={this.controlPanelStatus}
       />
     ) : null;
   }
 }
 
-class ControlPanelStatusChanger {
+export class ControlPanelStatusChanger {
   private timeoutId: number;
   public panelAlwaysShow: boolean = false;
   constructor(private player: PlayerBody) {}
@@ -140,7 +150,7 @@ class ControlPanelStatusChanger {
       this.player.setState({ ...this.player.state, panelVisible: true });
     }
     if (!this.panelAlwaysShow) {
-      this.visibleTimeout(10000000);
+      this.visibleTimeout(10000);
     }
   }
   hide() {

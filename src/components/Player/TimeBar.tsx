@@ -3,12 +3,13 @@ import { timeBarStyle } from "./style";
 import * as date from "date-and-time";
 import { color3 } from "../style";
 import Modal from "./TimeBarModal";
-import { IchangeTimeshift } from "./Body";
+import { IchangeTimeshift, ControlPanelStatusChanger } from "./Body";
 
 interface IProp {
   time: number;
   focus: boolean;
   changeTimeshift: IchangeTimeshift;
+  controlPanelStatus: ControlPanelStatusChanger;
 }
 
 interface IState {
@@ -69,6 +70,7 @@ export default class TimeBar extends React.Component<IProp, IState> {
             changeTimeshift={this.props.changeTimeshift}
             switch={this.switch.bind(this)}
             time={this.props.time}
+            controlPanelStatus={this.props.controlPanelStatus}
           />
         ) : null}
       </div>

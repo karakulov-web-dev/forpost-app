@@ -2,7 +2,11 @@ import * as React from "react";
 import { controlPanelStyle } from "./style";
 import PlayerButtons from "./PlayerButtons";
 import ProgressBar from "./ProgressBar";
-import { IplayPause, IchangeTimeshift } from "./Body";
+import {
+  IplayPause,
+  IchangeTimeshift,
+  ControlPanelStatusChanger
+} from "./Body";
 import { IchangeTimeStepSize } from "./Player";
 
 interface IProps {
@@ -12,6 +16,7 @@ interface IProps {
   timeStepSize: number;
   changeTimeStepSize: IchangeTimeStepSize;
   changeTimeshift: IchangeTimeshift;
+  controlPanelStatus: ControlPanelStatusChanger;
 }
 interface IState {
   focusIndex: number;
@@ -41,6 +46,7 @@ export default class ControlPanel extends React.Component<IProps, IState> {
           timeStepSize={this.props.timeStepSize}
           changeTimeStepSize={this.props.changeTimeStepSize}
           changeTimeshift={this.props.changeTimeshift}
+          controlPanelStatus={this.props.controlPanelStatus}
         />
         <ProgressBar focus={this.focus(1)} time={this.props.time} />
       </div>

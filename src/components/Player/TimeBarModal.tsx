@@ -3,11 +3,13 @@ import { IchangeTimeshift } from "./Body";
 import { timeBarModalStyle, timeBarModalHeader } from "./style";
 import TimeBarSubmit from "./TimeBarSubmit";
 import TimeBarSelect from "./TimeBarSelect";
+import { ControlPanelStatusChanger } from "./Body";
 
 interface IProp {
   changeTimeshift: IchangeTimeshift;
   switch: IswitchModal;
   time: number;
+  controlPanelStatus: ControlPanelStatusChanger;
 }
 
 interface IswitchModal {
@@ -172,7 +174,7 @@ export default class TimeBarModal extends React.Component<IProp, IState> {
       .reduce(reducer, 0);
 
     let currentTime = Date.now();
-    if (targetTime < currentTime) {
+    if (targetTime < currentTime && Number(new Date(2000, 0, 1)) < targetTime) {
       let timeshift = this.props.time - currentTime;
       let diff = targetTime - currentTime;
       this.props.changeTimeshift(diff - timeshift);
@@ -184,6 +186,11 @@ export default class TimeBarModal extends React.Component<IProp, IState> {
   }
   componentDidMount() {
     this.elem.focus();
+    this.props.controlPanelStatus.panelAlwaysShow = true;
+  }
+  componentWillUnmount() {
+    this.props.controlPanelStatus.panelAlwaysShow = false;
+    this.props.controlPanelStatus.show();
   }
   shouldComponentUpdate(nextProps: IProp, nexState: IState) {
     let needUpdate = false;
