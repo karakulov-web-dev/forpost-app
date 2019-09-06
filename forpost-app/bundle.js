@@ -2632,7 +2632,7 @@ var LoginForm = /** @class */ (function (_super) {
             catch (e) {
                 console.log(e);
             }
-            location = "http://212.77.128.177/"; // parseGetParams("referrer");
+            this.props.chageView("/home");
         }
         if (e.key === "ArrowDown" || e.key === "ArrowUp") {
             this.navigate(e.key);
@@ -5486,7 +5486,7 @@ var Exit = /** @class */ (function (_super) {
             localStorage.removeItem("forpost_app_profile");
             console.log(e);
         }
-        this.props.chageView("/login");
+        this.props.chageView("/home");
     };
     Exit.prototype.setRef = function (index, elem) {
         this.refArrStore[index] = elem;
@@ -5558,6 +5558,10 @@ var React = __webpack_require__(0);
 var Header_1 = __webpack_require__(11);
 var AbstractHomeForm_1 = __webpack_require__(59);
 var LabelInputSubmit_1 = __webpack_require__(61);
+var react_redux_1 = __webpack_require__(4);
+var app_1 = __webpack_require__(6);
+var auth_1 = __webpack_require__(35);
+var redux_1 = __webpack_require__(3);
 var Home = /** @class */ (function (_super) {
     __extends(Home, _super);
     function Home() {
@@ -5573,9 +5577,18 @@ var Home = /** @class */ (function (_super) {
     };
     Home.prototype.renderContent = function () {
         return (React.createElement("div", { onKeyDown: this.key.bind(this) },
-            React.createElement(LabelInputSubmit_1["default"], { focus: this.isFocus(0), setRef: this.setRef.bind(this, 0), onenter: function () { }, value: "\u0412\u0445\u043E\u0434" }),
-            React.createElement(LabelInputSubmit_1["default"], { focus: this.isFocus(1), setRef: this.setRef.bind(this, 1), onenter: function () { }, value: "\u0414\u0435\u043C\u043E" }),
-            React.createElement(LabelInputSubmit_1["default"], { focus: this.isFocus(2), setRef: this.setRef.bind(this, 2), onenter: function () { }, value: "\u0412\u044B\u0445\u043E\u0434" })));
+            React.createElement(LabelInputSubmit_1["default"], { focus: this.isFocus(0), setRef: this.setRef.bind(this, 0), onenter: this.props.chageView.bind(this, "/login"), value: "\u0412\u0445\u043E\u0434" }),
+            React.createElement(LabelInputSubmit_1["default"], { focus: this.isFocus(1), setRef: this.setRef.bind(this, 1), onenter: this.props.auth.bind(this, "s.karakulov", "123456", false), value: "\u0414\u0435\u043C\u043E" }),
+            React.createElement(LabelInputSubmit_1["default"], { focus: this.isFocus(2), setRef: this.setRef.bind(this, 2), onenter: this.exit, value: "\u0412\u044B\u0445\u043E\u0434" })));
+    };
+    Home.prototype.exit = function () {
+        try {
+            stb.SetVideoState(1);
+        }
+        catch (e) {
+            console.log(e);
+        }
+        location = "http://212.77.128.177/"; // parseGetParams("referrer");
     };
     Home.prototype.isFocus = function (index) {
         return this.focusIndex === index ? true : false;
@@ -5601,7 +5614,6 @@ var Home = /** @class */ (function (_super) {
         else if (key === "ArrowUp") {
             dif = -1;
         }
-        console.log(this.focusIndex);
         if (!this.refArrStore[this.focusIndex + dif]) {
             return;
         }
@@ -5610,7 +5622,12 @@ var Home = /** @class */ (function (_super) {
     };
     return Home;
 }(React.Component));
-exports["default"] = Home;
+exports["default"] = react_redux_1.connect(null, function (dispatch) {
+    return redux_1.bindActionCreators({
+        chageView: app_1.chageView,
+        auth: auth_1.auth
+    }, dispatch);
+})(Home);
 
 
 /***/ }),
@@ -5626,7 +5643,7 @@ exports.AbstractHomeForm = function (name, renderFunction) { return (React.creat
     React.createElement("div", { style: style_1.loginFormStyle },
         React.createElement("fieldset", null,
             React.createElement("legend", null,
-                React.createElement("h1", { style: { color: style_1.color1, fontSize: "30px" } }, name)),
+                React.createElement("h1", { style: { color: style_1.color1, fontSize: "30px", marginBottom: "20px" } }, name)),
             renderFunction())))); };
 
 

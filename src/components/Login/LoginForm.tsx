@@ -179,7 +179,7 @@ class LoginForm extends React.Component<IProps> {
       } catch (e) {
         console.log(e);
       }
-      location = "http://212.77.128.177/"; // parseGetParams("referrer");
+      this.props.chageView("/home");
     }
     if (e.key === "ArrowDown" || e.key === "ArrowUp") {
       this.navigate(e.key);

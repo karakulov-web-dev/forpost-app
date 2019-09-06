@@ -13,7 +13,9 @@ export const AbstractHomeForm = (
     <div style={loginFormStyle}>
       <fieldset>
         <legend>
-          <h1 style={{ color: color1, fontSize: "30px" }}>{name}</h1>
+          <h1 style={{ color: color1, fontSize: "30px", marginBottom: "20px" }}>
+            {name}
+          </h1>
         </legend>
         {renderFunction()}
       </fieldset>

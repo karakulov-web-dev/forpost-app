@@ -73,7 +73,7 @@ class Exit extends React.Component<IProps> {
       localStorage.removeItem("forpost_app_profile");
       console.log(e);
     }
-    this.props.chageView("/login");
+    this.props.chageView("/home");
   }
 
   setRef(index: number, elem: HTMLElement) {

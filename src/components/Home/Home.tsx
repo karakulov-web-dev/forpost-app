@@ -2,8 +2,17 @@ import * as React from "react";
 import Header from "../Header/Header";
 import { AbstractHomeForm } from "../AbastrackHomeForm/AbstractHomeForm";
 import LabelInputSubmit from "../LabelInputSubmit/LabelInputSubmit";
+import { connect } from "react-redux";
+import { chageView, IChangeViewCreater } from "../../action/app";
+import { auth, IAuthActionCreator } from "../../action/auth";
+import { bindActionCreators } from "redux";
 
-export default class Home extends React.Component {
+declare const stb: any;
+declare let location: any;
+
+type IProp = IDispatchProps;
+
+class Home extends React.Component<IProp> {
   private focusIndex: number = 0;
   refArrStore: HTMLElement[] = [];
   render() {
@@ -20,23 +29,31 @@ export default class Home extends React.Component {
         <LabelInputSubmit
           focus={this.isFocus(0)}
           setRef={this.setRef.bind(this, 0)}
-          onenter={() => {}}
+          onenter={this.props.chageView.bind(this, "/login")}
           value="Вход"
         />
         <LabelInputSubmit
           focus={this.isFocus(1)}
           setRef={this.setRef.bind(this, 1)}
-          onenter={() => {}}
+          onenter={this.props.auth.bind(this, "s.karakulov", "123456", false)}
           value="Демо"
         />
         <LabelInputSubmit
           focus={this.isFocus(2)}
           setRef={this.setRef.bind(this, 2)}
-          onenter={() => {}}
+          onenter={this.exit}
           value="Выход"
         />
       </div>
     );
+  }
+  exit() {
+    try {
+      stb.SetVideoState(1);
+    } catch (e) {
+      console.log(e);
+    }
+    location = "http://212.77.128.177/"; // parseGetParams("referrer");
   }
   isFocus(index: number) {
     return this.focusIndex === index ? true : false;
@@ -61,7 +78,6 @@ export default class Home extends React.Component {
     } else if (key === "ArrowUp") {
       dif = -1;
     }
-    console.log(this.focusIndex);
     if (!this.refArrStore[this.focusIndex + dif]) {
       return;
     }
@@ -69,3 +85,20 @@ export default class Home extends React.Component {
     this.focusIndex = this.focusIndex + dif;
   }
 }
+
+interface IDispatchProps {
+  chageView: IChangeViewCreater;
+  auth: IAuthActionCreator;
+}
+
+export default connect<null, IDispatchProps>(
+  null,
+  dispatch =>
+    bindActionCreators(
+      {
+        chageView,
+        auth
+      },
+      dispatch
+    )
+)(Home);
